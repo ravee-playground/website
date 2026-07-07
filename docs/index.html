@@ -47,46 +47,77 @@
         cursor: pointer;
         font-size: 14px;
         color: var(--text-primary);
-        background-color: var(--bg-body);
-        transition: background-color 0.2s, border-color 0.2s;
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        z-index: 10;
     }
 
+    .dark-mode #theme-toggle {
+        border-color: var(--border-color);
+        color: var(--text-primary);
+    }
+        
     #theme-toggle:hover {
         background-color: var(--hover-color);
+        border-color: var(--accent-color);
     }
 
     /* Image Placeholder Style */
-    .image-placeholder {
+    .image-container {
         width: 75vw;
         height: auto;
-        display: block;
-        background-color: rgba(0, 0, 0, 0.02);
+        display: flex;
     }
-    .dark-mode .image-placeholder {
-        background-color: rgba(255, 255, 255, 0.02);
+    /* Ensure both images scale perfectly */
+    .responsive-image {
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+        height: auto;
+        object-fit: contain; /* Preserve aspect ratio, show full image */
+        display: block;
+    }
+
+        /* Logic: Hide the light mode image when body IS dark-mode */
+    .dark-mode #image-light {
+        display: none;
+    }
+
+    /* Logic: Hide the dark mode image when body IS NOT dark-mode (default) */
+    body:not(.dark-mode) #image-dark {
+        display: none;
     }
 </style>
 </head>
 <body>
 
-    <button id="theme-toggle">🌙 Dark</button>
+<button id="theme-toggle">☀️ Light</button>
 
-    <div class="image-placeholder">
-        <img src="techwriter.png" alt="Placeholder pic" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+    <div class="image-container">
+        <img id="image-light" 
+             src="techwriter_light.png" 
+             alt="The frustrated Grammar Cop (Light Mode)" 
+             class="responsive-image">
+
+        <img id="image-dark" 
+             src="techwriter.png" 
+             alt="The frustrated Grammar Cop (Dark Mode)" 
+             class="responsive-image">
     </div>
 
     <script>
         const themeToggle = document.getElementById('theme-toggle');
 
         themeToggle.addEventListener('click', () => {
-            // Toggle the class on the body element
+            // 1. Toggle the class on the body (this handles color variables AND image visibility via CSS)
             document.body.classList.toggle('dark-mode');
 
-            // Update the button visual label text
+            // 2. Update the button visual label text
             if (document.body.classList.contains('dark-mode')) {
-                themeToggle.textContent = '☀️ Light';
-            } else {
                 themeToggle.textContent = '🌙 Dark';
+            } else {
+                themeToggle.textContent = '☀️ Light';
             }
         });
     </script>
