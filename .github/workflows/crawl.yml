@@ -30,7 +30,7 @@ jobs:
 
       # Step 3: Install dependencies (axios, cheerio, etc.)
       - name: Install Dependencies
-        run: npm ci || npm install
+        run: npm install
 
       # Step 4: Run your crawler script
       - name: Run Crawler Script
