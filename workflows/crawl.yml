@@ -1,0 +1,54 @@
+name: Automated Documentation Crawler
+
+on:
+  # Allows you to manually trigger the workflow from the GitHub Actions tab
+  workflow_dispatch:
+
+  # Automatically runs at 00:00 every Sunday
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+
+    # Grants permissions required to commit the changes back to your repository
+    permissions:
+      contents: write
+
+    steps:
+      # Step 1: Check out your repository code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up a Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-id: '20' # Uses Node 20 LTS
+          cache: 'npm'  # Speeds up future runs by caching dependencies
+
+      # Step 3: Install dependencies (axios, cheerio, etc.)
+      - name: Install Dependencies
+        run: npm ci || npm install
+
+      # Step 4: Run your crawler script
+      - name: Run Crawler Script
+        run: node crawl.js
+
+      # Step 5: Check if chunks.jsonl changed, and commit it if it did
+      - name: Commit and Push Updated Data
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage changes
+          git add chunks.jsonl
+          
+          # Only commit and push if there are changes to avoid workflow errors
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "chore: automated update of chunks.jsonl [skip ci]"
+            git push
+          else
+            echo "No changes detected in chunks.jsonl. Skipping commit."
+          fi
