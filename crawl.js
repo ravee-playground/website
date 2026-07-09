@@ -4,6 +4,7 @@ import fs from 'fs';
 const OUTPUT_FILE = './chunky.jsonl';
 const API_KEY = process.env.NEWSAPI_KEY;
 const START_URL = `https://newsapi.org/v2/everything?q=documentation&apiKey=${API_KEY}`;
+process.env.NEWSAPI_KEY
 
 async function crawlDocs() {
     try {
