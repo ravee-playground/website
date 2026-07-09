@@ -4,7 +4,7 @@ import fs from 'fs';
 // Changed extension to .md
 const OUTPUT_FILE = './chunky.md'; 
 const API_KEY = process.env.NEWSAPI_KEY;
-const START_URL = `https://newsapi.org/v2/everything?q=documentation&apiKey=${API_KEY}`;
+const START_URL = `https://newsapi.org/v2/everything?q=ai&apiKey=${API_KEY}`;
 
 async function crawlDocs() {
     try {
