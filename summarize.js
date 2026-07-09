@@ -2,7 +2,7 @@ import { GoogleGenAI } from '@google/genai';
 import fs from 'fs';
 
 // Initialize the Gemini SDK (it automatically looks for the GEMINI_API_KEY env variable)
-const ai = new GoogleGenAI();
+const ai = new GoogleGenAI({});
 const INPUT_FILE = './chunky.md'; // Your crawled raw data
 const SUMMARY_OUTPUT = './ai-debate-summary.md';
 
