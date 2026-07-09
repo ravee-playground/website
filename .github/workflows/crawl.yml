@@ -32,9 +32,13 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Step 4: Run your crawler script
+      # Step 4: Run your crawler script with the API key injected
       - name: Run Crawler Script
+        env:
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
         run: node crawl.js
+
+        
         # Step 5: Check if chunky.jsonl changed, and commit it if it did
       - name: Commit and Push Updated Data
         run: |
