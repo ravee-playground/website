@@ -40,18 +40,35 @@ jobs:
 
         
         # Step 5: Check if chunky.jsonl changed, and commit it if it did
+      # Step 5: Check if chunky.md changed, and commit it if it did
       - name: Commit and Push Updated Data
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Check if chunky.jsonl actually has modifications
-          if [ -n "$(git status --porcelain chunky.jsonl)" ]; then
-            echo "Changes detected in chunky.jsonl. Committing changes..."
-            git add chunky.jsonl
-            git commit -m "chore: automated update of chunky.jsonl [skip ci]"
+          # Check if chunky.md actually has modifications
+          if [ -n "$(git status --porcelain chunky.md)" ]; then
+            echo "Changes detected in chunky.md. Committing changes..."
+            git add chunky.md
+            git commit -m "chore: automated update of chunky.md [skip ci]"
             git pull --rebase origin main
             git push
           else
-            echo "No changes detected in chunks.jsonl. Skipping commit."
+            echo "No changes detected in chunky.md. Skipping commit."
           fi
+      
+      # - name: Commit and Push Updated Data
+      #  run: |
+       #   git config --global user.name "github-actions[bot]"
+        #  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Check if chunky.jsonl actually has modifications
+         # if [ -n "$(git status --porcelain chunky.jsonl)" ]; then
+          #  echo "Changes detected in chunky.jsonl. Committing changes..."
+           # git add chunky.jsonl
+            # git commit -m "chore: automated update of chunky.jsonl [skip ci]"
+            # git pull --rebase origin main
+            # git push
+          # else
+            # echo "No changes detected in chunks.jsonl. Skipping commit."
+          # fi 
