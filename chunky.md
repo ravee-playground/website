@@ -1,815 +1,510 @@
 # Automated Documentation Search Index
-> **Last Updated:** Thu, 09 Jul 2026 09:44:10 GMT  
-> **Total Articles Found:** 96
+> **Last Updated:** Thu, 09 Jul 2026 10:02:26 GMT  
+> **Total Articles Found:** 63
 
 ---
 
-## 1. [Show HN: Treedocs: Documentation that automatically checks for staleness](https://dandylyons.github.io/treedocs/)
-* **Source URL:** <https://dandylyons.github.io/treedocs/>
-* **Published At:** 2026-06-23T15:07:30Z
+## 1. [Microsoft AI chief walks back comments about AI taking over white-collar work](https://www.theverge.com/tech/946879/microsoft-mustafa-suleyman-ai-white-collar-jobs)
+* **Source URL:** <https://www.theverge.com/tech/946879/microsoft-mustafa-suleyman-ai-white-collar-jobs>
+* **Published At:** 2026-06-09T14:58:09Z
 
-treedocs gives people and agents concise, version-controlled context for any codebase.
+Microsoft AI head Mustafa Suleyman is walking back his statement about AI automating jobs done by white-collar workers, including lawyers, accountants, and project managers. During an episode of Decoder on Monday, Suleyman says he meant AI will help these wor…
 
 ---
 
-## 2. [Nation's largest ICE detention facility 'wasted' millions, federal report says](https://abcnews.com/US/nations-largest-ice-detention-facility-wasted-millions-after/story?id=133760114)
-* **Source URL:** <https://abcnews.com/US/nations-largest-ice-detention-facility-wasted-millions-after/story?id=133760114>
-* **Published At:** 2026-06-10T23:45:57Z
+## 2. [Facebook’s new AI Mode search gets its info from public posts](https://www.theverge.com/tech/950264/meta-ai-mode-search-facebook)
+* **Source URL:** <https://www.theverge.com/tech/950264/meta-ai-mode-search-facebook>
+* **Published At:** 2026-06-15T21:15:08Z
 
-Camp East Montana allegedly failed to meet health, security, and use of force documentation requirements, the report says.
+Your public Facebook posts could help inform AI-generated results in Meta's new AI Mode. When you search on Facebook, the "AI Mode" option will appear alongside the usual search modes like "People" and "Marketplace." It's one of several new AI features Meta i…
 
 ---
 
-## 3. [The Merits of Comment-Driven Development as Counterweight to TDD](https://hackaday.com/2026/06/11/the-merits-of-comment-driven-development-as-counterweight-to-tdd/)
-* **Source URL:** <https://hackaday.com/2026/06/11/the-merits-of-comment-driven-development-as-counterweight-to-tdd/>
-* **Published At:** 2026-06-11T14:00:17Z
+## 3. [Apple announces visionOS 27 with Siri AI](https://www.theverge.com/tech/944129/apple-visionos-updates-wwdc-2026)
+* **Source URL:** <https://www.theverge.com/tech/944129/apple-visionos-updates-wwdc-2026>
+* **Published At:** 2026-06-08T18:32:00Z
 
-The world of software has seen many paradigms come and go, all of which were supposed to revolutionize its development. Still, one of the basic tenets in engineering of there being no shortcuts to …
+Along with new software for Macs and iPhones, Apple announced visionOS 27 during its keynote presentation at WWDC on Monday. Like its other platforms, visionOS 27 will feature Apple's updated Siri AI assistant and the new dedicated Siri app. You can use visua…
 
 ---
 
-## 4. [OpenCAL: Computed Axial Lithographic 3D Printing For Everyone](https://hackaday.com/2026/06/14/opencal-computed-axial-lithographic-3d-printing-for-everyone/)
-* **Source URL:** <https://hackaday.com/2026/06/14/opencal-computed-axial-lithographic-3d-printing-for-everyone/>
-* **Published At:** 2026-06-14T14:00:14Z
+## 4. [Can Cursor Remain a Platform for OpenAI and Anthropic’s Models Inside SpaceX?](https://www.wired.com/story/can-cursor-remain-an-open-platform-inside-of-spacex/)
+* **Source URL:** <https://www.wired.com/story/can-cursor-remain-an-open-platform-inside-of-spacex/>
+* **Published At:** 2026-07-02T18:01:20Z
 
-Computed Axial Lithographic printing gets even closer to the Star Trek replicator fantasy than any other 3D printer we’ve seen: there’s a machine, it glows with a mysterious bluish light, …read more
+Cursor hopes to continue offering third-party AI models after it's acquired by SpaceX, testing the relationships between frontier AI labs.
 
 ---
 
-## 5. [tvOS 27 Drops Support for Two Apple TV Models](https://www.macrumors.com/2026/06/08/tvos-27-compatible-apple-tv-models/)
-* **Source URL:** <https://www.macrumors.com/2026/06/08/tvos-27-compatible-apple-tv-models/>
-* **Published At:** 2026-06-08T21:17:47Z
+## 5. [Apple’s best AI idea looks a lot like vibe coding](https://www.theverge.com/tech/946733/apple-shortcuts-ai-safari-tabs-vibe-code)
+* **Source URL:** <https://www.theverge.com/tech/946733/apple-shortcuts-ai-safari-tabs-vibe-code>
+* **Published At:** 2026-06-09T13:34:48Z
 
-The upcoming tvOS 27 update that was previewed today drops support for two Apple TV models.
+Most of Apple's current AI ideas are roughly the same as everyone else's AI ideas. A chatbot you can ask questions; quick ways to create or summarize text; bizarre, borderline creepy image-generation tools. The company spent most of its WWDC keynote playing c…
 
-
-
-
-
-The two Apple TV models that are compatible with tvOS 26 but not tvOS 27 are the Apple TV HD from 2015 and the Apple TV 4K (1st generation) from 2017.
-
-
-
-tvOS 27 …
-
----
-
-## 6. [Employee gets coworker Perry fired after discovering he had been taking credit for months of their work: ‘I brought documentation’](https://cheezburger.com/45869573/employee-gets-coworker-perry-fired-after-discovering-he-had-been-taking-credit-for-months-of-their)
-* **Source URL:** <https://cheezburger.com/45869573/employee-gets-coworker-perry-fired-after-discovering-he-had-been-taking-credit-for-months-of-their>
-* **Published At:** 2026-06-29T00:00:00Z
-
-Should you confront a coworker before going to HR?
-This question is an eternal debate. From one perspective, you want to value and respect your work, and getting the recognition you deserve is part of that- But, on the other hand, reporting a coworker to HR …
-
----
-
-## 7. [The FCC wants to make burner phones illegal](https://boingboing.net/2026/06/09/the-fcc-wants-to-make-burner-phones-illegal.html)
-* **Source URL:** <https://boingboing.net/2026/06/09/the-fcc-wants-to-make-burner-phones-illegal.html>
-* **Published At:** 2026-06-09T19:14:33Z
-
-The burner phone could soon be a thing of the past in the US. The FCC has proposed forcing every telecom to collect and store a "government issued identification number" and physical address from "any new and renewing customer before granting access to its se…
-
----
-
-## 8. [LuaJIT 3.0 proposed syntax extensions](https://github.com/LuaJIT/LuaJIT/issues/1475)
-* **Source URL:** <https://github.com/LuaJIT/LuaJIT/issues/1475>
-* **Published At:** 2026-06-25T00:41:43Z
-
-This is an umbrella issue for the LuaJIT 3.0 syntax extensions. The documentation will be evolved and updated in the first comment below. 1 Please feel free to discuss the choice, design and semant...
-
----
-
-## 9. [Chameleon Ultra: a flashdrive sized NFC toolkit](https://github.com/RfidResearchGroup/ChameleonUltra)
-* **Source URL:** <https://github.com/RfidResearchGroup/ChameleonUltra>
-* **Published At:** 2026-06-14T15:18:33Z
-
-The new generation chameleon based on NRF52840 makes the performance of card emulation more stable. And gave the chameleon the ability to read, write, and decrypt cards. - RfidResearchGroup/Chamele...
-
----
-
-## 10. [Watch a Rare Goblin Shark Filmed Alive in Its Natural Habitat for the First Time](https://gizmodo.com/watch-a-rare-goblin-shark-filmed-alive-in-its-natural-habitat-for-the-first-time-2000771259)
-* **Source URL:** <https://gizmodo.com/watch-a-rare-goblin-shark-filmed-alive-in-its-natural-habitat-for-the-first-time-2000771259>
-* **Published At:** 2026-06-12T18:20:12Z
-
-An extremely rare "living fossil," the goblin shark has been recorded alive for the first time lurking 6,552 feet (1,997 meters) below sea level.
-
----
-
-## 11. [Poly/ML – A Standard ML Implementation](https://github.com/polyml/polyml)
-* **Source URL:** <https://github.com/polyml/polyml>
-* **Published At:** 2026-07-06T22:28:06Z
-
-Poly/ML. Contribute to polyml/polyml development by creating an account on GitHub.
-
----
-
-## 12. [How Did They Make View-Master Slides?](https://hackaday.com/2026/06/16/how-did-they-make-view-master-slides/)
-* **Source URL:** <https://hackaday.com/2026/06/16/how-did-they-make-view-master-slides/>
-* **Published At:** 2026-06-16T20:00:37Z
-
-The basics of producing a stereophotograph of real life places were well-established by the time the View-Master arrived, but producing images of imaginary scenes was a bit more involved. [View …read more
-
----
-
-## 13. [Landlord refuses to give tenants their security deposit back, claims his late wife handled it, leading tenants to pursue in court: ‘I have receipts, photos, and documentation’](https://cheezburger.com/45737221/landlord-refuses-to-give-tenants-their-security-deposit-back-claims-his-late-wife-handled-it-leading)
-* **Source URL:** <https://cheezburger.com/45737221/landlord-refuses-to-give-tenants-their-security-deposit-back-claims-his-late-wife-handled-it-leading>
-* **Published At:** 2026-06-17T15:15:00Z
-
-This landlord is using his late wife as an excuse to get away with his actions; should he be allowed?
-We know that losing someone dear to you can be life-changing, and in most cases, you never return to the same person you were before. While we can't, and do…
-
----
-
-## 14. [An Interactive Tomato Farm Overseen by AI](https://hackaday.com/2026/07/07/an-interactive-tomato-farm-overseen-by-ai/)
-* **Source URL:** <https://hackaday.com/2026/07/07/an-interactive-tomato-farm-overseen-by-ai/>
-* **Published At:** 2026-07-07T11:00:43Z
-
-Oh, the farming lifestyle…living off the land, fending for yourself. But who’s got time for all that? For the modern hacker, the best option in the garden space may be this over-engineered au…
-
----
-
-## 15. [C47/R47 Calculators](https://47calc.com/index.html)
-* **Source URL:** <https://47calc.com/index.html>
-* **Published At:** 2026-06-10T19:27:53Z
-
-Comments
-
----
-
-## 16. [I ditched my paid wiki for DokuWiki in a Docker container, and my documentation finally makes sense](https://www.xda-developers.com/i-ditched-my-paid-wiki-for-dokuwiki-in-a-docker-container-and-my-documentation-finally-makes-sense/)
-* **Source URL:** <https://www.xda-developers.com/i-ditched-my-paid-wiki-for-dokuwiki-in-a-docker-container-and-my-documentation-finally-makes-sense/>
-* **Published At:** 2026-06-27T19:30:22Z
-
-DokuWiki replaced my notes app because it does one thing perfectly: connect related information
-
----
-
-## 17. [Markdown Now Has a UTI in Apple’s Version 27 OSes](https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/markdown)
-* **Source URL:** <https://developer.apple.com/documentation/uniformtypeidentifiers/uttype-swift.struct/markdown>
-* **Published At:** 2026-07-06T20:38:43Z
-
-Markdown data
-
----
-
-## 18. [Google Tightens Requirements For Domain Migrations via @sejournal, @martinibuster](https://www.searchenginejournal.com/google-tightens-requirements-for-domain-migrations/579781/)
-* **Source URL:** <https://www.searchenginejournal.com/google-tightens-requirements-for-domain-migrations/579781/>
-* **Published At:** 2026-06-18T09:17:45Z
-
-Google's updated documentation for domain migrations requires broader compliance demands for site owners.
-The post Google Tightens Requirements For Domain Migrations appeared first on Search Engine Journal.
-
----
-
-## 19. [The college scam that promised students fleeing war a new life in Finland](https://www.bbc.com/news/articles/cgrprx55zpvo)
-* **Source URL:** <https://www.bbc.com/news/articles/cgrprx55zpvo>
-* **Published At:** 2026-06-12T22:08:38Z
-
-BBC speaks to students from war-torn Myanmar who say they were cheated after paying to study abroad.
-
----
-
-## 20. [Seized car used as warning against fly-tipping](https://www.bbc.com/news/articles/c79y875yj2go?xtor=AL-72-%5Bpartner%5D-%5Byahoo.north.america%5D-%5Bheadline%5D-%5Bnews%5D-%5Bbizdev%5D-%5Bisapi%5D)
-* **Source URL:** <https://www.bbc.com/news/articles/c79y875yj2go?xtor=AL-72-%5Bpartner%5D-%5Byahoo.north.america%5D-%5Bheadline%5D-%5Bnews%5D-%5Bbizdev%5D-%5Bisapi%5D>
-* **Published At:** 2026-06-15T17:38:19Z
-
-Wiltshire Council says the car will be used in a "highly visible warning" to the public.
-
----
-
-## 21. [Workers Spend As Much Time 'Botsitting' AI As Producing Useful Work, Survey Finds](https://it.slashdot.org/story/26/06/15/0117225/workers-spend-as-much-time-botsitting-ai-as-producing-useful-work-survey-finds)
-* **Source URL:** <https://it.slashdot.org/story/26/06/15/0117225/workers-spend-as-much-time-botsitting-ai-as-producing-useful-work-survey-finds>
-* **Published At:** 2026-06-15T01:19:00Z
-
-"As the use of artificial intelligence spreads across companies worldwide, it is relieving workers of tedious old chores but creating new ones," reports the Los Angeles Times. 
-
-"Most people don't realize the amount of time that they're spending working on th…
-
----
-
-## 22. [Militant LGBTQ+ rights group 'the Lavender Panthers' was founded on this day in 1973](https://www.npr.org/sections/the-picture-show/2026/07/06/g-s1-131803/lgbtqia-group-lavender-panthers-founded-1973)
-* **Source URL:** <https://www.npr.org/sections/the-picture-show/2026/07/06/g-s1-131803/lgbtqia-group-lavender-panthers-founded-1973>
-* **Published At:** 2026-07-06T14:25:41Z
-
-"Reverend Ray" Broshears founded the queer vigilante group the Lavender Panthers in 1973. The group's impact is still felt today.
-
----
-
-## 23. [Pixel Watch 5 passes a big milestone on the way to this summer’s upcoming launch](https://www.androidauthority.com/google-pixel-watch-5-fcc-3682402/)
-* **Source URL:** <https://www.androidauthority.com/google-pixel-watch-5-fcc-3682402/>
-* **Published At:** 2026-06-29T15:33:29Z
-
-FCC documentation shows four new Google devices have been approved for sale. It seems like they're all Pixel Watch 5 models.
-
----
-
-## 24. [Fusion Programming Language](https://fusion-lang.org/)
-* **Source URL:** <https://fusion-lang.org/>
-* **Published At:** 2026-06-24T11:27:07Z
-
-Transpiling to C, C++, C#, D, Java, JavaScript, Python, Swift, TypeScript and OpenCL.
-
----
-
-## 25. [Postgres by Example](https://github.com/boringcollege/postgres-by-example)
-* **Source URL:** <https://github.com/boringcollege/postgres-by-example>
-* **Published At:** 2026-06-10T16:05:06Z
-
-Yet another postgresql book! Contribute to boringcollege/postgres-by-example development by creating an account on GitHub.
-
----
-
-## 26. [Xbox's Red Ring of Death still haunts gamers as Steam Machine owners report a "Red Line of Death" after GPU failures](https://www.windowscentral.com/gaming/pc-gaming/steam-machine-red-line-of-death)
-* **Source URL:** <https://www.windowscentral.com/gaming/pc-gaming/steam-machine-red-line-of-death>
-* **Published At:** 2026-07-03T15:38:54Z
-
-A Steam Machine owner has reported what appears to be the device's first "Red Line of Death" after a system update, with Valve's support documentation pointing to a GPU failure. While the issue currently appears isolated, it has inevitably drawn comparisons t…
-
----
-
-## 27. [How a new DSL may survive in the era of LLMs](https://www.williamcotton.com/articles/how-a-new-dsl-survives-in-the-era-of-llms)
-* **Source URL:** <https://www.williamcotton.com/articles/how-a-new-dsl-survives-in-the-era-of-llms>
-* **Published At:** 2026-06-11T14:35:41Z
-
-How a New DSL Survives in the Era of LLMs
-
----
-
-## 28. [Too many R packages: CRAN is inundated with submissions](https://rworks.dev/posts/too-many-R-packages/)
-* **Source URL:** <https://rworks.dev/posts/too-many-R-packages/>
-* **Published At:** 2026-06-24T10:59:59Z
-
-CRAN continues to be the most accessible repository for statistical knowledge on the planet, and the number of new packages being accepted by CRAN is growing faster than ever. But, is the R community really benefiting from this new growth?
-
----
-
-## 29. [New Record Resurrects Long-Dead CD Graphics Format](https://hackaday.com/2026/06/25/new-record-resurrects-long-dead-cd-graphics-format/)
-* **Source URL:** <https://hackaday.com/2026/06/25/new-record-resurrects-long-dead-cd-graphics-format/>
-* **Published At:** 2026-06-25T11:00:26Z
-
-Audio CDs were the ubiquitous audio format of the 1990s. Lesser known were the extensions to the format that packaged all kinds of interesting additional data into a musical release. Now, a new rec…
-
----
-
-## 30. [Gunman kills an officer at a Montreal hotel before being shot dead, police say](https://www.npr.org/2026/06/23/g-s1-129576/montreal-officer-killed)
-* **Source URL:** <https://www.npr.org/2026/06/23/g-s1-129576/montreal-officer-killed>
-* **Published At:** 2026-06-23T05:39:08Z
-
-Police say a suspect armed with a long gun opened fire at a Montreal hotel, killing a police officer before officers returned fire, killing him.
-
----
-
-## 31. [Supreme Court upholds birthright citizenship on constitutional grounds](https://www.npr.org/2026/06/30/nx-s1-5839358/birthright-citizenship-decision-scotus-trump)
-* **Source URL:** <https://www.npr.org/2026/06/30/nx-s1-5839358/birthright-citizenship-decision-scotus-trump>
-* **Published At:** 2026-06-30T14:38:49Z
-
-The decision firmly rejected the executive order that Trump issued on the first day of his second term.
-
 ---
 
-## 32. [Solid and Clean Code never felt solid or clean to me](https://devz.cl/posts/solid-never-felt-solid/)
-* **Source URL:** <https://devz.cl/posts/solid-never-felt-solid/>
-* **Published At:** 2026-07-01T15:57:51Z
+## 6. [Google’s NotebookLM can sum up your research in a TikTok-style clip](https://www.theverge.com/tech/959778/google-notebooklm-ai-clips)
+* **Source URL:** <https://www.theverge.com/tech/959778/google-notebooklm-ai-clips>
+* **Published At:** 2026-06-30T19:24:51Z
 
-I learned to program through online documentation and projects. I also read books but I don’t consider them pivotal to my programming or software engineering career. Some of the books I read are:
+Google's NotebookLM is adding a new way to catch up on your notes: TikTok-style AI videos. The new feature is rolling out to Google AI Ultra and Pro subscribers, allowing NotebookLM to generate 60-second vertical AI clips based on the sources you upload to th…
 
-
-Designing Data-Intensive Applications: really good book.
-
-
-Th…
-
----
-
-## 33. [Dissecting Apple's Sparse Image Format (ASIF)](https://schamper.dev/dissecting-apples-sparse-image-format-asif/)
-* **Source URL:** <https://schamper.dev/dissecting-apples-sparse-image-format-asif/>
-* **Published At:** 2026-06-28T16:10:50Z
-
-At WWDC 2025, Apple announced macOS 26 Tahoe. One of the new features in macOS Tahoe is a new disk image format: ASIF. Designed for use with virtual machines (its documentation lives under the Virtualization framework), ASIF takes a lot of inspiration from ex…
-
----
-
-## 34. [iPhone 18 Pro leaks: Qualcomm or Apple C2 model, A20 details, camera upgrades](https://appleinsider.com/articles/26/06/30/iphone-18-pro-leaks-qualcomm-or-apple-c2-model-a20-details-camera-upgrades)
-* **Source URL:** <https://appleinsider.com/articles/26/06/30/iphone-18-pro-leaks-qualcomm-or-apple-c2-model-a20-details-camera-upgrades>
-* **Published At:** 2026-06-30T20:22:01Z
-
-After a closer look at some new data, Apple's iPhone 18 Pro modem situation may not be cut-and-dried. Here's what the latest leaks say is in store for cellular connectivity, the A20 chip, and possible camera improvements.New details about the iPhone 18 Pro ha…
-
----
-
-## 35. [Swift Package Index joins Apple, pledges to remain open source](https://9to5mac.com/2026/06/23/swift-package-index-joins-apple-pledges-to-remain-open-source/)
-* **Source URL:** <https://9to5mac.com/2026/06/23/swift-package-index-joins-apple-pledges-to-remain-open-source/>
-* **Published At:** 2026-06-23T22:59:53Z
-
-Community-run Swift package search engine and metadata index Swift Package Index is joining Apple, but says little is changing for developers in the near term. Here are the details.
-
----
-
-## 36. [A Brief History of Unix Commands On Windows: CoreUtils (Again)](https://hackaday.com/2026/06/16/a-brief-history-of-unix-commands-on-windows-coreutils-again/)
-* **Source URL:** <https://hackaday.com/2026/06/16/a-brief-history-of-unix-commands-on-windows-coreutils-again/>
-* **Published At:** 2026-06-16T14:00:45Z
-
-If you use Windows today and type ls, cat, grep, or awk in a terminal, there is a good chance something useful will happen. That was not always true. For most of the history of personal computing, …
-
----
-
-## 37. [Doom Designer John Romero Says He Hopes People Are Preserving id Software’s History Amid Reported Xbox Bloodbath](https://kotaku.com/doom-designer-john-romero-says-he-hopes-people-are-preserving-id-softwares-history-amid-reported-xbox-bloodbath-2000713308)
-* **Source URL:** <https://kotaku.com/doom-designer-john-romero-says-he-hopes-people-are-preserving-id-softwares-history-amid-reported-xbox-bloodbath-2000713308>
-* **Published At:** 2026-07-07T13:20:51Z
-
-The veteran dev shared his condolences a year after his own studio reportedly faced cuts from Microsoft
-
----
-
-## 38. [What Is a Nomogram and Why Would It Interest Me?](https://lefakkomies.github.io/pynomo-doc/introduction/introduction.html#what-is-a-nomogram-and-why-would-it-interest-me)
-* **Source URL:** <https://lefakkomies.github.io/pynomo-doc/introduction/introduction.html#what-is-a-nomogram-and-why-would-it-interest-me>
-* **Published At:** 2026-06-26T17:24:25Z
-
-Comments
-
 ---
 
-## 39. [The Wisdom of Quinn the Eskimo (Apple Developer Technical Support Engineer)](https://github.com/macshome/The-Wisdom-of-Quinn)
-* **Source URL:** <https://github.com/macshome/The-Wisdom-of-Quinn>
-* **Published At:** 2026-06-29T17:19:08Z
+## 7. [Some of the nation’s rich are letting AI teach their kids](https://www.theverge.com/ai-artificial-intelligence/961505/wealthy-ai-schools-alpha-forge-prep)
+* **Source URL:** <https://www.theverge.com/ai-artificial-intelligence/961505/wealthy-ai-schools-alpha-forge-prep>
+* **Published At:** 2026-07-05T22:30:54Z
 
-Share and Enjoy®. Contribute to macshome/The-Wisdom-of-Quinn development by creating an account on GitHub.
+Most Americans don't trust AI. It's proven that it doesn't know what safe toppings for pizza are. People don't even want to listen to AI music. But none of that matters for some of America's wealthy, who are turning to AI to teach their kids instead of tradit…
 
 ---
 
-## 40. [A way to exclude sensitive files issue still open for OpenAI Codex](https://github.com/openai/codex/issues/2847)
-* **Source URL:** <https://github.com/openai/codex/issues/2847>
-* **Published At:** 2026-06-28T12:27:33Z
+## 8. [Apple’s new Siri AI knows when to shut up](https://www.theverge.com/tech/948155/apple-siri-ai-chatbot-personality)
+* **Source URL:** <https://www.theverge.com/tech/948155/apple-siri-ai-chatbot-personality>
+* **Published At:** 2026-06-10T22:52:17Z
 
-What feature would you like to see? A mechanism to explicitly mark files/paths that the agent must not read or send to the model, at both repository and global levels (e.g., a repo-local .codexigno...
+Apple's new Siri AI is finally here, and so far, it seems like it works. I have access and have been messing around with it, and my biggest impression so far is that Siri AI is quite curt - which I mean as a compliment. Many AI chatbots are cheery and wordy. …
 
 ---
 
-## 41. [Converting Books into Visual Novels](https://github.com/JohnQPulp/PublicDomainPulp)
-* **Source URL:** <https://github.com/JohnQPulp/PublicDomainPulp>
-* **Published At:** 2026-06-18T14:09:05Z
+## 9. [Apple wants Europe to blink](https://www.theverge.com/ai-artificial-intelligence/947051/apple-europe-dma-siri-ai)
+* **Source URL:** <https://www.theverge.com/ai-artificial-intelligence/947051/apple-europe-dma-siri-ai>
+* **Published At:** 2026-06-09T17:13:14Z
 
-Public Domain Pulp website, hosting public domain visual novels - JohnQPulp/PublicDomainPulp
+It took a few years, but Apple finally made its AI look useful. Now millions of iPhone users in Europe are being told they won't be getting Siri AI anytime soon, if ever - and Apple wants them to blame the EU. Apple says its new AI-powered Siri will not launc…
 
 ---
 
-## 42. [I spent 6 days building my VDOM library as I hated how React handles memo](https://vflash.github.io/Tyaff/)
-* **Source URL:** <https://vflash.github.io/Tyaff/>
-* **Published At:** 2026-06-30T10:35:29Z
+## 10. [AI search grounded in Facebook posts? What could go wrong?](https://www.theverge.com/ai-artificial-intelligence/951099/meta-ai-mode-search-hands-on)
+* **Source URL:** <https://www.theverge.com/ai-artificial-intelligence/951099/meta-ai-mode-search-hands-on>
+* **Published At:** 2026-06-16T22:11:23Z
 
-VDOM library Tyaff
+AI is pretty reliable at putting things on your calendar these days, but it hasn't quite cracked answering the related and all-important question of "What should I do this weekend?" Meta's new AI Mode in search could be a useful tool - if it ever learns to st…
 
 ---
 
-## 43. [‘My apartment isn’t livable between 8am-4pm‘: California renter loses her bedroom, bathroom, and water every weekday for 2 weeks during pipe work, can't relocate to work remotely, and asks if the landlord owes compensation](https://cheezburger.com/45881349/my-apartment-isnt-livable-between-8am-4pm-california-renter-loses-her-bedroom-bathroom-and-water)
-* **Source URL:** <https://cheezburger.com/45881349/my-apartment-isnt-livable-between-8am-4pm-california-renter-loses-her-bedroom-bathroom-and-water>
-* **Published At:** 2026-06-28T18:30:00Z
+## 11. [Meta’s new Muse Image model can pull other Instagram users into AI photos](https://www.theverge.com/tech/962485/meta-muse-image-ai-model-instagram)
+* **Source URL:** <https://www.theverge.com/tech/962485/meta-muse-image-ai-model-instagram>
+* **Published At:** 2026-07-07T20:33:40Z
 
-Building maintenance and repairs, like this pipe replacement, are necessary. Nobody's arguing otherwise. But two weeks of no water, no bedroom, no bathroom access, and construction noise from 8am to 4pm every weekday is a different conversation entirely, and …
+Meta is launching the first AI image generation model made by its Superintelligence Labs division. The Muse Image model now powers the image-making tools across the Meta AI app, Instagram, and WhatsApp, and it's coming soon to Facebook and Messenger, accordin…
 
 ---
 
-## 44. [Top 3 updates for Android developer productivity](https://android-developers.googleblog.com/2026/06/android-developer-productivity-updates.html)
-* **Source URL:** <https://android-developers.googleblog.com/2026/06/android-developer-productivity-updates.html>
-* **Published At:** 2026-06-09T13:00:00Z
+## 12. [Europe Is Fed Up and Wants Its Own AI](https://www.wired.com/story/europe-is-fed-up-and-wants-its-own-ai/)
+* **Source URL:** <https://www.wired.com/story/europe-is-fed-up-and-wants-its-own-ai/>
+* **Published At:** 2026-06-26T15:00:00Z
 
-News and insights on the Android platform, developer tools, and events.
+It's a stretch to think that the continent can build a top-tier model, but it has an advantage: Donald Trump.
 
 ---
 
-## 45. [OnePlus N6 leak shows generous box contents as launch draws near](https://www.androidcentral.com/phones/oneplus/oneplus-n6-leak-shows-generous-box-contents-as-launch-draws-near)
-* **Source URL:** <https://www.androidcentral.com/phones/oneplus/oneplus-n6-leak-shows-generous-box-contents-as-launch-draws-near>
-* **Published At:** 2026-06-26T13:06:21Z
+## 13. [Apple announces watchOS 27, now with Siri AI](https://www.theverge.com/tech/943145/apple-watch-watchos-27-wwdc-2026)
+* **Source URL:** <https://www.theverge.com/tech/943145/apple-watch-watchos-27-wwdc-2026>
+* **Published At:** 2026-06-08T19:34:10Z
 
-The phone could pack an absolute tank of a battery at 8,000mAh, paired with 45W wired fast charging that matches the included wall adapter.
+Apple just announced watchOS 27, the next version of its Apple Watch operating system, introducing support for Siri AI, a redesigned "dynamic" app grid, and improvements to health and fitness tracking. The watchOS 27 update will be available "this fall," acco…
 
 ---
 
-## 46. [Google Ends Cache-Served AMP Pages In Search via @sejournal, @MattGSouthern](https://www.searchenginejournal.com/google-ends-cache-served-amp-pages-in-search/581405/)
-* **Source URL:** <https://www.searchenginejournal.com/google-ends-cache-served-amp-pages-in-search/581405/>
-* **Published At:** 2026-07-02T20:06:10Z
+## 14. [Two-thirds of Americans think AI is advancing too quickly](https://www.theverge.com/ai-artificial-intelligence/951653/pew-research-ai-chatbot-usage-advancing-too-quickly)
+* **Source URL:** <https://www.theverge.com/ai-artificial-intelligence/951653/pew-research-ai-chatbot-usage-advancing-too-quickly>
+* **Published At:** 2026-06-17T17:20:24Z
 
-Google Search now takes searchers directly to a domain's AMP host pages, ending the viewer/cache serving path. AMP still ranks as normal. 
-The post Google Ends Cache-Served AMP Pages In Search appeared first on Search Engine Journal.
+According to the latest Pew Research poll, 49 percent of Americans report using chatbots at least occasionally, but 63 percent think the tech is advancing too quickly. Overall, use of AI chatbots has increased dramatically since 2024, when only 33 percent rep…
 
 ---
 
-## 47. [Show HN: OpenKnowledge – open source AI-first alternative to Obsidian/Notion](https://github.com/inkeep/open-knowledge)
-* **Source URL:** <https://github.com/inkeep/open-knowledge>
-* **Published At:** 2026-06-25T16:04:46Z
+## 15. [Figma now has AI motion graphics and shader tools](https://www.theverge.com/tech/955831/figma-code-design-tools-config-2026-announcements)
+* **Source URL:** <https://www.theverge.com/tech/955831/figma-code-design-tools-config-2026-announcements>
+* **Published At:** 2026-06-24T16:18:13Z
 
-Beautiful, AI-native markdown editor and LLM Wiki. Contribute to inkeep/open-knowledge development by creating an account on GitHub.
+Figma has unveiled some new design and coding product updates at its annual Config conference that aim to help creatives "push their ideas further" and automate tedious tasks with AI. Part of this is a reimagined canvas that's now optimized for full-stack dev…
 
 ---
 
-## 48. [QSOE: QNX-inspired OS with dual-kernel architecture](https://qsoe-dev.blogspot.com/2026/06/qsoe-project-v01-is-released.html)
-* **Source URL:** <https://qsoe-dev.blogspot.com/2026/06/qsoe-project-v01-is-released.html>
-* **Published At:** 2026-06-22T13:46:57Z
+## 16. [OpenAI unveils GPT-5.6 amid US AI regulatory drama](https://www.theverge.com/ai-artificial-intelligence/957845/openai-gpt-5-6-trump-administration-ai-preview)
+* **Source URL:** <https://www.theverge.com/ai-artificial-intelligence/957845/openai-gpt-5-6-trump-administration-ai-preview>
+* **Published At:** 2026-06-26T17:01:03Z
 
-The first QSOE release, v0.1, is out. It bundles both kernel variants, the boot loader, the userspace, and libc into a single numbered drop,...
+Less than 24 hours after news broke that OpenAI would stagger its next model release at the request of the Trump administration, that model, GPT-5.6, is here. On Friday, the company unveiled the limited preview of its new GPT 5.6 model suite: Sol, the flagshi…
 
 ---
 
-## 49. [If You Are Asking for Human Attention, Demonstrate Human Effort](https://tombedor.dev/human-attention-and-human-effort)
-* **Source URL:** <https://tombedor.dev/human-attention-and-human-effort>
-* **Published At:** 2026-06-11T23:01:55Z
+## 17. [Big Tech’s desperate last push at AI regulation](https://www.theverge.com/policy/949970/ai-regulation-child-safety-kosa-congress)
+* **Source URL:** <https://www.theverge.com/policy/949970/ai-regulation-child-safety-kosa-congress>
+* **Published At:** 2026-06-15T17:44:10Z
 
-An ever-increasing volume of debug investigations, document writing, and code is written by robots. This has created a new etiquette question when working with a team - when is it OK to forward the output of an AI to another human to read?
+For months, Big Tech's Washington lobbyists have chased after the holy grail of pro-AI legislation: preemption. This would be a comprehensive federal law, passed in Congress and signed by the president, applying one set of AI rules across the entire country a…
 
 ---
 
-## 50. [Wasi: WebGPU – A Proposed WebAssembly System Interface API](https://github.com/WebAssembly/wasi-webgpu)
-* **Source URL:** <https://github.com/WebAssembly/wasi-webgpu>
-* **Published At:** 2026-06-12T15:26:58Z
+## 18. [Elon Musk denies a report about SpaceX’s AI phone prototype](https://www.theverge.com/science/960442/spacex-phone-prototype-elon-musk)
+* **Source URL:** <https://www.theverge.com/science/960442/spacex-phone-prototype-elon-musk>
+* **Published At:** 2026-07-01T20:10:21Z
 
-Contribute to WebAssembly/wasi-webgpu development by creating an account on GitHub.
+Elon Musk says a report about a SpaceX AI phone prototype is "utterly false." The report, published on Wednesday by The Wall Street Journal, says SpaceX showed off a "handset-like prototype" to some investors before launching its record-breaking initial publi…
 
 ---
 
-## 51. [Kimi K2.7 Code is generally available in GitHub Copilot](https://github.blog/changelog/2026-07-01-kimi-k2-7-is-now-available-in-github-copilot/)
-* **Source URL:** <https://github.blog/changelog/2026-07-01-kimi-k2-7-is-now-available-in-github-copilot/>
-* **Published At:** 2026-07-02T04:32:41Z
+## 19. [AI won’t save advertising, says Digitas’ Amy Lanzi](https://www.theverge.com/podcast/959792/digitas-ceo-amy-lanzi-cannes-ad-industry-marketing-ai-creators)
+* **Source URL:** <https://www.theverge.com/podcast/959792/digitas-ceo-amy-lanzi-cannes-ad-industry-marketing-ai-creators>
+* **Published At:** 2026-07-02T13:53:42Z
 
-Kimi K2.7 Code, an open-weight model, is now generally available in GitHub Copilot. This is the first open-weight model offered as a selectable option in the Copilot model picker, giving…
+We’ve got a special Decoder today — I had the chance to talk with Amy Lanzi, the CEO of Digitas North America, in front of a live audience at the Uber Villa at the Cannes Lions advertising festival in the South of France. I know, it’s a hard gig, but I do it …
 
 ---
 
-## 52. [Eligible seniors can get GLP-1s for $50 a month for weight loss alone](https://abcnews.com/Health/eligible-seniors-glp-1s-50-month-weight-loss/story?id=134351927)
-* **Source URL:** <https://abcnews.com/Health/eligible-seniors-glp-1s-50-month-weight-loss/story?id=134351927>
-* **Published At:** 2026-07-01T09:02:23Z
+## 20. [Apple is using AI to fix Safari’s extension problem](https://www.theverge.com/tech/946345/apple-safari-ai-update-extensions)
+* **Source URL:** <https://www.theverge.com/tech/946345/apple-safari-ai-update-extensions>
+* **Published At:** 2026-06-08T22:14:17Z
 
-The program will cover Foundayo, Zepbound and Wegovy.
+Apple is trying to solve one of Safari's biggest weaknesses with AI. Safari has long lacked the robust library of extensions that its rivals have, mainly due to the stringent development requirements from Apple. But now, Apple is inviting users to essentially…
 
 ---
 
-## 53. [10th Gen Honda Civic Updates Are Signed with AOSP Test Keys](https://juniperspring.org/posts/honda-evil-valet/)
-* **Source URL:** <https://juniperspring.org/posts/honda-evil-valet/>
-* **Published At:** 2026-06-14T00:49:46Z
+## 21. [My first 24 hours with Siri AI on the Mac](https://www.theverge.com/tech/949502/apple-macos-27-golden-gate-siri-ai-apple-intelligence)
+* **Source URL:** <https://www.theverge.com/tech/949502/apple-macos-27-golden-gate-siri-ai-apple-intelligence>
+* **Published At:** 2026-06-13T13:44:07Z
 
-Status update, three years later
+I turned off Siri on the Mac years ago and never looked back. Similarly, I found Apple Intelligence so fruitless I never engage with it. But the new Siri AI coming to macOS 27 Golden Gate has at least got me slightly rethinking things. I'm still early in test…
 
 ---
 
-## 54. [Xcode 27 expands agentic coding toolset with Gemini integration](https://9to5mac.com/2026/06/10/xcode-27-expands-agentic-coding-toolset-with-gemini-integration/)
-* **Source URL:** <https://9to5mac.com/2026/06/10/xcode-27-expands-agentic-coding-toolset-with-gemini-integration/>
-* **Published At:** 2026-06-10T19:32:54Z
+## 22. [WhatsApp ordered to host rival AI assistants for free](https://www.theverge.com/tech/947516/meta-whatsapp-eu-third-party-ai-chatbot-ban-order)
+* **Source URL:** <https://www.theverge.com/tech/947516/meta-whatsapp-eu-third-party-ai-chatbot-ban-order>
+* **Published At:** 2026-06-10T08:40:56Z
 
-Starting with Xcode 27, developers will be able to natively use Google Gemini, in addition to Claude Code and OpenAI Codex, to plan, write, and review code. Here are the details.
+Meta has been ordered by the European Commission to restore free WhatsApp access for chatbots made by rival AI providers while the regulator finishes its antitrust investigation. The rare interim measure announced on Tuesday was deemed necessary "to prevent s…
 
-
-
- more…
-
----
-
-## 55. [Trump keeps sabotaging legislation over a voting bill. Here's what's in it](https://www.npr.org/2026/06/25/nx-s1-5869577/trump-voting-save-america-act)
-* **Source URL:** <https://www.npr.org/2026/06/25/nx-s1-5869577/trump-voting-save-america-act>
-* **Published At:** 2026-06-25T09:00:00Z
-
-President Trump blew up what could have been a win for his party — and he did it to force lawmakers to pass an elections overhaul bill that has been all but doomed in the Senate.
-
 ---
 
-## 56. [Boss Denies Agreeing to Employee's Raise Request, Employee Finds Receipts with HR](https://cheezburger.com/45587973/boss-denies-agreeing-to-employees-raise-request-employee-finds-receipts-with-hr)
-* **Source URL:** <https://cheezburger.com/45587973/boss-denies-agreeing-to-employees-raise-request-employee-finds-receipts-with-hr>
-* **Published At:** 2026-06-10T12:00:00Z
+## 23. [Deezer launches an AI music detector for other streaming services](https://www.theverge.com/ai-artificial-intelligence/948153/deezer-ai-music-detector-spotify-apple)
+* **Source URL:** <https://www.theverge.com/ai-artificial-intelligence/948153/deezer-ai-music-detector-spotify-apple>
+* **Published At:** 2026-06-10T23:42:48Z
 
-No one likes being gaslit by anyone, much less their boss. 
-This employee had not only confirmed that he would be getting a raise, along with further responsibilities, but he had also gone through this ordeal months ago. Now, his boss is questioning whether …
+Deezer will now scan your playlists on other streaming platforms to detect AI-generated music. Deezer was the first of the big streaming services to start labeling AI-generated music. It even offered its tech to other platforms, but it doesn't seem like it ha…
 
 ---
 
-## 57. [Michigan Homeowner Sued by Neighbor for $90,000 After Contractor Cut Down the Wrong Oak Tree](https://cheezburger.com/45657861/michigan-homeowner-sued-by-neighbor-for-90000-after-contractor-cut-down-the-wrong-oak-tree)
-* **Source URL:** <https://cheezburger.com/45657861/michigan-homeowner-sued-by-neighbor-for-90000-after-contractor-cut-down-the-wrong-oak-tree>
-* **Published At:** 2026-06-10T18:30:00Z
+## 24. [I tried Siri AI, and so far it actually works](https://www.theverge.com/tech/947432/siri-ai-apple-intelligence-ios-27-wwdc)
+* **Source URL:** <https://www.theverge.com/tech/947432/siri-ai-apple-intelligence-ios-27-wwdc>
+* **Published At:** 2026-06-09T23:33:14Z
 
-Talk about a huge mistake for a contractor to make!
-This homeowner spotted what appeared to be a disintegrating pine tree in his backyard and wanted to get rid of it before it became dangerous. However, despite the fact that the homeowner clearly described a…
+Parents want one thing, and one thing only, out of AI: to add a list of soccer games or "spirit week" theme days from an email or a poorly formatted flyer onto their calendar in one shot. And I have good news for parents with iPhones - the new Siri can finall…
 
 ---
 
-## 58. [Airport worker spends months warning about a flawed process, gets dismissed, takes one day off, and watches everything fall apart exactly as predicted while a new employee gets blamed](https://cheezburger.com/45656325/airport-worker-spends-months-warning-about-a-flawed-process-gets-dismissed-takes-one-day-off-and)
-* **Source URL:** <https://cheezburger.com/45656325/airport-worker-spends-months-warning-about-a-flawed-process-gets-dismissed-takes-one-day-off-and>
-* **Published At:** 2026-06-10T16:00:00Z
+## 25. [Congresswoman denies staff used AI to write defense funding amendment](https://www.theverge.com/policy/956394/florida-anna-paulina-luna-anthropic-claude)
+* **Source URL:** <https://www.theverge.com/policy/956394/florida-anna-paulina-luna-anthropic-claude>
+* **Published At:** 2026-06-24T19:36:46Z
 
-Being told you cannot handle stress after five years on the job and three years on a specific process is a bold diagnosis. It is even better when the exact thing you warned about happens the moment you take a day off
-This is a workplace story about the gap b…
+Rep. Anna Paulina Luna (R-FL) says her staff used AI for "spellcheck" in an amendment summary for a major defense bill, but denies it was used for the bill text itself and says "NO Legislation is ever drafted with AI." Luna issued the response after accounts …
 
 ---
 
-## 59. [Google’s Mueller Explains How AI Search Impressions Get Counted via @sejournal, @MattGSouthern](https://www.searchenginejournal.com/googles-mueller-explains-how-ai-search-impressions-get-counted/580491/)
-* **Source URL:** <https://www.searchenginejournal.com/googles-mueller-explains-how-ai-search-impressions-get-counted/580491/>
-* **Published At:** 2026-06-25T04:05:37Z
+## 26. [When You Gaze Into the AI Slop, the AI Slop Also Gazes Into You](https://gizmodo.com/when-you-gaze-into-the-ai-slop-the-ai-slop-also-gazes-into-you-2000772663)
+* **Source URL:** <https://gizmodo.com/when-you-gaze-into-the-ai-slop-the-ai-slop-also-gazes-into-you-2000772663>
+* **Published At:** 2026-06-28T12:00:07Z
 
-John Mueller explained that impressions in Google's Search Console AI report track links to your pages, and user-activated links only count after they're activated.
-The post Google’s Mueller Explains How AI Search Impressions Get Counted appeared first on Sea…
+Welcome to the ‘Society of the Psyop.’
 
 ---
 
-## 60. [The Stylish Life: Surfing](https://shop.uncrate.com/products/the-stylish-life-surfing)
-* **Source URL:** <https://shop.uncrate.com/products/the-stylish-life-surfing>
-* **Published At:** 2026-07-06T15:00:00Z
+## 27. [Oracle Cuts 21,000 Jobs in One Year, Blames AI For at Least Some](https://gizmodo.com/oracle-cuts-21000-jobs-in-one-year-blames-ai-for-at-least-some-2000775677)
+* **Source URL:** <https://gizmodo.com/oracle-cuts-21000-jobs-in-one-year-blames-ai-for-at-least-some-2000775677>
+* **Published At:** 2026-06-23T01:11:48Z
 
-Seven decades of surf culture, captured in all its sun-bleached, film-grain glory.
+It's using AI internally, and spending money to support AI everywhere else.
 
 ---
 
-## 61. [A Companion Cube Cover for Your Steam Machine (Which You Still Can’t Buy) Is Now for Sale](https://gizmodo.com/a-companion-cube-cover-for-your-steam-machine-which-you-still-cant-buy-is-now-for-sale-2000775305)
-* **Source URL:** <https://gizmodo.com/a-companion-cube-cover-for-your-steam-machine-which-you-still-cant-buy-is-now-for-sale-2000775305>
-* **Published At:** 2026-06-22T14:10:42Z
+## 28. [Anthropic Walks Back Policy That Could Have ‘Sabotaged’ AI Researchers Using Claude](https://www.wired.com/story/anthropic-responds-to-backlash-on-claudes-secret-sabotage-on-ai-research/)
+* **Source URL:** <https://www.wired.com/story/anthropic-responds-to-backlash-on-claudes-secret-sabotage-on-ai-research/>
+* **Published At:** 2026-06-11T03:11:22Z
 
-I'm making a note here about this $100 Companion Cube cover, even though I don't know how much the Steam Machine will actually cost.
+The company changed course after researchers spoke out against the policy, which would have covertly limited Claude’s ability to develop competing AI models.
 
 ---
 
-## 62. [The Top 10 Attack Surface Exposures in 2026](https://thehackernews.com/2026/06/the-top-10-attack-surface-exposures-in.html)
-* **Source URL:** <https://thehackernews.com/2026/06/the-top-10-attack-surface-exposures-in.html>
-* **Published At:** 2026-06-17T10:30:00Z
+## 29. [‘Tell Him He’s a Piece of Shit’: Meta’s New AI Unit Is a Total Mess](https://www.wired.com/story/mark-zuckerberg-meta-employee-meeting-interrupt-ai/)
+* **Source URL:** <https://www.wired.com/story/mark-zuckerberg-meta-employee-meeting-interrupt-ai/>
+* **Published At:** 2026-06-12T21:16:25Z
 
-Breaches don't always start with a zero-day. An exposed admin panel can get brute-forced, or credentials reused from a previous attack. But when a vulnerability does drop — like MongoBleed earlier this year, which let attackers pull credentials and session to…
+Executives and employees alike are struggling with Meta's chaotic AI strategy, according to sources and internal discussions reviewed by WIRED.
 
 ---
 
-## 63. [I gave Claude Code a 200-line CLAUDE.md, and it was the worst decision I made](https://www.xda-developers.com/gave-claude-code-200-line-claudemd-worst-decision-made/)
-* **Source URL:** <https://www.xda-developers.com/gave-claude-code-200-line-claudemd-worst-decision-made/>
-* **Published At:** 2026-06-21T23:00:22Z
+## 30. [Erling Haaland Is Everywhere at the World Cup. Most of It Is AI](https://www.wired.com/story/erling-haaland-is-everywhere-at-the-world-cup-most-of-it-is-ai/)
+* **Source URL:** <https://www.wired.com/story/erling-haaland-is-everywhere-at-the-world-cup-most-of-it-is-ai/>
+* **Published At:** 2026-07-07T10:00:00Z
 
-Don't stuff your CLAUDE.md
+Norwegian striker Erling Haaland isn’t just a footballer anymore. He’s become an internet character perpetuated by fans and AI.
 
 ---
 
-## 64. [Vulkan is now available on NetBSD](https://github.com/segaboy/vulkan-netbsd)
-* **Source URL:** <https://github.com/segaboy/vulkan-netbsd>
-* **Published At:** 2026-07-02T18:36:09Z
+## 31. [Norway Says AI Ain’t for Education](https://gizmodo.com/norway-says-ai-aint-for-education-2000774320)
+* **Source URL:** <https://gizmodo.com/norway-says-ai-aint-for-education-2000774320>
+* **Published At:** 2026-06-19T20:05:31Z
 
-This is my attempt to get Vulkan going on NetBSD. Contribute to segaboy/vulkan-netbsd development by creating an account on GitHub.
+The country is cutting back on tech in classrooms.
 
 ---
 
-## 65. [Scheme Is a Hoot](https://gracefulliberty.com/notes/scheme-is-a-hoot/)
-* **Source URL:** <https://gracefulliberty.com/notes/scheme-is-a-hoot/>
-* **Published At:** 2026-07-05T13:12:19Z
+## 32. [The AI Cold War Just Got Chillier](https://gizmodo.com/the-ai-cold-war-just-got-chillier-2000780213)
+* **Source URL:** <https://gizmodo.com/the-ai-cold-war-just-got-chillier-2000780213>
+* **Published At:** 2026-07-01T18:20:32Z
 
-Lately I've been spending time learning Scheme and using it to implement the concepts I'm learning in my physics classes as time permits. One of the most exciting things I've been doing with this is getting my Scheme to compile to the Web thanks to Hoot.
-One …
+Anthropic is cracking down on Chinese developers and companies using its models while pushing for greater collaboration at home.
 
 ---
 
-## 66. [Build An OKF Brain Like Mine! via @sejournal, @marie_haynes](https://www.mariehaynes.com/build-an-okf-brain-like-mine/)
-* **Source URL:** <https://www.mariehaynes.com/build-an-okf-brain-like-mine/>
-* **Published At:** 2026-07-06T13:00:47Z
+## 33. [Illinois Drops the Hammer on AI Companies](https://gizmodo.com/illinois-drops-the-hammer-on-ai-companies-2000781932)
+* **Source URL:** <https://gizmodo.com/illinois-drops-the-hammer-on-ai-companies-2000781932>
+* **Published At:** 2026-07-06T21:05:35Z
 
-Build your own AI-ready knowledge system with insights from Marie Haynes on using Google’s Open Knowledge Format for search and automation.
-The post Build An OKF Brain Like Mine! appeared first on Search Engine Journal.
+Pritzker isn't playing.
 
 ---
-
-## 67. [iPhone 18 Pro’s new C2 chip to bring three advantages over iPhone 17](https://9to5mac.com/2026/06/09/iphone-18-pros-new-c2-chip-will-bring-three-advantages-over-iphone-17/)
-* **Source URL:** <https://9to5mac.com/2026/06/09/iphone-18-pros-new-c2-chip-will-bring-three-advantages-over-iphone-17/>
-* **Published At:** 2026-06-09T20:06:27Z
-
-Apple is rumored to have a next-generation C2 chip coming to iPhone 18 Pro and Pro Max, shifting away from the Qualcomm 5G modem found in iPhone 17 Pro. Here are three new advantages the Apple-designed modem will bring.
-
 
+## 34. [NotebookLM’s Gemini 3.5 upgrade adds a cloud computer and help finding sources](https://www.theverge.com/tech/944325/google-notebooklm-ai-gemini-update)
+* **Source URL:** <https://www.theverge.com/tech/944325/google-notebooklm-ai-gemini-update>
+* **Published At:** 2026-06-08T13:58:07Z
 
- more…
+Google is rolling out "across the board" updates to NotebookLM. The AI-powered note-taking app now uses Google's upgraded Gemini 3.5 model, which will allow it to respond with "more accurate and reliable information," according to a blog post on Monday. Launc…
 
 ---
 
-## 68. [OpenCAL - Imprimer un objet en quelques secondes, sans la moindre couche](https://korben.info/opencal-imprimer-un-objet-en-quelques-secondes-sans-la-moindre-couche.html)
-* **Source URL:** <https://korben.info/opencal-imprimer-un-objet-en-quelques-secondes-sans-la-moindre-couche.html>
-* **Published At:** 2026-06-16T10:22:00Z
+## 35. [Netflix is using an AI-generated Gene Wilder voice in its Willy Wonka reality show](https://www.theverge.com/streaming/959684/netflix-wonka-golden-ticket-gene-wilder)
+* **Source URL:** <https://www.theverge.com/streaming/959684/netflix-wonka-golden-ticket-gene-wilder>
+* **Published At:** 2026-06-30T17:19:15Z
 
-Une équipe issue de l'université de Berkeley vient de publier OpenCAL, une version libre et
-documentée
-d'une technique d'impression 3D qui ne ressemble à rien de ce qu'on connaît, et le projet est désormais reproductible chez soi avec des composants qu'on tro…
+A new teaser trailer confirmed that Wonka's The Golden Ticket will premiere on Netflix on September 23rd, following its Squid Game reality show in the trend of creating real competitions based on fictional torture scenarios. While the sets seen in the trailer…
 
 ---
 
-## 69. [Microsoft Flight Simulator 2024 has new competition from... Google Earth?!](https://www.windowscentral.com/gaming/pc-gaming/microsoft-flight-simulator-2024-has-new-competition-from-google-earth)
-* **Source URL:** <https://www.windowscentral.com/gaming/pc-gaming/microsoft-flight-simulator-2024-has-new-competition-from-google-earth>
-* **Published At:** 2026-06-14T21:42:06Z
+## 36. [White House Defangs AI-Testing Unit at the Worst Possible Time](https://gizmodo.com/white-house-defangs-ai-testing-unit-at-the-worst-possible-time-2000770219)
+* **Source URL:** <https://gizmodo.com/white-house-defangs-ai-testing-unit-at-the-worst-possible-time-2000770219>
+* **Published At:** 2026-06-10T21:50:43Z
 
-Google Earth has added a flight simulator to its web app, which is very much not a competitor for a more serious sim but is still fun nevertheless.
+Trump administration officials have directed the Center for AI Standards and Innovation to stop publishing reports of its AI model reviews.
 
 ---
 
-## 70. [Reddit Climbs, Clicks Drop, GBP Comes To GA4 – SEO Pulse via @sejournal, @MattGSouthern](https://www.searchenginejournal.com/seo-pulse-reddit-climbs-clicks-drop-gbp-comes-to-ga4/579029/)
-* **Source URL:** <https://www.searchenginejournal.com/seo-pulse-reddit-climbs-clicks-drop-gbp-comes-to-ga4/579029/>
-* **Published At:** 2026-06-12T12:30:23Z
+## 37. [British Space Startup Launches Longevity Lab Into Orbit](https://www.wired.com/story/british-space-startup-launches-longevity-lab-into-orbit/)
+* **Source URL:** <https://www.wired.com/story/british-space-startup-launches-longevity-lab-into-orbit/>
+* **Published At:** 2026-07-07T09:57:12Z
 
-Reddit gains ground after the May core update, new zero-click data lands, Google updates its SEO guidance, and Business Profile data comes to Analytics.
-The post Reddit Climbs, Clicks Drop, GBP Comes To GA4 – SEO Pulse appeared first on Search Engine Journal.
+The lab will beam back data to train AI models to predict how proteins behind age-related diseases like Alzheimer’s and certain cancers behave.
 
 ---
 
-## 71. [Trouble getting weight loss drugs covered by insurance? Here's what to know](https://www.npr.org/2026/06/23/nx-s1-5793971/weight-loss-glp1-insurance-coverage)
-* **Source URL:** <https://www.npr.org/2026/06/23/nx-s1-5793971/weight-loss-glp1-insurance-coverage>
-* **Published At:** 2026-06-23T09:00:00Z
+## 38. [Trump Administration Allows Anthropic to Release Mythos to Select US Organizations](https://www.wired.com/story/anthropic-restores-access-to-mythos/)
+* **Source URL:** <https://www.wired.com/story/anthropic-restores-access-to-mythos/>
+* **Published At:** 2026-06-27T00:26:14Z
 
-If your doctor prescribes a GLP-1 medication for weight loss but your insurance won't cover it, you have options.
+After weeks of negotiations, the White House permitted Anthropic to restore access to its most advanced AI model for a select group of US companies and government agencies.
 
 ---
 
-## 72. [Kimi K2.7-Code: open-source coding model with better token efficiency](https://huggingface.co/moonshotai/Kimi-K2.7-Code)
-* **Source URL:** <https://huggingface.co/moonshotai/Kimi-K2.7-Code>
-* **Published At:** 2026-06-12T10:42:50Z
+## 39. [The White House Is Making Up Its Rules for AI in Real Time](https://www.wired.com/story/anthropic-mythos-export-controls-ai-regulations/)
+* **Source URL:** <https://www.wired.com/story/anthropic-mythos-export-controls-ai-regulations/>
+* **Published At:** 2026-06-18T21:03:43Z
 
-We’re on a journey to advance and democratize artificial intelligence through open source and open science.
+Anthropic still can’t distribute Claude Mythos or Fable 5 after running afoul of the Trump administration. But no one can say exactly what the company did wrong.
 
 ---
 
-## 73. [Show HN: Open-source API Key server written in Go by Ory](https://github.com/ory/talos/tree/master)
-* **Source URL:** <https://github.com/ory/talos/tree/master>
-* **Published At:** 2026-06-11T15:09:42Z
+## 40. [Meta Employees Absolutely Hate Zuckerberg’s Plan for a Companywide AI Hackathon](https://www.wired.com/story/meta-employees-absolutely-hate-mark-zuckerbergs-hackathon-idea/)
+* **Source URL:** <https://www.wired.com/story/meta-employees-absolutely-hate-mark-zuckerbergs-hackathon-idea/>
+* **Published At:** 2026-06-12T23:45:26Z
 
-Web-scale and security-hardened API key server for users, services, machine to machine, and AI agents. Token derivation brings fine-grained capability tokens to avoid common API key pitfalls. Apach...
+“I’m not sure that this company supports a hackathon culture anymore,” one employee posted in a forum open to the entire staff.
 
 ---
 
-## 74. [Rhombus Language 1.0](https://blog.racket-lang.org/2026/06/rhombus-v1.0.html)
-* **Source URL:** <https://blog.racket-lang.org/2026/06/rhombus-v1.0.html>
-* **Published At:** 2026-06-22T17:50:40Z
+## 41. [Apple’s iPhone Camera App Is Getting an AI Upgrade in iOS 27](https://www.wired.com/story/apples-iphone-camera-app-is-getting-an-ai-upgrade-in-ios-27/)
+* **Source URL:** <https://www.wired.com/story/apples-iphone-camera-app-is-getting-an-ai-upgrade-in-ios-27/>
+* **Published At:** 2026-06-08T18:40:32Z
 
-Rhombus version 1.0 is now available!      Install: https://rhombus-lang.org/download.html     More information: https://rhombus-lang.org/       Why a new language? https://rhombus-lang.org/goal.html  (copied below)       Frequently Asked Questions: https...
+Siri is now directly embedded into the camera app, and there are more artificial intelligence tools in the Photos app to alter your images.
 
 ---
 
-## 75. [Flexible metaprogramming with Rhombus](https://lwn.net/SubscriberLink/1079001/67840550991151ed/)
-* **Source URL:** <https://lwn.net/SubscriberLink/1079001/67840550991151ed/>
-* **Published At:** 2026-07-02T15:43:39Z
+## 42. [Google will save your Lens photos, Search Live recordings, and Translate audio for AI training](https://www.theverge.com/tech/947836/google-search-privacy-settings-images-audio)
+* **Source URL:** <https://www.theverge.com/tech/947836/google-search-privacy-settings-images-audio>
+* **Published At:** 2026-06-10T16:18:45Z
 
-Lisp-like languages have historically led the world in metaprogramming and flexibility. While  [...]
+Google is making some changes to how it saves your interactions with Search. In an email sent to users, Google says it will save the images, files, audio, and video you use to search under a new "Search Services History" setting. That includes the images you …
 
 ---
 
-## 76. [I took a 50% paycut when I got laid off from Meta and started a coaching business. The transition was hard, but I feel better all around.](https://www.businessinsider.com/woman-laid-off-from-meta-moved-mexico-reduced-expenses-paycut-2026-7#article)
-* **Source URL:** <https://www.businessinsider.com/woman-laid-off-from-meta-moved-mexico-reduced-expenses-paycut-2026-7#article>
-* **Published At:** 2026-07-06T09:16:01Z
+## 43. [Amazon’s Echo Hub gets a customizable new look and Ring’s AI features](https://www.theverge.com/tech/948814/amazon-echo-hub-homescreen-redesign)
+* **Source URL:** <https://www.theverge.com/tech/948814/amazon-echo-hub-homescreen-redesign>
+* **Published At:** 2026-06-11T22:06:32Z
 
-After her Meta layoff, Chikaraa Kennedy launched a coaching business and moved to Mexico — where she spends less and has a better quality of life.
+Amazon's rolling out a free software update for Echo Hub devices that gives the home screen a much-needed update to the software it launched with in 2024. It had already added Alex Plus AI support, but the new interface has a cleaner, fully customizable layou…
 
 ---
 
-## 77. [Google Cloud Announces The Open Knowledge Format via @sejournal, @martinibuster](https://www.searchenginejournal.com/google-cloud-announces-the-open-knowledge-format/579253/)
-* **Source URL:** <https://www.searchenginejournal.com/google-cloud-announces-the-open-knowledge-format/579253/>
-* **Published At:** 2026-06-15T10:07:11Z
+## 44. [Why is Apple asking me to pay more for Big Tech’s AI obsession?](https://www.theverge.com/report/958678/apple-consumer-price-increase-ai-big-tech)
+* **Source URL:** <https://www.theverge.com/report/958678/apple-consumer-price-increase-ai-big-tech>
+* **Published At:** 2026-06-27T13:07:36Z
 
-Google Open Knowledge Format turns organizational knowledge into a shared format for AI agents, tools, and teams.
-The post Google Cloud Announces The Open Knowledge Format appeared first on Search Engine Journal.
+Tim Cook recently said price increases were "unavoidable" and described the company's pricing as "unsustainable." The 16-inch MacBook Pro saw its price go up by $300. The 11-inch iPad Air went from $599 to $749. Even the HomePod Mini got a $30 bump to $129. C…
 
 ---
 
-## 78. [Gavin Newsom says he’s being investigated by Trump](https://www.aljazeera.com/video/newsfeed/2026/6/16/gavin-newsom-says-hes-being-investigated-by-trump)
-* **Source URL:** <https://www.aljazeera.com/video/newsfeed/2026/6/16/gavin-newsom-says-hes-being-investigated-by-trump>
-* **Published At:** 2026-06-16T00:01:58Z
+## 45. [Apple 2027 rumors: AirPods with cameras for AI and the second folding iPhone](https://www.theverge.com/tech/950826/apple-airpod-camera-ai-foldable-iphone-rumor)
+* **Source URL:** <https://www.theverge.com/tech/950826/apple-airpod-camera-ai-foldable-iphone-rumor>
+* **Published At:** 2026-06-16T17:06:46Z
 
-California’s Democratic Governor claims President Donald Trump has launched a criminal investigation against him.
+Now that we're clear of WWDC and all of the AI-powered features coming to Apple's platforms, Bloomberg reporter Mark Gurman has more details about rumored new hardware like the camera-equipped AirPods he'd previously written about. He says they are currently …
 
 ---
 
-## 79. [Author Amy Griffin sues woman who alleged she stole her stories of sexual abuse in memoir 'The Tell'](https://www.yahoo.com/news/us/articles/author-amy-griffin-sues-woman-041639742.html)
-* **Source URL:** <https://www.yahoo.com/news/us/articles/author-amy-griffin-sues-woman-041639742.html>
-* **Published At:** 2026-06-16T04:16:39Z
+## 46. [The future of AI regulation is courting the strangest, most anxious bedfellows](https://www.theverge.com/column/947838/washington-ai-network-honors-2026-midterms)
+* **Source URL:** <https://www.theverge.com/column/947838/washington-ai-network-honors-2026-midterms>
+* **Published At:** 2026-06-10T17:25:32Z
 
-Author Amy Griffin sued a former classmate for defamation on Monday, saying the woman's statements in a New York Times story and a subsequent lawsuit allegin...
+Hello and welcome to Regulator, a newsletter for Verge subscribers about tech politics, tech influence, and tech shenanigans in Washington, DC. (If you're not a subscriber, you can get on board here.) We're back after a two-week hiatus, during most of which I…
 
 ---
 
-## 80. [Trump administration identifies 'super-sponsors' of migrant children in a possible prosecution tack](https://www.yahoo.com/news/politics/articles/trump-administration-identifies-super-sponsors-184155592.html)
-* **Source URL:** <https://www.yahoo.com/news/politics/articles/trump-administration-identifies-super-sponsors-184155592.html>
-* **Published At:** 2026-06-11T18:41:55Z
+## 47. [Microsoft, like, totally gets why students are booing AI-pilled graduation speakers](https://www.theverge.com/news/947831/college-speakers-booed-ai-microsoft)
+* **Source URL:** <https://www.theverge.com/news/947831/college-speakers-booed-ai-microsoft>
+* **Published At:** 2026-06-10T17:45:11Z
 
-The Trump administration has identified more than 15,000 cases of adults gaining custody of multiple immigrant children who enter the U.S. without a parent,...
+New college graduates around the country have been booing and heckling commencement speakers who hype up AI. Microsoft would like everyone to talk it out. In a blog post running more than 3,100 words, Microsoft vice chair and president Brad Smith addressed th…
 
 ---
 
-## 81. [Phoenix LiveView 1.2 Released](https://phoenixframework.org/blog/phoenix-liveview-1-2-released)
-* **Source URL:** <https://phoenixframework.org/blog/phoenix-liveview-1-2-released>
-* **Published At:** 2026-06-14T04:53:51Z
+## 48. [Microsoft’s AI chief says superintelligence is near, but won’t take your job](https://www.theverge.com/podcast/944138/microsoft-ai-ceo-mustafa-suleyman-superintelligence-agi-openai-automation)
+* **Source URL:** <https://www.theverge.com/podcast/944138/microsoft-ai-ceo-mustafa-suleyman-superintelligence-agi-openai-automation>
+* **Published At:** 2026-06-08T13:17:24Z
 
-LiveView 1.2 is a small release that adds support for colocating CSS.
+Today I’m talking with Mustafa Suleyman, the CEO of Microsoft AI. And I’m actually going to keep today’s intro short — I’m working from my wife’s family farm this week, as you’ll see in the video, but also this is a real burner of an episode. We covered every…
 
 ---
 
-## 82. [Show HN: Tiny – An interpeted dynamic langauge with inline Go native functions](https://github.com/confh/Tiny)
-* **Source URL:** <https://github.com/confh/Tiny>
-* **Published At:** 2026-06-20T18:53:46Z
+## 49. [The Atlantic created a searchable database of the music used to train AI](https://www.theverge.com/ai-artificial-intelligence/953183/the-atlantic-searchable-database-music-ai-training-data)
+* **Source URL:** <https://www.theverge.com/ai-artificial-intelligence/953183/the-atlantic-searchable-database-music-ai-training-data>
+* **Published At:** 2026-06-20T18:46:48Z
 
-A lightweight programming language built with Go. Contribute to confh/Tiny development by creating an account on GitHub.
+Atlantic reporter Alex Reisner recently uncovered four datasets of music being used to train AI models and made them fully searchable for the public. Two of the sets are absolutely enormous at 12 million and 9 million tracks. The other two are much smaller, b…
 
 ---
 
-## 83. [Being an old school web-based sports sim dev in the era of vibe coded games](https://zengm.com/blog/2026/06/vibecoded-games/)
-* **Source URL:** <https://zengm.com/blog/2026/06/vibecoded-games/>
-* **Published At:** 2026-06-12T18:52:44Z
+## 50. [Patreon CEO Jack Conte on supporting artists in the AI slop era](https://www.theverge.com/podcast/952607/patreon-ceo-jack-conte)
+* **Source URL:** <https://www.theverge.com/podcast/952607/patreon-ceo-jack-conte>
+* **Published At:** 2026-06-22T13:53:33Z
 
-Comments
+Today, I’m talking with Jack Conte, the CEO of Patreon. Jack last joined me on the show almost exactly five years ago, in the summer of 2021, and a lot has changed on the internet and in the creator landscape since then, so I was very excited to talk to him a…
 
 ---
 
-## 84. [How working with a blind client revealed invisible accessibility gaps](https://iinteractive.com/resources/blog/read-only)
-* **Source URL:** <https://iinteractive.com/resources/blog/read-only>
-* **Published At:** 2026-06-29T21:59:28Z
+## 51. [The Fitbit Air takes a smarter approach to the AI health dumpster fire](https://www.theverge.com/tech/954768/google-fitbit-air-review-fitness-tracker-wearable-ai-health-coach)
+* **Source URL:** <https://www.theverge.com/tech/954768/google-fitbit-air-review-fitness-tracker-wearable-ai-health-coach>
+* **Published At:** 2026-06-23T14:06:44Z
 
-How working with a blind client on a Power Automate project revealed the invisible accessibility gaps baked into the platforms we build on every day.
+Google Health Coach seems to think I'm on the verge of physical collapse. My sleep is not where it needs to be, hence my unimpressive readiness score. My heart rate variability, a measure of how recovered I am, is below baseline. I'm spending too much time in…
 
 ---
 
-## 85. [Say Hello to the New Species of Fly Officially Approved to Clean Human Wounds](https://gizmodo.com/say-hello-to-the-new-species-of-fly-officially-approved-to-clean-human-wounds-2000774336)
-* **Source URL:** <https://gizmodo.com/say-hello-to-the-new-species-of-fly-officially-approved-to-clean-human-wounds-2000774336>
-* **Published At:** 2026-06-22T11:00:29Z
+## 52. [Sony’s AI Camera Assistant is exactly as bad as it looks](https://www.theverge.com/tech/954676/sony-xperia-1-viii-ai-camera-assistant)
+* **Source URL:** <https://www.theverge.com/tech/954676/sony-xperia-1-viii-ai-camera-assistant>
+* **Published At:** 2026-06-23T13:25:42Z
 
-The FDA has cleared Lucilia cuprina larvae for use in maggot debridement therapy.
+When Sony announced the Xperia 1 VIII last month, it promoted the phone by sharing some of the worst photos taken on a Sony camera in years. These weren't just any photos, though: they were taken with Sony's new AI Camera Assistant. After a week with the Xper…
 
 ---
 
-## 86. [A name, a document, a future: Cameroon’s fight to register every child](https://www.aljazeera.com/news/2026/7/5/a-name-a-document-a-future-cameroons-fight-to-register-every-child)
-* **Source URL:** <https://www.aljazeera.com/news/2026/7/5/a-name-a-document-a-future-cameroons-fight-to-register-every-child>
-* **Published At:** 2026-07-05T03:55:54Z
+## 53. [Suno launches Spark incubator program to feed independent artists to its AI machine](https://www.theverge.com/ai-artificial-intelligence/958801/suno-launches-spark-incubator-program-to-feed-independent-artists-to-its-ai-machine)
+* **Source URL:** <https://www.theverge.com/ai-artificial-intelligence/958801/suno-launches-spark-incubator-program-to-feed-independent-artists-to-its-ai-machine>
+* **Published At:** 2026-06-28T20:27:36Z
 
-Efforts to expand birth registration in Cameroon are gaining ground, but millions of children remain undocumented.
+Suno has ambitions to be more than just a toy to churn out AI slop, it also wants to be a streaming destination and to break new artists. Spark is their new incubator program for independent artists that provides grants, mentorship, and marketing support. To …
 
 ---
 
-## 87. [Ancient Roman Writings Have Given Historians The Strongest Evidence That Jesus Was A Real Person](https://www.boredpanda.com/jesus-was-real-person-evidence/)
-* **Source URL:** <https://www.boredpanda.com/jesus-was-real-person-evidence/>
-* **Published At:** 2026-06-23T09:56:39Z
+## 54. [Asus’ VivoWatch 6 Plus Can Send Health Data to Your Doctor](https://gizmodo.com/asus-vivowatch-6-plus-can-send-health-data-to-your-doctor-2000768044)
+* **Source URL:** <https://gizmodo.com/asus-vivowatch-6-plus-can-send-health-data-to-your-doctor-2000768044>
+* **Published At:** 2026-06-08T10:00:46Z
 
-The debate on the existence of Jesus has been, and will be, debated pretty much forever. But new compelling evidence might strengthen your argument around the dinner table. Historians from 116AD have left us with written documentation that is hard to argue wi…
+The Asus AI Agent now works in healthcare.
 
 ---
 
-## 88. [It used to be hard](https://www.praf.me/it-used-to-be-hard)
-* **Source URL:** <https://www.praf.me/it-used-to-be-hard>
-* **Published At:** 2026-06-09T16:43:54Z
+## 55. [Seattle Passes Most Symbolically Potent Data Center Moratorium Yet](https://gizmodo.com/seattle-passes-most-symbolically-potent-data-center-moratorium-yet-2000769840)
+* **Source URL:** <https://gizmodo.com/seattle-passes-most-symbolically-potent-data-center-moratorium-yet-2000769840>
+* **Published At:** 2026-06-10T03:55:36Z
 
-Comments
+AI titans Microsoft and Amazon are intimately linked with Seattle.
 
 ---
 
-## 89. [Stop Using JWTs](https://gist.github.com/samsch/0d1f3d3b4745d778f78b230cf6061452)
-* **Source URL:** <https://gist.github.com/samsch/0d1f3d3b4745d778f78b230cf6061452>
-* **Published At:** 2026-06-16T16:49:46Z
+## 56. [DuckDuckGo, Unable to Resist the Pull of AI, Mistakenly Claims Trump Died of Rabies](https://gizmodo.com/duckduckgo-unable-to-resist-the-pull-of-ai-mistakenly-claims-trump-died-of-rabies-2000777863)
+* **Source URL:** <https://gizmodo.com/duckduckgo-unable-to-resist-the-pull-of-ai-mistakenly-claims-trump-died-of-rabies-2000777863>
+* **Published At:** 2026-06-25T20:25:09Z
 
-Stop using JWTs. GitHub Gist: instantly share code, notes, and snippets.
+Can't just be the non-AI search engine.
 
 ---
 
-## 90. [WhatsApp's "End-to-End Encryption" Is the Biggest Lie in Tech History](https://medium.com/@0xaxgb/whatsapps-e2e-encryption-is-the-biggest-lie-in-tech-history-and-i-can-prove-it-mathematically-46ebdffeb319)
-* **Source URL:** <https://medium.com/@0xaxgb/whatsapps-e2e-encryption-is-the-biggest-lie-in-tech-history-and-i-can-prove-it-mathematically-46ebdffeb319>
-* **Published At:** 2026-06-22T13:17:14Z
+## 57. [Crypto Promoters Say Blockchain Is the Future of AI. Researchers Aren’t Buying It](https://gizmodo.com/crypto-promoters-say-blockchain-is-the-future-of-ai-researchers-arent-buying-it-2000769680)
+* **Source URL:** <https://gizmodo.com/crypto-promoters-say-blockchain-is-the-future-of-ai-researchers-arent-buying-it-2000769680>
+* **Published At:** 2026-06-10T12:10:43Z
 
-WhatsApp’s “End-to-End Encryption” Is the Biggest Lie in Tech History — And I Can Prove It Mathematically The green padlock is real. The privacy it implies is not. Offensive security by …
+Is crypto really the secret sauce that AI is missing?
 
 ---
 
-## 91. [The Lie of Authentic Landscape Photography](https://fstoppers.com/fine-art/lie-authentic-landscape-photography-900754)
-* **Source URL:** <https://fstoppers.com/fine-art/lie-authentic-landscape-photography-900754>
-* **Published At:** 2026-06-14T16:03:01Z
+## 58. [Apple WWDC 2026: The 7 biggest announcements](https://www.theverge.com/tech/945693/apple-wwdc-2026-biggest-announcements-ios-27)
+* **Source URL:** <https://www.theverge.com/tech/945693/apple-wwdc-2026-biggest-announcements-ios-27>
+* **Published At:** 2026-06-08T18:51:19Z
 
-Landscape photography isn't about showing the raw file—it's about artistic integrity. Explore how cameras inherently manipulate reality through lenses, dynamic range, and framing, and why your vision matters more than literal documentation.
+Apple's keynote at this year's Worldwide Developers Conference was a big one. After months of delays, Apple reintroduced us to its AI-upgraded Siri, which will go beyond what the existing voice assistant can do by offering more personalized help. We also got …
 
 ---
 
-## 92. [Employment War Erupts After HR Insists on Ancient High School Documentation for a Mid-Career Position](http://twistedsifter.com/2026/06/employment-war-erupts-after-hr-insists-on-ancient-high-school-documentation-for-a-mid-career-position/)
-* **Source URL:** <http://twistedsifter.com/2026/06/employment-war-erupts-after-hr-insists-on-ancient-high-school-documentation-for-a-mid-career-position/>
-* **Published At:** 2026-06-27T20:55:41Z
+## 59. [Researchers Identify 3 Key Drivers Behind ‘AI Psychosis’](https://gizmodo.com/researchers-identify-3-key-drivers-behind-ai-psychosis-2000776258)
+* **Source URL:** <https://gizmodo.com/researchers-identify-3-key-drivers-behind-ai-psychosis-2000776258>
+* **Published At:** 2026-06-24T17:10:29Z
 
-It is shocking how companies seem to love wasting everyone's time. 
-The post Employment War Erupts After HR Insists on Ancient High School Documentation for a Mid-Career Position appeared first on TwistedSifter.
+A new study puts forward a hypothesis on the mechanism behind AI psychosis.
 
 ---
 
-## 93. [A tale of two path separators](https://alexwlchan.net/2021/slashes/)
-* **Source URL:** <https://alexwlchan.net/2021/slashes/>
-* **Published At:** 2026-06-17T10:14:53Z
+## 60. [OpenAI Joins Anthropic in Call for International AI Watchdog](https://gizmodo.com/openai-joins-anthropic-in-call-for-international-ai-watchdog-2000769442)
+* **Source URL:** <https://gizmodo.com/openai-joins-anthropic-in-call-for-international-ai-watchdog-2000769442>
+* **Published At:** 2026-06-09T15:40:29Z
 
-macOS allows both the slash and colon as path separators, and this caused me no small amount of confusion.
+The calls for a slow down on frontier model development are growing.
 
 ---
 
-## 94. [Revisiting Using AI Coding Assistants: You’re Holding It Wrong Edition](https://hackaday.com/2026/06/08/revisiting-using-ai-coding-assistants-youre-holding-it-wrong-edition/)
-* **Source URL:** <https://hackaday.com/2026/06/08/revisiting-using-ai-coding-assistants-youre-holding-it-wrong-edition/>
-* **Published At:** 2026-06-08T14:00:48Z
+## 61. [Estonia Is Giving AI Agents ‘Personal Identification Codes’](https://gizmodo.com/estonia-is-giving-ai-agents-personal-identification-codes-2000773016)
+* **Source URL:** <https://gizmodo.com/estonia-is-giving-ai-agents-personal-identification-codes-2000773016>
+* **Published At:** 2026-06-17T15:10:17Z
 
-After scathing accusations of skimping on due diligence, as well as other feedback to my article on trying to use an ‘AI coding assistant’ for the first time, the only rational, academi…
+It’s an early experiment in adding a measure of accountability to an increasingly lawless internet.
 
 ---
 
-## 95. [GitHub AI agent leaks private repos when asked nicely](https://www.theregister.com/security/2026/07/07/github-ai-agent-leaks-private-repos-when-asked-nicely/5267924)
-* **Source URL:** <https://www.theregister.com/security/2026/07/07/github-ai-agent-leaks-private-repos-when-asked-nicely/5267924>
-* **Published At:** 2026-07-07T19:49:01Z
+## 62. [The Government Boot Is Coming Down on AI](https://gizmodo.com/the-government-boot-is-coming-down-on-ai-2000778260)
+* **Source URL:** <https://gizmodo.com/the-government-boot-is-coming-down-on-ai-2000778260>
+* **Published At:** 2026-06-26T16:00:26Z
 
-Per usual, there's no fix - or even any documentation - for GitLost
+The Trump administration suddenly has its eye on the AI industry, and Anthropic isn't the only target.
 
 ---
 
-## 96. [Naotaka Hiro at Herald St and Museum St](https://www.contemporaryartdaily.com/project/naotaka-hiro-at-herald-st-london-museum-st-london-77643?source=rss)
-* **Source URL:** <https://www.contemporaryartdaily.com/project/naotaka-hiro-at-herald-st-london-museum-st-london-77643?source=rss>
-* **Published At:** 2026-07-06T00:00:00Z
+## 63. [Meta is adding ridiculous ‘rate limits’ and a soft paywall to its smart glasses](https://www.theverge.com/gadgets/959899/meta-ai-glasses-paywall-rate-limit)
+* **Source URL:** <https://www.theverge.com/gadgets/959899/meta-ai-glasses-paywall-rate-limit>
+* **Published At:** 2026-07-01T00:51:03Z
 
-Documentation of Naotaka Hiro at Herald St, London is featured on Contemporary Art Daily.
+Would you pay $20 a month for access to AI hardware you already own? That appears to be one of Meta's next bets. This week, it quietly announced that your glasses' Conversation Focus feature will soon be limited to three hours of use per month, unless you pay…
 
 ---
 
