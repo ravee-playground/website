@@ -35,19 +35,17 @@ jobs:
       # Step 4: Run your crawler script
       - name: Run Crawler Script
         run: node crawl.js
-
-      # Step 5: Check if chunks.jsonl changed, and commit it if it did
+        # Step 5: Check if chunky.jsonl changed, and commit it if it did
       - name: Commit and Push Updated Data
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Stage changes
-          git add chunks.jsonl
-          
-          # Only commit and push if there are changes to avoid workflow errors
-          if ! git diff-index --quiet HEAD; then
-            git commit -m "chore: automated update of chunks.jsonl [skip ci]"
+          # Check if chunky.jsonl actually has modifications
+          if [ -n "$(git status --porcelain chunky.jsonl)" ]; then
+            echo "Changes detected in chunky.jsonl. Committing changes..."
+            git add chunky.jsonl
+            git commit -m "chore: automated update of chunky.jsonl [skip ci]"
             git pull --rebase origin main
             git push
           else
