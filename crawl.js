@@ -27,7 +27,8 @@ async function crawlDocs() {
                 const cleanUrl = fullUrl.split('#')[0].replace(/\/$/, "");
                 docLinks.add(cleanUrl);
             }
-        });*/
+        });
+        */
 const API_KEY = process.env.NEWSAPI_KEY;
 const START_URL = `https://newsapi.org/v2/everything?q=documentation&apiKey=${API_KEY}`;
 
@@ -41,11 +42,8 @@ for (const article of articles) {
     headings: [],
     text: article.description || article.content,
     url: article.url
-  };
+  }};
   // ...rest of logic
-}
-
-
         const urlsToCrawl = Array.from(docLinks);
         console.log(`Found ${urlsToCrawl.length} unique documentation pages to crawl.\n`);
 
