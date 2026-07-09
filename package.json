@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "crawl": "node crawler/crawl.js"
+    "start": "node server.js"
   },
   "dependencies": {
+    "@google/genai": "^2.10.0",
     "@modelcontextprotocol/sdk": "^1.27.1",
     "@mozilla/readability": "^0.5.0",
     "axios": "^1.7.0",
@@ -14,8 +15,5 @@
     "jsdom": "^24.1.0",
     "playwright": "^1.44.0",
     "zod": "^4.3.6"
-  },
-  "scripts": {
-  "start": "node server.js"
   }
 }
