@@ -37,24 +37,28 @@ jobs:
         env:
           NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
         run: node crawl.js
-
         
-        # Step 5: Check if chunky.jsonl changed, and commit it if it did
-      # Step 5: Check if chunky.md changed, and commit it if it did
+      # Step 4.5: Run the Summarizer to build the essay
+      - name: Run Summarizer Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node summarize.js
+        
+      # Step 5: Check if the new summary article changed, and commit it
       - name: Commit and Push Updated Data
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Check if chunky.md actually has modifications
-          if [ -n "$(git status --porcelain chunky.md)" ]; then
-            echo "Changes detected in chunky.md. Committing changes..."
-            git add chunky.md
-            git commit -m "chore: automated update of chunky.md [skip ci]"
+          # Track both files or just your clean summary output file
+          if [ -n "$(git status --porcelain ai-debate-summary.md)" ]; then
+            echo "New synthesized article generated. Committing changes..."
+            git add ai-debate-summary.md chunky.md
+            git commit -m "docs: auto-generate updated AI debate essay [skip ci]"
             git pull --rebase origin main
             git push
           else
-            echo "No changes detected in chunky.md. Skipping commit."
+            echo "No new data changes to summarize. Skipping commit."
           fi
       
       # - name: Commit and Push Updated Data
