@@ -42,7 +42,7 @@ for (const article of articles) {
     headings: [],
     text: article.description || article.content,
     url: article.url
-  }};
+  };
   // ...rest of logic
         const urlsToCrawl = Array.from(docLinks);
         console.log(`Found ${urlsToCrawl.length} unique documentation pages to crawl.\n`);
