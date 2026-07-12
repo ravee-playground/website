@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
 
   # Automatically runs at 00:00 every Sunday
-  schedule:
-    - cron: '0 0 * * 0'
+  # schedule:
+   # - cron: '0 0 * * 0'
 
 jobs:
   scrape-and-update:
