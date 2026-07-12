@@ -3,8 +3,8 @@ import fs from 'fs';
 
 // Initialize the Gemini SDK (it automatically looks for the GEMINI_API_KEY env variable)
 const ai = new GoogleGenAI({});
-const INPUT_FILE = './chunky.md'; // Your crawled raw data
-const SUMMARY_OUTPUT = './ai-debate-summary-lyft.md';
+const INPUT_FILE = './lyft-summary.md'; // Your crawled raw data
+const SUMMARY_OUTPUT = './ai-summary-lyft.md';
 
 // Helper: split the crawled data into individual articles.
 // Heuristics used (in order):
