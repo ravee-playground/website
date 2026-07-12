@@ -23,6 +23,15 @@ jobs:
         with:
           node-version: '24' # Uses Node 24 LTS
           cache: 'npm'  # Speeds up future runs by caching dependencies
+      
+      # Step 2.5: Debug
+       - name: Debug Node environment
+         run: |
+          node -v
+          npm -v
+          pwd
+          ls -la
+          cat package.json || true
 
       # Step 3: Install dependencies (axios, cheerio, etc.)
       - name: Install Dependencies
@@ -45,14 +54,15 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-        # Track both files or just your clean summary output file
-        if [ -n "$(git status --porcelain lyft-summary.md ai-summary-lyft.md)" ]; then
-          echo "New synthesized article generated. Committing changes..."
-          git add lyft-summary.md ai-summary-lyft.md
-          git commit -m "docs: auto-generate Lyft Engineering crawl summary [skip ci]"
-          git pull --rebase origin main
-          git push
-        else
+
+          # Track both files or just your clean summary output file
+          # Use git diff to detect any working tree changes (more robust than checking a single file)
+          if git diff --quiet --exit-code; then
             echo "No new data changes to summarize. Skipping commit."
+          else
+            echo "New synthesized article generated. Committing changes..."
+            git add lyft-summary.md ai-summary-lyft.md
+            git commit -m "docs: auto-generate Lyft Engineering crawl summary [skip ci]"
+            git pull --rebase origin main
+            git push
           fi
