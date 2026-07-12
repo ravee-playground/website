@@ -1,14 +1,18 @@
-name: One-Time Lyft Engineering Crawler
+name: Lyft Engineering Crawler & Summarizer
 
 on:
-  # Allows you to manually trigger the workflow from the GitHub Actions tab
+  # Allows manual triggers with an optional toggle to skip the browser crawler phase
   workflow_dispatch:
+    inputs:
+      skip_crawler:
+        description: 'Skip Playwright Scraper? (Only run summarizer)'
+        type: boolean
+        default: false
 
 jobs:
   scrape-and-update:
     runs-on: ubuntu-latest
 
-    # Grants permissions required to commit the changes back to your repository
     permissions:
       contents: write
 
@@ -21,8 +25,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24' # Uses Node 24 LTS
-          cache: 'npm'  # Speeds up future runs by caching dependencies
+          node-version: '24'
+          cache: 'npm'
       
       # Step 2.5: Debug
       - name: Debug Node environment
@@ -33,52 +37,53 @@ jobs:
           ls -la
           cat package.json || true
 
-      # Step 3: Install dependencies (axios, cheerio, etc.)
+      # Step 3: Install dependencies
       - name: Install Dependencies
         run: |
           npm install
-          npx playwright install chromium --with-deps
+          if [ "${{ inputs.skip_crawler }}" != "true" ]; then
+            npx playwright install chromium --with-deps
+          fi
 
-      # Step 4: Run your crawler script for Lyft Engineering
+      # Step 4: Run your crawler script for Lyft Engineering (Skippable)
       - name: Run Lyft Engineering Crawler Script
+        if: ${{ inputs.skip_crawler != true }}
         env:
           TARGET_URL: https://eng.lyft.com
         run: node crawl-lyft.js
         
-      # Step 4.5: Run the Summarizer
+      # Step 4.5: Run the Summarizer (Always runs)
       - name: Run Summarizer Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node summarize-lyft.js
 
-# Step 5: Check if the new summary article changed, and commit it
+      # Step 5: Check if any output files changed, and safely commit them
       - name: Commit and Push Updated Data
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Stage the specific target files first
+          # Stage target files first
           git add ai-summary-lyft.md lyft-summary.md || true
 
-          # Check if there are actual changes staged to commit
+          # Evaluate staged status
           if git diff --cached --quiet; then
-            echo "No new data changes to summarize. Skipping commit."
+            echo "No data changes to summarize. Skipping commit."
           else
-            echo "New synthesized article generated. Committing changes..."
+            echo "New content variants generated. Committing changes..."
             git commit -m "docs: auto-generate Lyft Engineering crawl summary [skip ci]"
             
-            # Stage any leftover accidental modifications (like package logs) 
-            # and stash them safely out of the way before pulling.
+            # Stash any external runtime modifications (e.g. log updates)
             git add .
             git stash || true
             
-            # FIX: Tell Git that if a conflict occurs on the pull/rebase, 
-            # your local runner's newly crawled file always wins ('theirs' in rebase context means your commit)
+            # Rebase from origin using our forced-override conflict solution
             git pull --rebase -X theirs origin main
             
-            # Pop the changes back out if there were any
+            # Pop the stashed changes back out safely
             git stash pop || true
             
-            # Push the clean, synced commit history back to GitHub
+            # Finalize push to main
             git push origin main
           fi
