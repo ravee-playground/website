@@ -37,13 +37,13 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Step 4: Run your crawler script for Lyft Engineering with the API key injected
+      # Step 4: Run your crawler script for Lyft Engineering
       - name: Run Lyft Engineering Crawler Script
         env:
           TARGET_URL: https://eng.lyft.com
         run: node crawl-lyft.js
         
-      # Step 4.5: Run the Summarizer to build the essay
+      # Step 4.5: Run the Summarizer
       - name: Run Summarizer Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
