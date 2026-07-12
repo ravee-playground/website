@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Uses Node 20 LTS
+          node-version: '24' # Uses Node 24 LTS
           cache: 'npm'  # Speeds up future runs by caching dependencies
 
       # Step 3: Install dependencies (axios, cheerio, etc.)
