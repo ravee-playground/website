@@ -1,0 +1,58 @@
+name: One-Time Lyft Engineering Crawler
+
+on:
+  # Allows you to manually trigger the workflow from the GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+
+    # Grants permissions required to commit the changes back to your repository
+    permissions:
+      contents: write
+
+    steps:
+      # Step 1: Check out your repository code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up a Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Uses Node 20 LTS
+          cache: 'npm'  # Speeds up future runs by caching dependencies
+
+      # Step 3: Install dependencies (axios, cheerio, etc.)
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Run your crawler script for Lyft Engineering with the API key injected
+      - name: Run Lyft Engineering Crawler Script
+        env:
+          TARGET_URL: https://eng.lyft.com
+        run: node crawl.js
+        
+      # Step 4.5: Run the Summarizer to build the essay
+      - name: Run Summarizer Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node summarize-lyft.js
+        
+      # Step 5: Check if the new summary article changed, and commit it
+      - name: Commit and Push Updated Data
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Track both files or just your clean summary output file
+          if [ -n "$(git status --porcelain ai-debate-summary.md)" ]; then
+            echo "New synthesized article generated. Committing changes..."
+            git add lyft-summary.md
+            git commit -m "docs: auto-generate Lyft Engineering crawl summary [skip ci]"
+            git pull --rebase origin main
+            git push
+          else
+            echo "No new data changes to summarize. Skipping commit."
+          fi
