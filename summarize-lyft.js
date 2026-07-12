@@ -1,7 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import fs from 'fs';
 
-// FIX 1: Pass the API key string directly to the constructor
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const INPUT_FILE = './lyft-summary.md'; 
@@ -119,6 +118,28 @@ function buildYearTable(articles) {
   return [header, ...rows].join('\n');
 }
 
+// Robust wrapper around generating content with an aggressive retry backoff policy for 429 errors
+async function safeGenerateContent(model, promptText) {
+  let attempts = 0;
+  while (attempts < 5) {
+    try {
+      const result = await model.generateContent(promptText);
+      return result.response.text();
+    } catch (apiError) {
+      const errorMsg = apiError.message || '';
+      if ((errorMsg.includes('429') || errorMsg.includes('quota')) && attempts < 4) {
+        attempts++;
+        // Scale wait times up if we keep missing (15s, 30s, 45s, 60s)
+        const backoffTime = attempts * 15000;
+        console.warn(`⚠️ Hit rate limit or quota ceiling. Sleeping for ${backoffTime / 1000}s before retrying (Attempt ${attempts}/5)...`);
+        await new Promise(r => setTimeout(r, backoffTime));
+      } else {
+        throw apiError;
+      }
+    }
+  }
+}
+
 async function generateSummaryArticle() {
   try {
     console.log(`Reading crawled data from ${INPUT_FILE}...`);
@@ -165,31 +186,40 @@ async function generateSummaryArticle() {
 
     preface += `## Articles by Year (last 10 years + Older/Unknown)\n\n${yearTableMd}\n\n`;
 
-    const canonicalIdx = new Set();
     const exactGroups = duplicates.filter(d => d.type === 'exact');
-    for (const g of exactGroups) {
-      canonicalIdx.add(g.indices[0]);
-    }
-    
-    let combinedForAI = articles
-      .map((a) => ({ idx: a.index, content: a.content }))
-      .filter(a => !exactGroups.some(g => g.indices.slice(1).includes(a.idx)))
-      .map(a => a.content)
-      .join('\n\n---\n\n');
+    const uniquelyCleanedArticles = articles
+      .filter(a => !exactGroups.some(g => g.indices.slice(1).includes(a.index)))
+      .map(a => `Title: ${a.title}\nContent: ${a.content}`);
 
-    // SAFEGUARD: Truncate word count to fit under Gemini's 250,000 free token per-minute boundary
-    const MAX_WORD_BUDGET = 120000;
-    const words = combinedForAI.split(/\s+/);
-    if (words.length > MAX_WORD_BUDGET) {
-      console.warn(`⚠️ Data size exceeds Free Tier limits (${words.length} words). Truncating payload to protect quota...`);
-      combinedForAI = words.slice(0, MAX_WORD_BUDGET).join(' ');
+    // FIX: MAP PHASE — Break up the 100+ documents into bite-sized batches of 5 articles
+    console.log(`Splitting ${uniquelyCleanedArticles.length} filtered articles into batches to safely fit within token quotas...`);
+    const BATCH_SIZE = 5;
+    const batchSummaries = [];
+
+    const chunkingModel = genAI.getGenerativeModel({
+      model: 'gemini-2.5-flash',
+      systemInstruction: 'You are an internal data extraction processor. Summarize the following engineering articles, pulling out key technical tools, team contexts, architectural challenges, and technical skills gaps mentioned. Keep it dense and informational.'
+    });
+
+    for (let i = 0; i < uniquelyCleanedArticles.length; i += BATCH_SIZE) {
+      const currentBatch = uniquelyCleanedArticles.slice(i, i + BATCH_SIZE);
+      console.log(`Processing article batch ${Math.floor(i / BATCH_SIZE) + 1} of ${Math.ceil(uniquelyCleanedArticles.length / BATCH_SIZE)}...`);
+      
+      const batchPrompt = `Analyze and condense this batch of text:\n\n${currentBatch.join('\n\n---\n\n')}`;
+      const miniSummary = await safeGenerateContent(chunkingModel, batchPrompt);
+      batchSummaries.push(miniSummary);
+
+      // Add a small delay between batch loops to let the per-minute token quota breath
+      await new Promise(r => setTimeout(r, 2000));
     }
 
-    console.log('Asking Gemini to synthesize the data into a debate article...');
+    // REDUCE PHASE — Synthesize all the intermediate chunk summaries into your massive final layout blueprint
+    console.log('Running final reduction step to synthesize report layout formats...');
+    const combinedIntermediateText = batchSummaries.join('\n\n=====================\n\n');
 
     const systemInstruction = `
         You are an expert Technical Developer Educator, Technical Publications Lead, Content Architect, and AI Enablement Architect.
-        Your task is to review the provided background source articles and synthesize them into a single, high-quality report.
+        Your task is to review the provided summary notes and synthesize them into a single, high-quality report.
         
         Act as a Lead Technical Developer Educator. Review the attached text from Lyft’s recent engineering blog posts. Analyze the underlying tech stack shifts, tooling adoptions, and architectural challenges discussed across the teams (e.g., platform, infrastructure, mobile, data).
         ## The top hidden technical skill gaps
@@ -215,33 +245,14 @@ async function generateSummaryArticle() {
         Do not invent outside facts; rely heavily on synthesizing the themes present in the provided text. Keep it completely unbiased and objective.
     `;
 
-    const model = genAI.getGenerativeModel({ 
+    const finalModel = genAI.getGenerativeModel({ 
       model: 'gemini-2.5-flash',
       systemInstruction: systemInstruction,
-      generationConfig: {
-        temperature: 0.3
-      }
+      generationConfig: { temperature: 0.3 }
     });
 
-    let result;
-    let attempts = 0;
-    while (attempts < 3) {
-      try {
-        result = await model.generateContent(`Here are the raw crawled source materials:\n\n${combinedForAI}`);
-        break; 
-      } catch (apiError) {
-        if (apiError.message.includes('429') && attempts < 2) {
-          attempts++;
-          console.warn(`⚠️ Rate limited. Cool-down pause triggered. Retrying in 15 seconds (Attempt ${attempts}/3)...`);
-          await new Promise(r => setTimeout(r, 15000));
-        } else {
-          throw apiError;
-        }
-      }
-    }
-
-    const response = result.response;
-    const finalMd = `# Synthesized Report (Lyft variant)\n\n${preface}---\n\n${response.text()}`;
+    const finalOutputText = await safeGenerateContent(finalModel, `Here are the condensed raw technical materials summaries:\n\n${combinedIntermediateText}`);
+    const finalMd = `# Synthesized Report (Lyft variant)\n\n${preface}---\n\n${finalOutputText}`;
 
     fs.writeFileSync(SUMMARY_OUTPUT, finalMd);
     console.log(`✨ Success! Your report with duplicates and year table has been saved to ${SUMMARY_OUTPUT}`);
