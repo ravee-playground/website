@@ -18,4 +18,4 @@ jobs:
           confluenceParentId: '2424833' # Replace with your Parent Page ID
           atlassianUserName: ${{ secrets.ATLASSIAN_USERNAME }}
           atlassianApiToken: ${{ secrets.ATLASSIAN_API_TOKEN }}
-          folderToPublish: 'docs' # The folder containing your markdown files
+          folderToPublish: '.' # The folder containing your markdown files
