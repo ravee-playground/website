@@ -47,7 +47,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
           # Track both files or just your clean summary output file
-          if [ -n "$(git status --porcelain ai-debate-summary.md)" ]; then
+          if [ -n "$(git status --porcelain ai-summary-lyft.md)" ]; then
             echo "New synthesized article generated. Committing changes..."
             git add lyft-summary.md
             git commit -m "docs: auto-generate Lyft Engineering crawl summary [skip ci]"
