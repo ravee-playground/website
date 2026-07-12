@@ -118,7 +118,7 @@ function buildYearTable(articles) {
   return [header, ...rows].join('\n');
 }
 
-// Robust wrapper around generating content with an aggressive retry backoff policy for 429 errors
+// FIX: Added 503 and 500 server errors to the auto-retry backoff cycle
 async function safeGenerateContent(model, promptText) {
   let attempts = 0;
   while (attempts < 5) {
@@ -127,11 +127,19 @@ async function safeGenerateContent(model, promptText) {
       return result.response.text();
     } catch (apiError) {
       const errorMsg = apiError.message || '';
-      if ((errorMsg.includes('429') || errorMsg.includes('quota')) && attempts < 4) {
+      
+      // Catch 429 (Rate limit), 503 (Overloaded), and 500 (Internal Error)
+      const isRetryable = errorMsg.includes('429') || 
+                          errorMsg.includes('503') || 
+                          errorMsg.includes('500') || 
+                          errorMsg.includes('quota') ||
+                          errorMsg.includes('demand');
+
+      if (isRetryable && attempts < 4) {
         attempts++;
-        // Scale wait times up if we keep missing (15s, 30s, 45s, 60s)
+        // Escalating delay: 15s, 30s, 45s, 60s
         const backoffTime = attempts * 15000;
-        console.warn(`⚠️ Hit rate limit or quota ceiling. Sleeping for ${backoffTime / 1000}s before retrying (Attempt ${attempts}/5)...`);
+        console.warn(`⚠️ API Overloaded or Limited (${errorMsg.slice(0, 50)}...). Sleeping for ${backoffTime / 1000}s before retrying (Attempt ${attempts}/5)...`);
         await new Promise(r => setTimeout(r, backoffTime));
       } else {
         throw apiError;
@@ -191,7 +199,6 @@ async function generateSummaryArticle() {
       .filter(a => !exactGroups.some(g => g.indices.slice(1).includes(a.index)))
       .map(a => `Title: ${a.title}\nContent: ${a.content}`);
 
-    // FIX: MAP PHASE — Break up the 100+ documents into bite-sized batches of 5 articles
     console.log(`Splitting ${uniquelyCleanedArticles.length} filtered articles into batches to safely fit within token quotas...`);
     const BATCH_SIZE = 5;
     const batchSummaries = [];
@@ -209,11 +216,10 @@ async function generateSummaryArticle() {
       const miniSummary = await safeGenerateContent(chunkingModel, batchPrompt);
       batchSummaries.push(miniSummary);
 
-      // Add a small delay between batch loops to let the per-minute token quota breath
+      // Add a small delay between batch loops to let the per-minute token quota breathe
       await new Promise(r => setTimeout(r, 2000));
     }
 
-    // REDUCE PHASE — Synthesize all the intermediate chunk summaries into your massive final layout blueprint
     console.log('Running final reduction step to synthesize report layout formats...');
     const combinedIntermediateText = batchSummaries.join('\n\n=====================\n\n');
 
@@ -260,9 +266,10 @@ async function generateSummaryArticle() {
   } catch (error) {
     console.error(`Error generating summary: ${error.message}`);
     
-    if (error.message.includes('429') || error.message.includes('quota')) {
-      console.warn("⚠️ Pipeline warning: Gemini summary skipped due to quota limits. Writing structural fallback file.");
-      fs.writeFileSync(SUMMARY_OUTPUT, `# Synthesized Report (Lyft variant)\n\n${preface}\n\n> ⚠️ Automated Warning: The detailed AI-generated architecture synthesis is temporarily unavailable due to upstream API token limits. Please check back during the next workflow run cycle.`);
+    // Fallback logic updated to handle 503 limits as well
+    if (error.message.includes('429') || error.message.includes('503') || error.message.includes('quota')) {
+      console.warn("⚠️ Pipeline warning: Gemini summary skipped due to temporary platform load limits. Writing fallback file.");
+      fs.writeFileSync(SUMMARY_OUTPUT, `# Synthesized Report (Lyft variant)\n\n${preface}\n\n> ⚠️ Automated Warning: The detailed AI-generated architecture synthesis is temporarily unavailable because Gemini servers are under high demand. Please check back during the next workflow run cycle.`);
     } else {
       process.exit(1); 
     }
