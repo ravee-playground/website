@@ -32,7 +32,7 @@ jobs:
       - name: Run Lyft Engineering Crawler Script
         env:
           TARGET_URL: https://eng.lyft.com
-        run: node crawl.js
+        run: node crawl-lyft.js
         
       # Step 4.5: Run the Summarizer to build the essay
       - name: Run Summarizer Script
