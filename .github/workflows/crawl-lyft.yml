@@ -55,16 +55,27 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # FIX 1: Stage the files FIRST so Git actually knows they exist
-          # Using "|| true" ensures the workflow won't crash here if a file is missing
+          # Stage the specific target files first
           git add ai-summary-lyft.md lyft-summary.md || true
 
-          # FIX 2: Check staged changes using --cached
+          # Check if there are actual changes staged to commit
           if git diff --cached --quiet; then
             echo "No new data changes to summarize. Skipping commit."
           else
             echo "New synthesized article generated. Committing changes..."
             git commit -m "docs: auto-generate Lyft Engineering crawl summary [skip ci]"
+            
+            # FIX: Stage any leftover accidental modifications (like package logs) 
+            # and stash them safely out of the way before pulling.
+            git add .
+            git stash || true
+            
+            # Safely rebase and pull down remote updates
             git pull --rebase origin main
-            git push
+            
+            # Pop the changes back out if there were any
+            git stash pop || true
+            
+            # Push the clean, synced commit history back to GitHub
+            git push origin main
           fi
