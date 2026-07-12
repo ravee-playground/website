@@ -171,11 +171,19 @@ async function generateSummaryArticle() {
       canonicalIdx.add(g.indices[0]);
     }
     
-    const combinedForAI = articles
+    let combinedForAI = articles
       .map((a) => ({ idx: a.index, content: a.content }))
       .filter(a => !exactGroups.some(g => g.indices.slice(1).includes(a.idx)))
       .map(a => a.content)
       .join('\n\n---\n\n');
+
+    // SAFEGUARD: Truncate word count to fit under Gemini's 250,000 free token per-minute boundary
+    const MAX_WORD_BUDGET = 120000;
+    const words = combinedForAI.split(/\s+/);
+    if (words.length > MAX_WORD_BUDGET) {
+      console.warn(`⚠️ Data size exceeds Free Tier limits (${words.length} words). Truncating payload to protect quota...`);
+      combinedForAI = words.slice(0, MAX_WORD_BUDGET).join(' ');
+    }
 
     console.log('Asking Gemini to synthesize the data into a debate article...');
 
@@ -191,14 +199,14 @@ async function generateSummaryArticle() {
         ## Likely operational bottlenecks
         (Based on how complex these topics are (e.g., distributed systems, ML infrastructure), identify the likely operational bottlenecks an engineer faces when trying to translate their code into these public-facing blog posts. Draft a lean, 'Docs-as-Code' template and a 3-step checklist that an L&D partner could give to a Lyft engineer to help them structure a complex technical post in under 30 minutes without sacrificing technical accuracy.)
 
-        ##Which specific engineering teams are shipping the most complex changes?
+        ## Which specific engineering teams are shipping the most complex changes?
         (Analyze these Lyft engineering articles and identify the core authors, team names (e.g., Data Platform, Core Infrastructure, Autonomous, Mobile Platforms), and specialized technical Subject Matter Experts (SMEs) driving their high-leverage initiatives. Generate an internal stakeholder mapping report listing)
 
-        ##Which domains are prime candidates for embedding 'AI Productivity Champions' to help scale internal technical enablement?
+        ## Which domains are prime candidates for embedding 'AI Productivity Champions' to help scale internal technical enablement?
         (Analyze these Lyft engineering articles and identify the core authors, team names (e.g., Data Platform, Core Infrastructure, Autonomous, Mobile Platforms), and specialized technical Subject Matter Experts (SMEs) driving their high-leverage initiatives. Generate an internal stakeholder mapping report listing)
 
         Review Lyft's engineering architecture described in these articles. Act as an AI Enablement Architect.
-        ##Structuring Systems Context for AI Coding Assistants at Lyft.
+        ## Structuring Systems Context for AI Coding Assistants at Lyft.
         (Design a concrete syllabus outline for a 1-hour internal workshop. The syllabus must explicitly address how a developer working on Lyft's specific service infrastructure can use advanced prompt engineering, metadata schema design, and runtime context to safely accelerate their coding velocity while adhering to strict internal data access governance parameters.)
  
         ## Editorial Conclusion
@@ -207,7 +215,6 @@ async function generateSummaryArticle() {
         Do not invent outside facts; rely heavily on synthesizing the themes present in the provided text. Keep it completely unbiased and objective.
     `;
 
-    // FIX 2: Initialize the model using the legacy SDK syntax
     const model = genAI.getGenerativeModel({ 
       model: 'gemini-2.5-flash',
       systemInstruction: systemInstruction,
@@ -216,18 +223,38 @@ async function generateSummaryArticle() {
       }
     });
 
-    // FIX 3: Invoke the call directly from the model object
-    const result = await model.generateContent(`Here are the raw crawled source materials:\n\n${combinedForAI}`);
+    let result;
+    let attempts = 0;
+    while (attempts < 3) {
+      try {
+        result = await model.generateContent(`Here are the raw crawled source materials:\n\n${combinedForAI}`);
+        break; 
+      } catch (apiError) {
+        if (apiError.message.includes('429') && attempts < 2) {
+          attempts++;
+          console.warn(`⚠️ Rate limited. Cool-down pause triggered. Retrying in 15 seconds (Attempt ${attempts}/3)...`);
+          await new Promise(r => setTimeout(r, 15000));
+        } else {
+          throw apiError;
+        }
+      }
+    }
+
     const response = result.response;
-    
-    // FIX 4: Use response.text() as a method call instead of a property
-    const finalMd = `# Synthesized Debate Article (Lyft variant)\n\n${preface}---\n\n${response.text()}`;
+    const finalMd = `# Synthesized Report (Lyft variant)\n\n${preface}---\n\n${response.text()}`;
 
     fs.writeFileSync(SUMMARY_OUTPUT, finalMd);
-    console.log(`✨ Success! Your synthesized debate article with duplicates and year table has been saved to ${SUMMARY_OUTPUT}`);
+    console.log(`✨ Success! Your report with duplicates and year table has been saved to ${SUMMARY_OUTPUT}`);
 
   } catch (error) {
     console.error(`Error generating summary: ${error.message}`);
+    
+    if (error.message.includes('429') || error.message.includes('quota')) {
+      console.warn("⚠️ Pipeline warning: Gemini summary skipped due to quota limits. Writing structural fallback file.");
+      fs.writeFileSync(SUMMARY_OUTPUT, `# Synthesized Report (Lyft variant)\n\n${preface}\n\n> ⚠️ Automated Warning: The detailed AI-generated architecture synthesis is temporarily unavailable due to upstream API token limits. Please check back during the next workflow run cycle.`);
+    } else {
+      process.exit(1); 
+    }
   }
 }
 
