@@ -1,8 +1,10 @@
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import fs from 'fs';
 
 // Initialize the Gemini SDK (it automatically looks for the GEMINI_API_KEY env variable)
-const ai = new GoogleGenAI({});
+const ai = new GoogleGenerativeAI({
+  apiKey: process.env.GEMINI_API_KEY
+});
 const INPUT_FILE = './lyft-summary.md'; // Your crawled raw data
 const SUMMARY_OUTPUT = './ai-summary-lyft.md';
 
@@ -224,15 +226,13 @@ async function generateSummaryArticle() {
             Do not invent outside facts; rely heavily on synthesizing the themes present in the provided text. Keep it completely unbiased and objective.
         `;
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash', // Fast and excellent at synthesis tasks
-      contents: `Here are the raw crawled source materials:\n\n${combinedForAI}`,
-      config: {
-        systemInstruction: systemInstruction,
-        temperature: 0.3 // Low temperature keeps it analytical and grounded in your data
-      }
-    });
-
+    const response = await ai.getModel('models/gemini-2.5-flash').generateContent({ // Fast and excellent at synthesis tasks
+  contents: `Here are the raw crawled source materials:\n\n${combinedForAI}`,
+  systemInstruction: systemInstruction,
+  generationConfig: {
+    temperature: 0.3 // Low temperature keeps it analytical and grounded in your data
+  }
+});
     // Compose final output file which includes duplicates list, year table, and the AI essay
     const finalMd = `# Synthesized Debate Article (Lyft variant)\n\n${preface}---\n\n${response.text}`;
 
