@@ -5,6 +5,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const INPUT_FILE = './lyft-summary.md'; 
 const SUMMARY_OUTPUT = './ai-summary-lyft.md';
+const CACHE_FILE = './summary-cache.json'; // 👈 The progress checkpoint file
 
 function splitArticles(raw) {
   let parts = raw.split(/\n\n---\n\n/gi).map(p => p.trim()).filter(Boolean);
@@ -118,7 +119,6 @@ function buildYearTable(articles) {
   return [header, ...rows].join('\n');
 }
 
-// FIX: Added 503 and 500 server errors to the auto-retry backoff cycle
 async function safeGenerateContent(model, promptText) {
   let attempts = 0;
   while (attempts < 5) {
@@ -127,8 +127,6 @@ async function safeGenerateContent(model, promptText) {
       return result.response.text();
     } catch (apiError) {
       const errorMsg = apiError.message || '';
-      
-      // Catch 429 (Rate limit), 503 (Overloaded), and 500 (Internal Error)
       const isRetryable = errorMsg.includes('429') || 
                           errorMsg.includes('503') || 
                           errorMsg.includes('500') || 
@@ -137,9 +135,8 @@ async function safeGenerateContent(model, promptText) {
 
       if (isRetryable && attempts < 4) {
         attempts++;
-        // Escalating delay: 15s, 30s, 45s, 60s
         const backoffTime = attempts * 15000;
-        console.warn(`⚠️ API Overloaded or Limited (${errorMsg.slice(0, 50)}...). Sleeping for ${backoffTime / 1000}s before retrying (Attempt ${attempts}/5)...`);
+        console.warn(`⚠️ API Limit Triggered. Pausing for ${backoffTime / 1000}s...`);
         await new Promise(r => setTimeout(r, backoffTime));
       } else {
         throw apiError;
@@ -147,6 +144,9 @@ async function safeGenerateContent(model, promptText) {
     }
   }
 }
+
+// FIX: Declare preface up top so it is accessible in both the try and catch blocks globally
+let globalPreface = '';
 
 async function generateSummaryArticle() {
   try {
@@ -168,40 +168,44 @@ async function generateSummaryArticle() {
     console.log(`Parsed ${articles.length} article(s) from the crawled data.`);
 
     const duplicates = findDuplicates(articles);
-    if (duplicates.length > 0) {
-      console.log(`Found ${duplicates.length} duplicate group(s).`);
-    } else {
-      console.log('No duplicates found.');
-    }
-
     const yearTableMd = buildYearTable(articles);
 
-    let preface = `## Duplicate Articles\n\n`;
+    globalPreface = `## Duplicate Articles\n\n`;
     if (duplicates.length === 0) {
-      preface += 'No duplicate or near-duplicate articles detected.\n\n';
+      globalPreface += 'No duplicate or near-duplicate articles detected.\n\n';
     } else {
       for (const [i, d] of duplicates.entries()) {
         if (d.type === 'exact') {
           const titles = d.indices.map(ix => `(${ix}) ${articles[ix].title}`).join(', ');
-          preface += `- Group ${i + 1} — exact duplicates: ${titles}\n`;
+          globalPreface += `- Group ${i + 1} — exact duplicates: ${titles}\n`;
         } else {
           const titles = d.indices.map(ix => `(${ix}) ${articles[ix].title}`).join(', ');
-          preface += `- Group ${i + 1} — near-duplicates (similarity=${(d.similarity||0).toFixed(2)}): ${titles}\n`;
+          globalPreface += `- Group ${i + 1} — near-duplicates (similarity=${(d.similarity||0).toFixed(2)}): ${titles}\n`;
         }
       }
-      preface += '\n';
+      globalPreface += '\n';
     }
-
-    preface += `## Articles by Year (last 10 years + Older/Unknown)\n\n${yearTableMd}\n\n`;
+    globalPreface += `## Articles by Year (last 10 years + Older/Unknown)\n\n${yearTableMd}\n\n`;
 
     const exactGroups = duplicates.filter(d => d.type === 'exact');
     const uniquelyCleanedArticles = articles
       .filter(a => !exactGroups.some(g => g.indices.slice(1).includes(a.index)))
       .map(a => `Title: ${a.title}\nContent: ${a.content}`);
 
-    console.log(`Splitting ${uniquelyCleanedArticles.length} filtered articles into batches to safely fit within token quotas...`);
+    // FIX: Load existing progress cache from disk if available
+    let cacheData = { completedBatches: {} };
+    if (fs.existsSync(CACHE_FILE)) {
+      try {
+        cacheData = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8'));
+        console.log(`♻️ Found temporary progress cache. Restoring completed state loops...`);
+      } catch (e) {
+        console.warn("Could not parse temp file cache, starting fresh.");
+      }
+    }
+
+    console.log(`Splitting ${uniquelyCleanedArticles.length} filtered articles into batches...`);
     const BATCH_SIZE = 5;
-    const batchSummaries = [];
+    const totalBatches = Math.ceil(uniquelyCleanedArticles.length / BATCH_SIZE);
 
     const chunkingModel = genAI.getGenerativeModel({
       model: 'gemini-2.5-flash',
@@ -209,19 +213,31 @@ async function generateSummaryArticle() {
     });
 
     for (let i = 0; i < uniquelyCleanedArticles.length; i += BATCH_SIZE) {
+      const batchIndex = Math.floor(i / BATCH_SIZE) + 1;
+      
+      // FIX: If the cache has this batch, skip it completely!
+      if (cacheData.completedBatches[batchIndex]) {
+        console.log(`⏭️ Skipping batch ${batchIndex}/${totalBatches} (Loaded from local cache file)`);
+        continue;
+      }
+
       const currentBatch = uniquelyCleanedArticles.slice(i, i + BATCH_SIZE);
-      console.log(`Processing article batch ${Math.floor(i / BATCH_SIZE) + 1} of ${Math.ceil(uniquelyCleanedArticles.length / BATCH_SIZE)}...`);
+      console.log(`Processing article batch ${batchIndex} of ${totalBatches}...`);
       
       const batchPrompt = `Analyze and condense this batch of text:\n\n${currentBatch.join('\n\n---\n\n')}`;
       const miniSummary = await safeGenerateContent(chunkingModel, batchPrompt);
-      batchSummaries.push(miniSummary);
+      
+      // Save progress to memory AND commit straight to disk cache immediately
+      cacheData.completedBatches[batchIndex] = miniSummary;
+      fs.writeFileSync(CACHE_FILE, JSON.stringify(cacheData, null, 2), 'utf8');
 
-      // Add a small delay between batch loops to let the per-minute token quota breathe
       await new Promise(r => setTimeout(r, 2000));
     }
 
+    // REDUCE PHASE — Extract summaries from our safe disk cache state
     console.log('Running final reduction step to synthesize report layout formats...');
-    const combinedIntermediateText = batchSummaries.join('\n\n=====================\n\n');
+    const allSummaries = Object.values(cacheData.completedBatches);
+    const combinedIntermediateText = allSummaries.join('\n\n=====================\n\n');
 
     const systemInstruction = `
         You are an expert Technical Developer Educator, Technical Publications Lead, Content Architect, and AI Enablement Architect.
@@ -258,18 +274,22 @@ async function generateSummaryArticle() {
     });
 
     const finalOutputText = await safeGenerateContent(finalModel, `Here are the condensed raw technical materials summaries:\n\n${combinedIntermediateText}`);
-    const finalMd = `# Synthesized Report (Lyft variant)\n\n${preface}---\n\n${finalOutputText}`;
+    const finalMd = `# Synthesized Report (Lyft variant)\n\n${globalPreface}---\n\n${finalOutputText}`;
 
     fs.writeFileSync(SUMMARY_OUTPUT, finalMd);
+    
+    // Clean up cache file on true total success
+    if (fs.existsSync(CACHE_FILE)) fs.unlinkSync(CACHE_FILE);
+    
     console.log(`✨ Success! Your report with duplicates and year table has been saved to ${SUMMARY_OUTPUT}`);
 
   } catch (error) {
     console.error(`Error generating summary: ${error.message}`);
     
-    // Fallback logic updated to handle 503 limits as well
+    // FIX: Clean, non-crashing template injection now that variables are globally bound
     if (error.message.includes('429') || error.message.includes('503') || error.message.includes('quota')) {
-      console.warn("⚠️ Pipeline warning: Gemini summary skipped due to temporary platform load limits. Writing fallback file.");
-      fs.writeFileSync(SUMMARY_OUTPUT, `# Synthesized Report (Lyft variant)\n\n${preface}\n\n> ⚠️ Automated Warning: The detailed AI-generated architecture synthesis is temporarily unavailable because Gemini servers are under high demand. Please check back during the next workflow run cycle.`);
+      console.warn("⚠️ Pipeline warning: Writing structural partial template with progress markers saved.");
+      fs.writeFileSync(SUMMARY_OUTPUT, `# Synthesized Report (Lyft variant)\n\n${globalPreface}\n\n> ⚠️ Daily Free Quota Exceeded. Cached work has been saved locally on disk. Run this step again tomorrow to resume processing remaining chunk segments smoothly.`);
     } else {
       process.exit(1); 
     }
