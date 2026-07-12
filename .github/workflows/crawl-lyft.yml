@@ -55,13 +55,15 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Track both files or just your clean summary output file
-          # Use git diff to detect any working tree changes (more robust than checking a single file)
-          if git diff --quiet --exit-code; then
+          # FIX 1: Stage the files FIRST so Git actually knows they exist
+          # Using "|| true" ensures the workflow won't crash here if a file is missing
+          git add ai-summary-lyft.md lyft-summary.md || true
+
+          # FIX 2: Check staged changes using --cached
+          if git diff --cached --quiet; then
             echo "No new data changes to summarize. Skipping commit."
           else
             echo "New synthesized article generated. Committing changes..."
-            git add ai-summary-lyft.md lyft-summary.md
             git commit -m "docs: auto-generate Lyft Engineering crawl summary [skip ci]"
             git pull --rebase origin main
             git push
