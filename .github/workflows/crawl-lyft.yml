@@ -50,8 +50,8 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node summarize-lyft.js
-        
-      # Step 5: Check if the new summary article changed, and commit it
+
+# Step 5: Check if the new summary article changed, and commit it
       - name: Commit and Push Updated Data
         run: |
           git config --global user.name "github-actions[bot]"
@@ -67,13 +67,14 @@ jobs:
             echo "New synthesized article generated. Committing changes..."
             git commit -m "docs: auto-generate Lyft Engineering crawl summary [skip ci]"
             
-            # FIX: Stage any leftover accidental modifications (like package logs) 
+            # Stage any leftover accidental modifications (like package logs) 
             # and stash them safely out of the way before pulling.
             git add .
             git stash || true
             
-            # Safely rebase and pull down remote updates
-            git pull --rebase origin main
+            # FIX: Tell Git that if a conflict occurs on the pull/rebase, 
+            # your local runner's newly crawled file always wins ('theirs' in rebase context means your commit)
+            git pull --rebase -X theirs origin main
             
             # Pop the changes back out if there were any
             git stash pop || true
