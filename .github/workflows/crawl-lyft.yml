@@ -25,8 +25,8 @@ jobs:
           cache: 'npm'  # Speeds up future runs by caching dependencies
       
       # Step 2.5: Debug
-       - name: Debug Node environment
-         run: |
+      - name: Debug Node environment
+        run: |
           node -v
           npm -v
           pwd
