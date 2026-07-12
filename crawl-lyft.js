@@ -5,7 +5,7 @@ import { URL } from 'url';
 
 // Output file for the Lyft engineering summary
 const OUTPUT_FILE = './lyft-summary.md';
-const START_URL = 'https://eng.lyft.com';
+const START_URL = process.env.TARGET_URL || 'https://eng.lyft.com';
 const MAX_LINKS = 100; // increased from 25
 const MAX_DEPTH = 3; // crawl depth (0 = start page, up to 2 = two hops, etc.)
 const REQUEST_TIMEOUT = 15000;
