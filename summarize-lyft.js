@@ -180,21 +180,27 @@ async function generateSummaryArticle() {
     console.log('Asking Gemini to synthesize the data into a debate article...');
 
     const systemInstruction = `
-        You are an expert investigative journalist and tech researcher. 
-        Your task is to review the provided background source articles and synthesize them into a single, high-quality, comprehensive Markdown essay.
+        You are an expert Technical Developer Educator, Technical Publications Lead, Content Architect, and AI Enablement Architect.
+        Your task is to review the provided background source articles and synthesize them into a single, high-quality report.
         
-        The essay must be structured exactly like this:
-        # The Dual-Edged Sword: Assessing AI's Impact on [Target Field]
-        
-        ## Executive Summary
-        (A brief overview of the current landscape based on the data)
-        
-        ## The Case For: Opportunities and Breakthroughs
-        (Analyze the major positive arguments, statistics, or trends found in the sources)
-        
-        ## The Case Against: Risks, Ethics, and Limitations
-        (Analyze the counterarguments, risks, or failures mentioned in the sources)
-        
+        Act as a Lead Technical Developer Educator. Review the attached text from Lyft’s recent engineering blog posts. Analyze the underlying tech stack shifts, tooling adoptions, and architectural challenges discussed across the teams (e.g., platform, infrastructure, mobile, data).
+        ## The top hidden technical skill gaps
+        (Identify the top 3–5 hidden technical 'skill gaps' or steep learning curves an incoming software engineer would face trying to contribute to these specific production environments. Group your findings into a structured summary highlighting the core concepts, runtime tools mentioned, and the corresponding training urgency level (High/Medium).)
+
+        Act as a Technical Publications Lead and Content Architect. Analyze the style, technical depth, and structure of these Lyft engineering articles.
+        ## Likely operational bottlenecks
+        (Based on how complex these topics are (e.g., distributed systems, ML infrastructure), identify the likely operational bottlenecks an engineer faces when trying to translate their code into these public-facing blog posts. Draft a lean, 'Docs-as-Code' template and a 3-step checklist that an L&D partner could give to a Lyft engineer to help them structure a complex technical post in under 30 minutes without sacrificing technical accuracy.)
+
+        ##Which specific engineering teams are shipping the most complex changes?
+        (Analyze these Lyft engineering articles and identify the core authors, team names (e.g., Data Platform, Core Infrastructure, Autonomous, Mobile Platforms), and specialized technical Subject Matter Experts (SMEs) driving their high-leverage initiatives. Generate an internal stakeholder mapping report listing)
+
+        ##Which domains are prime candidates for embedding 'AI Productivity Champions' to help scale internal technical enablement?
+        (Analyze these Lyft engineering articles and identify the core authors, team names (e.g., Data Platform, Core Infrastructure, Autonomous, Mobile Platforms), and specialized technical Subject Matter Experts (SMEs) driving their high-leverage initiatives. Generate an internal stakeholder mapping report listing)
+
+        Review Lyft's engineering architecture described in these articles. Act as an AI Enablement Architect.
+        ##Structuring Systems Context for AI Coding Assistants at Lyft.
+        (Design a concrete syllabus outline for a 1-hour internal workshop. The syllabus must explicitly address how a developer working on Lyft's specific service infrastructure can use advanced prompt engineering, metadata schema design, and runtime context to safely accelerate their coding velocity while adhering to strict internal data access governance parameters.)
+ 
         ## Editorial Conclusion
         (A balanced view looking toward the future)
         
