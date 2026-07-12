@@ -3,20 +3,19 @@ import fs from 'fs';
 import { load } from 'cheerio';
 import { URL } from 'url';
 
-// Output file for the Lyft engineering summary
 const OUTPUT_FILE = './lyft-summary.md';
 const START_URL = process.env.TARGET_URL || 'https://eng.lyft.com';
-const MAX_LINKS = 100; // increased from 25
-const MAX_DEPTH = 3; // crawl depth (0 = start page, up to 2 = two hops, etc.)
+const MAX_LINKS = 100; 
+const MAX_DEPTH = 3; 
 const REQUEST_TIMEOUT = 15000;
 
 function normalizeUrl(u) {
   try {
     const url = new URL(u);
-    // remove fragment
     url.hash = '';
-    // normalize: remove trailing slash except for root
-    if (url.pathname !== '/' && url.pathname.endsWith('/')) url.pathname = url.pathname.replace(/\/+$/,'');
+    if (url.pathname !== '/' && url.pathname.endsWith('/')) {
+      url.pathname = url.pathname.replace(/\/+$/, '');
+    }
     return url.toString();
   } catch {
     return null;
@@ -24,7 +23,6 @@ function normalizeUrl(u) {
 }
 
 function isLikelyBinaryPath(pathname) {
-  // crude filter for common binary/file extensions
   return /\.(jpg|jpeg|png|gif|pdf|zip|rar|exe|tar|gz|mp4|mp3|woff|woff2|ttf|svg)$/.test(pathname.toLowerCase());
 }
 
@@ -42,20 +40,17 @@ async function crawlLyft() {
     console.log(`Starting crawl of ${START_URL} with maxLinks=${MAX_LINKS} and maxDepth=${MAX_DEPTH}...`);
 
     const origin = new URL(START_URL).origin;
-
-    // queue entries: { url, depth }
     const queue = [{ url: START_URL, depth: 0 }];
     const visited = new Set();
     const enqueued = new Set([normalizeUrl(START_URL)]);
 
-    // Map of discovered links -> title text
-    const links = new Map();
+    // FIX 1: Store objects containing the title AND the full text body content
+    const crawledArticles = new Map();
 
-    while (queue.length > 0 && links.size < MAX_LINKS) {
+    while (queue.length > 0 && crawledArticles.size < MAX_LINKS) {
       const { url, depth } = queue.shift();
       const norm = normalizeUrl(url);
-      if (!norm) continue;
-      if (visited.has(norm)) continue;
+      if (!norm || visited.has(norm)) continue;
 
       console.log(`Crawling (depth ${depth}): ${norm}`);
       visited.add(norm);
@@ -69,17 +64,21 @@ async function crawlLyft() {
       }
 
       const $ = load(html);
+      const pageTitle = ($('title').first().text() || '').trim() || 'Untitled';
 
-      // If this page itself is a useful link, capture its title
-      const pageTitle = ($('title').first().text() || '').trim() || null;
-      if (!links.has(norm) && links.size < MAX_LINKS) {
-        links.set(norm, pageTitle || norm);
-      } else if (pageTitle && links.has(norm)) {
-        // update title if placeholder
-        links.set(norm, pageTitle);
+      // FIX 2: Target Medium/Blog post structural markup to extract the text content
+      // Medium (which Lyft Engineering uses) wraps posts in 'article' tags or specific sections
+      let bodyText = $('article').text() || $('.post-content').text() || $('main').text();
+      
+      // Clean up excess whitespace strings so the text block is clean
+      bodyText = bodyText.replace(/\s+/g, ' ').trim();
+
+      // Only save if we found some coherent content, avoiding processing blank error/landing pages
+      if (bodyText.length > 200 && !crawledArticles.has(norm)) {
+        crawledArticles.set(norm, { title: pageTitle, content: bodyText });
       }
 
-      // Extract anchors, prefer anchors in <article> elements first
+      // Collect sub-links to keep diving deeper
       const collected = [];
       $('article a[href]').each((i, el) => {
         const href = $(el).attr('href');
@@ -91,30 +90,23 @@ async function crawlLyft() {
         $('a[href]').each((i, el) => {
           const href = $(el).attr('href');
           const text = ($(el).text() || '').trim();
-          // require some anchor text to avoid nav items like icons
           if (href && text && text.length >= 2) collected.push({ href, text });
         });
       }
 
-      for (const { href, text } of collected) {
-        if (links.size >= MAX_LINKS) break;
+      for (const { href } of collected) {
+        if (crawledArticles.size >= MAX_LINKS) break;
         let absolute;
         try {
           absolute = new URL(href, norm).toString();
         } catch {
           continue;
         }
-        // normalize and skip fragments
+        
         const absoluteNorm = normalizeUrl(absolute);
-        if (!absoluteNorm) continue;
-        if (!absoluteNorm.startsWith(origin)) continue; // same-origin only
+        if (!absoluteNorm || !absoluteNorm.startsWith(origin)) continue; 
         if (isLikelyBinaryPath(new URL(absoluteNorm).pathname)) continue;
 
-        if (!links.has(absoluteNorm)) {
-          links.set(absoluteNorm, text || absoluteNorm);
-        }
-
-        // enqueue for crawling if depth limit not reached
         if (depth + 1 < MAX_DEPTH) {
           if (!visited.has(absoluteNorm) && !enqueued.has(absoluteNorm)) {
             queue.push({ url: absoluteNorm, depth: depth + 1 });
@@ -123,33 +115,30 @@ async function crawlLyft() {
         }
       }
 
-      // small delay to be polite
       await new Promise((r) => setTimeout(r, 250));
     }
 
-    const items = Array.from(links.entries()).slice(0, MAX_LINKS);
-
-    // Build Markdown output
+    // Build Markdown output for the summarizer
     const timestamp = new Date().toUTCString();
     let md = `# Lyft Engineering Site Summary\n`;
     md += `> **Source:** ${START_URL}  \n`;
-    md += `> **Crawl Depth:** ${MAX_DEPTH}  \n`;
-    md += `> **Last Updated:** ${timestamp}  \n`;
-    md += `> **Total Links Included:** ${items.length}  \n\n`;
-
+    md += `> **Last Updated:** ${timestamp}  \n\n`;
     md += `---\n\n`;
 
-    items.forEach(([url, title], idx) => {
-      md += `## ${idx + 1}. [${title || url}](${url})\n`;
-      md += `* **URL:** <${url}>\n\n`;
-      md += `---\n\n`;
+    // FIX 3: Write out individual articles split explicitly by your delimiter
+    Array.from(crawledArticles.entries()).forEach(([url, data]) => {
+      md += `# ${data.title}\n`;
+      md += `**URL:** ${url}\n\n`;
+      md += `${data.content}\n\n`;
+      md += `---\n\n`; // This is the exact pattern your splitArticles() function scans for!
     });
 
     fs.writeFileSync(OUTPUT_FILE, md, 'utf8');
-    console.log(`Wrote summary to ${OUTPUT_FILE} (${items.length} links).`);
+    console.log(`Wrote summary data to ${OUTPUT_FILE} (${crawledArticles.size} full articles saved).`);
 
   } catch (error) {
     console.error(`Fatal error during execution: ${error.message}`);
+    process.exit(1); // Force a non-zero exit so GitHub Actions notices failures
   }
 }
 
