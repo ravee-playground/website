@@ -1,6 +1,6 @@
 import axios from 'axios';
 import fs from 'fs';
-import cheerio from 'cheerio';
+import { load } from 'cheerio';
 import { URL } from 'url';
 
 // Output file for the Lyft engineering summary
@@ -68,7 +68,7 @@ async function crawlLyft() {
         continue;
       }
 
-      const $ = cheerio.load(html);
+      const $ = load(html);
 
       // If this page itself is a useful link, capture its title
       const pageTitle = ($('title').first().text() || '').trim() || null;
