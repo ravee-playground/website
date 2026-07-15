@@ -11,6 +11,9 @@
         --border-color: #e1e4e8;
         --text-primary: #333333;
         --hover-color: #e4e8ed;
+        --canvas-bg: #f4f6f8;
+        --panel-bg: rgba(255, 255, 255, 0.95);
+        --panel-border: #33ccff;
     }
 
     /* Color variables for Dark Mode */
@@ -19,17 +22,20 @@
         --border-color: #3c3c3c;
         --text-primary: #ffffff;
         --hover-color: #37373d;
+        --canvas-bg: #2d2d2d;
+        --panel-bg: rgba(30, 30, 30, 0.95);
+        --panel-border: #ff4757;
     }
 
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         margin: 0;
-        padding: 0;
+        padding: 40px 0;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        height: 100vh;
+        justify-content: flex-start;
+        min-height: 100vh;
         background-color: var(--bg-body);
         color: var(--text-primary);
         transition: background-color 0.2s, color 0.2s;
@@ -60,7 +66,6 @@
         
     #theme-toggle:hover {
         background-color: var(--hover-color);
-        border-color: var(--accent-color);
     }
 
     /* Image Placeholder Style */
@@ -68,18 +73,20 @@
         width: 75vw;
         height: auto;
         display: flex;
+        margin-bottom: 40px;
     }
+    
     /* Ensure both images scale perfectly */
     .responsive-image {
         max-width: 100%;
         max-height: 100%;
         width: 100%;
         height: auto;
-        object-fit: contain; /* Preserve aspect ratio, show full image */
+        object-fit: contain;
         display: block;
     }
 
-        /* Logic: Hide the light mode image when body IS dark-mode */
+    /* Logic: Hide the light mode image when body IS dark-mode */
     .dark-mode #image-light {
         display: none;
     }
@@ -88,11 +95,60 @@
     body:not(.dark-mode) #image-dark {
         display: none;
     }
-</style>
+
+    /* Mouse Game Styling Layout */
+    #gameContainer {
+        position: relative;
+        margin-top: 20px;
+    }
+    canvas {
+        background-color: var(--canvas-bg);
+        border: 2px solid var(--border-color);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        cursor: crosshair;
+        border-radius: 8px;
+        display: block;
+        transition: background-color 0.2s, border-color 0.2s;
+    }
+    #ui {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        pointer-events: none;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+    #instructions {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--panel-bg);
+        border: 3px solid var(--panel-border);
+        color: var(--text-primary);
+        border-radius: 12px;
+        padding: 25px;
+        text-align: center;
+        max-width: 320px;
+        pointer-events: none;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        transition: opacity 0.5s ease;
+    }
+    #instructions h2 {
+        margin-top: 0;
+        color: var(--panel-border);
+    }
+    #instructions ul {
+        text-align: left;
+        padding-left: 20px;
+        line-height: 1.6;
+    }
+    </style>
 </head>
 <body>
 
-<button id="theme-toggle">☀️ Light</button>
+    <button id="theme-toggle">☀️ Light</button>
 
     <div class="image-container">
         <img id="image-light" 
@@ -106,43 +162,156 @@
              class="responsive-image">
     </div>
 
+    <!-- Mouse Dodge Game Element Block -->
+    <div id="gameContainer">
+        <div id="ui">Score: <span id="score">0</span></div>
+        
+        <!-- Rules Text Box -->
+        <div id="instructions">
+            <h2>How to Play</h2>
+            <ul>
+                <li>Move your mouse to control the <strong>glowing cursor</strong>.</li>
+                <li>Dodge the incoming <strong>speeding dots</strong>.</li>
+                <li>Your score increases every second you stay alive.</li>
+            </ul>
+            <p style="font-size: 14px; margin-bottom: 0; font-weight: bold; opacity: 0.8;">Move your mouse into the box to begin!</p>
+        </div>
+
+        <canvas id="gameCanvas" width="800" height="450"></canvas>
+    </div>
+
+    <!-- Fun Right-Click Popup -->
+    <div id="custom-popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ff4757; color: white; padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 10000; font-family: sans-serif; text-align: center; border: 4px solid white;">
+        <h2 style="margin: 0 0 10px 0;">🛑 Ah, ah, ah 🛑</h2>
+        <p style="margin: 0 0 15px 0;">No right-clicking allowed! This recipe is top secret. 🕵️‍♂️</p>
+        <button onclick="closePopup()" style="background: white; color: #ff4757; border: none; padding: 8px 20px; font-weight: bold; border-radius: 20px; cursor: pointer;">My Bad!</button>
+    </div>
+
+    <!-- App Scripts -->
     <script>
+        // Theme Engine
         const themeToggle = document.getElementById('theme-toggle');
-
         themeToggle.addEventListener('click', () => {
-            // 1. Toggle the class on the body (this handles color variables AND image visibility via CSS)
             document.body.classList.toggle('dark-mode');
-
-            // 2. Update the button visual label text
             if (document.body.classList.contains('dark-mode')) {
                 themeToggle.textContent = '🌙 Lights out';
             } else {
                 themeToggle.textContent = '☀️ Lights on';
             }
         });
-    </script>
-<!-- Fun Right-Click Popup -->
-<div id="custom-popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ff4757; color: white; padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 10000; font-family: sans-serif; text-align: center; border: 4px solid white;">
-    <h2 style="margin: 0 0 10px 0;">🛑 Ah, ah, ah 🛑</h2>
-    <p style="margin: 0 0 15px 0;">No right-clicking allowed! This recipe is top secret. 🕵️‍♂️</p>
-    <button onclick="closePopup()" style="background: white; color: #ff4757; border: none; padding: 8px 20px; font-weight: bold; border-radius: 20px; cursor: pointer;">My Bad!</button>
-</div>
 
-<script>
-    // Detect right-click
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault(); // Blocks the default browser menu
-        document.getElementById('custom-popup').style.display = 'block';
-    });
+        // Anti Right-Click System
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            document.getElementById('custom-popup').style.display = 'block';
+        });
 
-    // Close the popup
-    function closePopup() {
-        document.getElementById('custom-popup').style.display = 'none';
-    }
-</script>
+        function closePopup() {
+            document.getElementById('custom-popup').style.display = 'none';
+        }
 
+        // Game Loop Engine
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('score');
+        const instructionsEl = document.getElementById('instructions');
 
+        let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+        let dots = [];
+        let score = 0;
+        let gameOver = false;
+        let gameInterval;
+        let spawnInterval;
+        let gameStarted = false;
 
-    
+        window.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+
+            if (!gameStarted && mouse.x >= 0 && mouse.x <= canvas.width && mouse.y >= 0 && mouse.y <= canvas.height) {
+                gameStarted = true;
+                instructionsEl.style.opacity = 0;
+                setTimeout(() => instructionsEl.style.display = 'none', 500); 
+                startGame();
+            }
+        });
+
+        class Dot {
+            constructor() {
+                this.radius = 12;
+                const side = Math.floor(Math.random() * 4);
+                if (side === 0) { this.x = Math.random() * canvas.width; this.y = -this.radius; } 
+                else if (side === 1) { this.x = Math.random() * canvas.width; this.y = canvas.height + this.radius; } 
+                else if (side === 2) { this.x = -this.radius; this.y = Math.random() * canvas.height; } 
+                else { this.x = canvas.width + this.radius; this.y = Math.random() * canvas.height; }
+
+                const speed = 2.5 + Math.random() * 3.5;
+                this.dx = (Math.random() - 0.5) * speed;
+                this.dy = (Math.random() - 0.5) * speed;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = document.body.classList.contains('dark-mode') ? '#ff4757' : '#e84118';
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+            }
+        }
+
+        function spawnDot() {
+            if (!gameOver) dots.push(new Dot());
+        }
+
+        function getDistance(x1, y1, x2, y2) {
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        function animate() {
+            if (gameOver) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, 8, 0, Math.PI * 2);
+            ctx.fillStyle = document.body.classList.contains('dark-mode') ? '#33ccff' : '#00a8ff';
+            ctx.fill();
+            ctx.closePath();
+
+            if (gameStarted) {
+                dots.forEach((dot, index) => {
+                    dot.update();
+                    dot.draw();
+
+                    const dist = getDistance(mouse.x, mouse.y, dot.x, dot.y);
+                    if (dist < dot.radius + 8) {
+                        gameOver = true;
+                        clearInterval(gameInterval);
+                        clearInterval(spawnInterval);
+                        alert('Game Over! Your final score is: ' + score);
+                        location.reload();
+                    }
+                    if (dot.x < -100 || dot.x > canvas.width + 100 || dot.y < -100 || dot.y > canvas.height + 100) {
+                        dots.splice(index, 1);}});}
+                        requestAnimationFrame(animate);}
+                    function startGame() {
+                        dots = [];score = 0;
+                        gameOver = false;
+                        scoreEl.innerText = score;
+                        gameInterval = setInterval(() => {
+                            score++;scoreEl.innerText = score;
+                        }, 1000);
+                        spawnInterval = setInterval(spawnDot, 500);
+                    }
+        animate();
+         </script>
 </body>
 </html>
