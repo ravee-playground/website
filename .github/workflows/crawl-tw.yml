@@ -65,8 +65,9 @@ jobs:
             echo "New synthesized article generated. Committing changes..."
             git add ai-tw-summary.md ${{ inputs.skip_crawl == 'true' && '' || 'chunky.md' }}
             git commit -m "docs: auto-generate updated AI summary [skip ci]"
+            git stash --include-untracked
             git pull --rebase origin main
-            git push
+            git push origin main            
           else
             echo "No new data changes to summarize. Skipping commit."
           fi
