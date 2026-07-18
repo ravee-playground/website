@@ -6,12 +6,29 @@
   "scripts": {
     "start": "node server.js"
   },
+  "type": "module",
+  "engines": {
+  "node": ">=20"
+  },
+"scripts": {
+  "start": "node server.js",
+  "crawl": "node crawl-lyft.js",
+  "summarize": "node summarize-lyft.js"
+  },
+  "type": "module",
   "dependencies": {
     "@google/genai": "^2.10.0",
+    "@google/generative-ai": "^0.x.x",
     "@modelcontextprotocol/sdk": "^1.27.1",
+<<<<<<< HEAD
     "@mozilla/readability": "^0.6.0",
     "axios": "^1.7.0",
     "cheerio": "^1.0.0",
+=======
+    "@mozilla/readability": "^0.5.0",
+    "axios": "^1.x",
+    "cheerio": "^1.x",
+>>>>>>> b99c874c87f8b2c8d3f9e47e7142de3567b69c8e
     "jsdom": "^24.1.0",
     "playwright": "^1.44.0",
     "zod": "^4.3.6"
