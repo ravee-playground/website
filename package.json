@@ -2,11 +2,6 @@
   "name": "crawler",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "type": "module",
   "engines": {
   "node": ">=20"
   },
@@ -26,9 +21,14 @@
     "cheerio": "^1.0.0",
 =======
     "@mozilla/readability": "^0.5.0",
+<<<<<<< HEAD
     "axios": "^1.x",
     "cheerio": "^1.x",
 >>>>>>> b99c874c87f8b2c8d3f9e47e7142de3567b69c8e
+=======
+    "axios": "^1.7.0",
+    "cheerio": "^1.0.0",
+>>>>>>> ce3cd7669adc691b32cf20168b165e9433b0c2c2
     "jsdom": "^24.1.0",
     "playwright": "^1.44.0",
     "zod": "^4.3.6"
