@@ -20,6 +20,7 @@ jobs:
       with:
         python-version: '3.11'
         cache: 'pip'  # Add this to enable pip caching
+        cache-dependency-path: '.github/scripts/ingest.py'
 
     - name: Install Vector & AI Dependencies
       run: |
