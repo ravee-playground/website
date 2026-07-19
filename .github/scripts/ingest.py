@@ -30,31 +30,37 @@ def chunk_markdown(file_path):
     return clean_chunks
 
 def main():
-    # Target all markdown files in your /docs directory
-    search_path = os.path.join("docs", "**", "*.md")
+    # Force search relative to the repository root directory
+    # (Safe fallback if GitHub runner defaults working paths unexpectedly)
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    search_path = os.path.join(repo_root, "docs", "**", "*.md")
+    
     md_files = glob.glob(search_path, recursive=True)
     
     print(f"Found {len(md_files)} markdown files to sync.")
     
     for file_path in md_files:
-        print(f"Processing: {file_path}")
+        # Get relative path layout for cleaner IDs and metadata urls
+        rel_path = os.path.relpath(file_path, repo_root)
+        print(f"Processing: {rel_path}")
+        
         chunks = chunk_markdown(file_path)
         
         # Build vector payloads
         upsert_data = []
         for i, text_chunk in enumerate(chunks):
             # Create a clean metadata record mapping back to your custom Jekyll URL path
-            url_path = file_path.replace("docs/", "").replace(".md", ".html")
+            url_path = rel_path.replace("docs/", "").replace(".md", ".html")
             
-            # Generate the embedding vector using Gemini's standard text model
+            # FIXED: Correct parsing for modern google-genai SDK response
             response = ai.models.embed_content(
                 model="text-embedding-004",
                 contents=text_chunk
             )
-            vector = response.embeddings[0].values
+            vector = response.embedding.values
             
             # Form unique ID per chunk
-            chunk_id = f"{file_path.replace('/', '_')}_chunk_{i}"
+            chunk_id = f"{rel_path.replace('/', '_').replace('\\', '_')}_chunk_{i}"
             
             upsert_data.append((
                 chunk_id, 
@@ -65,7 +71,7 @@ def main():
         # Push batch to Pinecone Serverless
         if upsert_data:
             index.upsert(vectors=upsert_data)
-            print(f"Successfully synced {len(upsert_data)} chunks for {file_path}")
+            print(f"Successfully synced {len(upsert_data)} chunks for {rel_path}")
 
 if __name__ == "__main__":
     main()
