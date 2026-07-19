@@ -59,8 +59,9 @@ def main():
             )
             vector = response.embedding.values
             
-            # Form unique ID per chunk
-            chunk_id = f"{rel_path.replace('/', '_').replace('\\', '_')}_chunk_{i}"
+            # Form unique ID per chunk - FIXED: avoid backslash in f-string
+            escaped_path = rel_path.replace('/', '_').replace('\\', '_')
+            chunk_id = f"{escaped_path}_chunk_{i}"
             
             upsert_data.append((
                 chunk_id, 
