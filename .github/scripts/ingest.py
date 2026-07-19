@@ -55,7 +55,7 @@ def main():
             # FIXED: Correct parsing for modern google-genai SDK response
             response = ai.models.embed_content(
                 model="gemini-embedding-001",
-                contents=text_chunk
+                contents=text_chunk,
                 config=types.EmbedContentConfig(output_dimensionality=768)
             )
             vector = response.embedding.values
