@@ -26,7 +26,8 @@ jobs:
         python -m pip install --upgrade pip
         pip cache purge
         pip uninstall -y pinecone-client
-        pip install google-genai pinecone
+        pip install --force-reinstall google-genai pinecone
+
 
     - name: Verify File Location (Debug)
       run: |
