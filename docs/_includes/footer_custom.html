@@ -1,74 +1,66 @@
-<!-- Floating Chat Widget UI -->
-<div id="rag-chat-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-  <button id="chat-toggle" style="padding: 10px 15px; border-radius: 50px; background: #007acc; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-    💬 Ask the Docs
-  </button>
-  
-  <div id="chat-window" style="display: none; width: 350px; height: 450px; background: white; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 10px; overflow: hidden; flex-direction: column;">
-    <div style="background: #007acc; color: white; padding: 10px; font-weight: bold;">Documentation Assistant</div>
-    <div id="chat-messages" style="flex: 1; padding: 10px; overflow-y: auto; font-size: 14px; max-height: 320px;"></div>
-    <div style="display: flex; border-top: 1px solid #eee; padding: 5px;">
-      <input type="text" id="chat-input" placeholder="Type a question..." style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; outline: none;">
-      <button id="chat-send" style="padding: 8px 12px; background: #007acc; color: white; border: none; margin-left: 5px; border-radius: 4px; cursor: pointer;">Send</button>
-    </div>
-  </div>
-</div>
-
 <script>
-// We wrap everything in an event listener to guarantee the DOM is fully ready
-document.addEventListener('DOMContentLoaded', function() {
-  const toggleBtn = document.getElementById('chat-toggle');
-  const sendBtn = document.getElementById('chat-send');
-  const chatWindow = document.getElementById('chat-window');
-  const input = document.getElementById('chat-input');
-  const messages = document.getElementById('chat-messages');
+(function() {
+  function initChatbot() {
+    const toggleBtn = document.getElementById('chat-toggle');
+    const sendBtn = document.getElementById('chat-send');
+    const chatWindow = document.getElementById('chat-window');
+    const input = document.getElementById('chat-input');
+    const messages = document.getElementById('chat-messages');
 
-  if (!toggleBtn || !sendBtn) return;
+    // Fail-safe check
+    if (!toggleBtn || !sendBtn || !chatWindow || !input || !messages) return;
 
-  // 1. Bind the Toggle functionality safely
-  toggleBtn.addEventListener('click', function() {
-    chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
-  });
+    // 1. Toggle visibility
+    toggleBtn.addEventListener('click', function() {
+      chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
+    });
 
-  // 2. Bind the Send functionality safely
-  sendBtn.addEventListener('click', sendQuestion);
+    // 2. Click to send
+    sendBtn.addEventListener('click', sendQuestion);
 
-  // 3. Optional: Allow pressing 'Enter' to send a message
-  input.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      sendQuestion();
-    }
-  });
+    // 3. Enter key to send
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendQuestion();
+      }
+    });
 
-  async function sendQuestion() {
-    const question = input.value.trim();
-    if (!question) return;
+    async function sendQuestion() {
+      const question = input.value.trim();
+      if (!question) return;
 
-    // Append user message smoothly
-    messages.innerHTML += `<div style="margin-bottom: 10px; text-align: right;"><b>You:</b> ${question}</div>`;
-    input.value = '';
-    
-    const loadingId = 'loading-' + Date.now();
-    messages.innerHTML += `<div id="${loadingId}" style="margin-bottom: 10px; color: #777;"><b>AI:</b> Thinking...</div>`;
-    messages.scrollTop = messages.scrollHeight;
-
-    try {
-      const res = await fetch('https://thetechnicalwriter.workers.dev/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question })
-      });
-      const data = await res.json();
+      messages.innerHTML += `<div style="margin-bottom: 10px; text-align: right;"><b>You:</b> ${question}</div>`;
+      input.value = '';
       
-      const loadingEl = document.getElementById(loadingId);
-      if (loadingEl) loadingEl.remove();
-      messages.innerHTML += `<div style="margin-bottom: 10px;"><b>AI:</b> ${data.answer}</div>`;
-    } catch (err) {
-      const loadingEl = document.getElementById(loadingId);
-      if (loadingEl) loadingEl.remove();
-      messages.innerHTML += `<div style="margin-bottom: 10px; color: red;"><b>Error:</b> Could not reach chat assistant.</div>`;
+      const loadingId = 'loading-' + Date.now();
+      messages.innerHTML += `<div id="${loadingId}" style="margin-bottom: 10px; color: #777;"><b>AI:</b> Thinking...</div>`;
+      messages.scrollTop = messages.scrollHeight;
+
+      try {
+        const res = await fetch('https://thetechnicalwriter.workers.dev/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question })
+        });
+        const data = await res.json();
+        
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.remove();
+        messages.innerHTML += `<div style="margin-bottom: 10px;"><b>AI:</b> ${data.answer}</div>`;
+      } catch (err) {
+        const loadingEl = document.getElementById(loadingId);
+        if (loadingEl) loadingEl.remove();
+        messages.innerHTML += `<div style="margin-bottom: 10px; color: red;"><b>Error:</b> Could not reach chat assistant.</div>`;
+      }
+      messages.scrollTop = messages.scrollHeight;
     }
-    messages.scrollTop = messages.scrollHeight;
   }
-});
+
+  // Bypasses the timing issue: Run immediately if the DOM is already parsed
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChatbot);
+  } else {
+    initChatbot();
+  }
+})();
 </script>
