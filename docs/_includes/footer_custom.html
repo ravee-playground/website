@@ -1,0 +1,53 @@
+<!-- Floating Chat Widget UI -->
+<div id="rag-chat-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+  <button id="chat-toggle" onclick="toggleChat()" style="padding: 10px 15px; border-radius: 50px; background: #007acc; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    💬 Ask the Docs
+  </button>
+  
+  <div id="chat-window" style="display: none; width: 350px; height: 450px; background: white; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 10px; overflow: hidden; flex-direction: column;">
+    <div style="background: #007acc; color: white; padding: 10px; font-weight: bold;">Documentation Assistant</div>
+    <div id="chat-messages" style="flex: 1; padding: 10px; overflow-y: auto; font-size: 14px; max-height: 320px;"></div>
+    <div style="display: flex; border-top: 1px solid #eee; padding: 5px;">
+      <input type="text" id="chat-input" placeholder="Type a question..." style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; outline: none;">
+      <button onclick="sendQuestion()" style="padding: 8px 12px; background: #007acc; color: white; border: none; margin-left: 5px; border-radius: 4px; cursor: pointer;">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleChat() {
+  const windowDiv = document.getElementById('chat-window');
+  windowDiv.style.display = windowDiv.style.display === 'none' ? 'flex' : 'none';
+}
+
+async function sendQuestion() {
+  const input = document.getElementById('chat-input');
+  const messages = document.getElementById('chat-messages');
+  const question = input.value.trim();
+  if (!question) return;
+
+  // Append user message smoothly
+  messages.innerHTML += `<div style="margin-bottom: 10px; text-align: right;"><b>You:</b> ${question}</div>`;
+  input.value = '';
+  
+  const loadingId = 'loading-' + Date.now();
+  messages.innerHTML += `<div id="${loadingId}" style="margin-bottom: 10px; color: #777;"><b>AI:</b> Thinking...</div>`;
+  messages.scrollTop = messages.scrollHeight;
+
+  try {
+    const res = await fetch('https://thetechnicalwriter.workers.dev/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question })
+    });
+    const data = await res.json();
+    
+    document.getElementById(loadingId).remove();
+    messages.innerHTML += `<div style="margin-bottom: 10px;"><b>AI:</b> ${data.answer}</div>`;
+  } catch (err) {
+    if (document.getElementById(loadingId)) document.getElementById(loadingId).remove();
+    messages.innerHTML += `<div style="margin-bottom: 10px; color: red;"><b>Error:</b> Could not reach chat assistant.</div>`;
+  }
+  messages.scrollTop = messages.scrollHeight;
+}
+</script>
