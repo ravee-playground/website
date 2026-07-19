@@ -4,7 +4,6 @@
 
 layout: default
 title: Home
-theme: dark
 ---
 # Welcome to My Site
 
