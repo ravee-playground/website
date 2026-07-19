@@ -19,10 +19,12 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
+        cache: 'pip'  # Add this to enable pip caching
 
     - name: Install Vector & AI Dependencies
       run: |
         python -m pip install --upgrade pip
+        pip cache purge
         pip uninstall -y pinecone-client
         pip install google-genai pinecone
 
