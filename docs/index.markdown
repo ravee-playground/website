@@ -9,6 +9,9 @@ title: Home
 
 This is the homepage of my documentation. 
 
-### Quick Links:
-* [AI in writing](./ai-tw-summary.md)
-* [AI debate](./ai-debate-summary.md)
+nav_order: 1
+permalink: /
+
+# Quick Links:
+# * [AI in writing](./ai-tw-summary.md)
+# * [AI debate](./ai-debate-summary.md)
