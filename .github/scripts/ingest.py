@@ -66,7 +66,7 @@ def main():
             upsert_data.append((
                 chunk_id, 
                 vector, 
-                {"text": text_chunk, "source_url": f"https://yourcustomdomain.com/{url_path}"}
+                {"text": text_chunk, "source_url": f"https://thetechnicalwriter.com"}
             ))
             
         # Push batch to Pinecone Serverless
