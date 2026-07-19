@@ -1,6 +1,10 @@
 <!-- Floating Chat Widget UI -->
 <div id="rag-chat-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 99999; font-family: system-ui, -apple-system, sans-serif;">
-  <button id="chat-toggle" style="padding: 12px 20px; border-radius: 50px; background: #007acc; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px;">
+  
+  <!-- NATIVE TOGGLE: The button directly switches the display style of the window -->
+  <button id="chat-toggle" 
+          onclick="var w = document.getElementById('chat-window'); w.style.display = (w.style.display === 'none' || w.style.display === '') ? 'flex' : 'none';" 
+          style="padding: 12px 20px; border-radius: 50px; background: #007acc; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px;">
     💬 Ask the Docs
   </button>
   
@@ -9,40 +13,23 @@
     <div id="chat-messages" style="flex: 1; padding: 12px; overflow-y: auto; font-size: 14px; max-height: 310px; color: #333; background: #f9f9f9;"></div>
     <div style="display: flex; border-top: 1px solid #eee; padding: 8px; background: white;">
       <input type="text" id="chat-widget-input" placeholder="Type a question..." style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; outline: none; font-size: 14px; color: #333;">
-      <button id="chat-send" style="padding: 10px 14px; background: #007acc; color: white; border: none; margin-left: 6px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">Send</button>
+      <!-- NATIVE SEND: Calls the global submit window method explicitly -->
+      <button onclick="window.sendWidgetQuestion()" style="padding: 10px 14px; background: #007acc; color: white; border: none; margin-left: 6px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">Send</button>
     </div>
   </div>
 </div>
 
 <script>
-  // We locate elements directly without event gates since they exist right above this tag
-  var toggleBtn = document.getElementById('chat-toggle');
-  var sendBtn = document.getElementById('chat-send');
-  var chatWindow = document.getElementById('chat-window');
-  var input = document.getElementById('chat-widget-input');
-  var messages = document.getElementById('chat-messages');
+  // Bind the network request logic to the global window scope so the HTML button can always see it
+  window.sendWidgetQuestion = async function() {
+    var input = document.getElementById('chat-widget-input');
+    var messages = document.getElementById('chat-messages');
+    if (!input || !messages) return;
 
-  if (toggleBtn && sendBtn && chatWindow && input && messages) {
-    // 1. Toggle visibility
-    toggleBtn.addEventListener('click', function() {
-      chatWindow.style.display = chatWindow.style.display === 'none' ? 'flex' : 'none';
-    });
-
-    // 2. Click to send
-    sendBtn.addEventListener('click', sendQuestion);
-
-    // 3. Enter key to send
-    input.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        sendQuestion();
-      }
-    });
-  }
-
-  async function sendQuestion() {
     var question = input.value.trim();
     if (!question) return;
 
+    // Render User Message
     messages.innerHTML += '<div style="margin-bottom: 10px; text-align: right;"><b>You:</b> ' + question + '</div>';
     input.value = '';
     
@@ -67,5 +54,12 @@
       messages.innerHTML += '<div style="margin-bottom: 10px; color: red;"><b>Error:</b> Could not reach chat assistant.</div>';
     }
     messages.scrollTop = messages.scrollHeight;
-  }
+  };
+
+  // Wire up the Enter key inside the field as a fallback listener
+  document.getElementById('chat-widget-input')?.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      window.sendWidgetQuestion();
+    }
+  });
 </script>
