@@ -54,7 +54,7 @@ def main():
             response = ai.models.embed_content(
                 model="gemini-embedding-001",
                 contents=text_chunk,
-                config=types.EmbedContentConfig(output_dimensionality=768)
+                config=types.EmbedContentConfig(output_dimensionality=1024)
             )
             vector = response.embeddings[0].values
             
