@@ -31,7 +31,6 @@ def chunk_markdown(file_path):
 
 def main():
     # Force search relative to the repository root directory
-    # (Safe fallback if GitHub runner defaults working paths unexpectedly)
     repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     search_path = os.path.join(repo_root, "docs", "**", "*.md")
     
@@ -40,7 +39,6 @@ def main():
     print(f"Found {len(md_files)} markdown files to sync.")
     
     for file_path in md_files:
-        # Get relative path layout for cleaner IDs and metadata urls
         rel_path = os.path.relpath(file_path, repo_root)
         print(f"Processing: {rel_path}")
         
@@ -52,22 +50,28 @@ def main():
             # Create a clean metadata record mapping back to your custom Jekyll URL path
             url_path = rel_path.replace("docs/", "").replace(".md", ".html")
             
-            # FIXED: Correct parsing for modern google-genai SDK response
+            # 1. Generate standard 768-dim embeddings cleanly
             response = ai.models.embed_content(
                 model="gemini-embedding-001",
                 contents=text_chunk,
                 config=types.EmbedContentConfig(output_dimensionality=768)
             )
-            vector = response.embedding.values
+            vector = response.embeddings[0].values
             
-            # Form unique ID per chunk - FIXED: avoid backslash in f-string
+            # 2. Form a unique ID safe for string formats
             escaped_path = rel_path.replace('/', '_').replace('\\', '_')
             chunk_id = f"{escaped_path}_chunk_{i}"
+            
+            # 3. FIXED: Sanitize text payload for Pinecone metadata compatibility
+            sanitized_text = text_chunk.replace('\r', '').replace('\n', ' ')
             
             upsert_data.append((
                 chunk_id, 
                 vector, 
-                {"text": text_chunk, "source_url": f"https://thetechnicalwriter.com"}
+                {
+                    "text": sanitized_text, 
+                    "source_url": f"https://thetechnicalwriter.com{url_path}"
+                }
             ))
             
         # Push batch to Pinecone Serverless
