@@ -39,6 +39,7 @@ jobs:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
         PINECONE_INDEX_NAME: ${{ secrets.PINECONE_INDEX_NAME }}
+        SITE_DOMAIN: ${{ secrets.SITE_DOMAIN }} 
       run: |
         echo "Current working directory: $(pwd)"
         echo "Contents of .github/scripts:"
