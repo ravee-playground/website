@@ -1,4 +1,4 @@
-## Executive Summary
+## Assessing AI's impact on content creation
 
 The content creation landscape in mid-2026 is undergoing a profound transformation, driven by the rapid deployment of frontier artificial intelligence models and a simultaneous crisis of public trust. As AI tools transition from novelty applications to core operational infrastructure, content strategists, technical writers, and marketers are navigating an environment defined by unprecedented efficiency and severe quality control challenges.
 
