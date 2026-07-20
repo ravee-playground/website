@@ -2,7 +2,7 @@
 <div id="rag-chat-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 99999; font-family: system-ui, -apple-system, sans-serif;">
   
   <!-- Floating Toggle Button -->
-  <button id="chat-toggle" onclick="toggleChatWindow()" style="padding: 12px 20px; border-radius: 50px; background: #007acc; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px;">
+  <button id="chat-toggle" style="padding: 12px 20px; border-radius: 50px; background: #007acc; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px;">
     💬 Ask the Docs
   </button>
   
@@ -19,9 +19,9 @@
     
     <!-- Input Footer Area -->
     <div style="display: flex; border-top: 1px solid #3e3d42; padding: 8px; background: #27262b;">
-      <input type="text" id="chat-widget-input" placeholder="Type a question..." onkeyup="if(event.key==='Enter') sendChatMessage();" style="flex: 1; padding: 10px; border: 1px solid #4a494f; border-radius: 6px; outline: none; font-size: 14px; color: #fff; background: #1c1b1f;">
+      <input type="text" id="chat-widget-input" placeholder="Type a question..." style="flex: 1; padding: 10px; border: 1px solid #4a494f; border-radius: 6px; outline: none; font-size: 14px; color: #fff; background: #1c1b1f;">
       
-      <button id="chat-send-btn" onclick="sendChatMessage()" style="padding: 10px 14px; background: #007acc; color: white; border: none; margin-left: 6px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">
+      <button id="chat-send-btn" style="padding: 10px 14px; background: #007acc; color: white; border: none; margin-left: 6px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">
         Send
       </button>
     </div>
@@ -29,121 +29,152 @@
 </div>
 
 <script>
-  function toggleChatWindow() {
-    const w = document.getElementById('chat-window');
-    w.style.display = (w.style.display === 'none' || w.style.display === '') ? 'flex' : 'none';
-  }
+  (function() {
+    function initChat() {
+      const toggleBtn = document.getElementById('chat-toggle');
+      const chatWindow = document.getElementById('chat-window');
+      const sendBtn = document.getElementById('chat-send-btn');
+      const input = document.getElementById('chat-widget-input');
+      const messages = document.getElementById('chat-messages');
 
-  async function sendChatMessage() {
-    const input = document.getElementById('chat-widget-input');
-    const messages = document.getElementById('chat-messages');
-    if (!input || !messages) return;
+      if (!toggleBtn || !chatWindow || !sendBtn || !input || !messages) return;
 
-    const question = input.value.trim();
-    if (!question) return;
-
-    // 1. User Message
-    messages.insertAdjacentHTML('beforeend', `
-      <div style="margin-bottom:12px; text-align:right;">
-        <span style="background:#007acc; color:white; padding:8px 12px; border-radius:14px 14px 0 14px; display:inline-block; max-width:80%; text-align:left;">
-          ${escapeHtml(question)}
-        </span>
-      </div>
-    `);
-    input.value = '';
-
-    // 2. Thinking indicator
-    const loadingId = 'l-' + Date.now();
-    messages.insertAdjacentHTML('beforeend', `
-      <div id="${loadingId}" style="margin-bottom:12px;">
-        <span style="background:#3e3d42; color:#aaa; padding:8px 12px; border-radius:14px 14px 14px 0; display:inline-block;">
-          Thinking...
-        </span>
-      </div>
-    `);
-    messages.scrollTop = messages.scrollHeight;
-
-    try {
-      const res = await fetch('https://docs-rag-bot.thetechnicalwriter.workers.dev/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: question })
+      // Toggle window visibility
+      toggleBtn.addEventListener('click', function() {
+        chatWindow.style.display = (chatWindow.style.display === 'none' || chatWindow.style.display === '') ? 'flex' : 'none';
       });
 
-      const data = await res.json();
-      document.getElementById(loadingId)?.remove();
-
-      // Assistant Answer
-      messages.insertAdjacentHTML('beforeend', `
-        <div style="margin-bottom:12px;">
-          <span style="background:#3e3d42; color:#eee; padding:8px 12px; border-radius:14px 14px 14px 0; display:inline-block; max-width:80%; line-height:1.4;">
-            ${data.answer || 'No response generated.'}
-          </span>
-        </div>
-      `);
-
-      // Add fallback button if error/flagged
-      if (data.status === 'error' || data.status === 'flagged') {
-        renderEmailFallback(question);
-      }
-    } catch (err) {
-      document.getElementById(loadingId)?.remove();
-      messages.insertAdjacentHTML('beforeend', `
-        <div style="margin-bottom:12px;">
-          <span style="background:#5c2529; color:#ff8a80; padding:8px 12px; border-radius:14px; display:inline-block; font-size:13px;">
-            Error connecting to assistant.
-          </span>
-        </div>
-      `);
-      renderEmailFallback(question);
-    }
-    messages.scrollTop = messages.scrollHeight;
-  }
-
-  function renderEmailFallback(question) {
-    const messages = document.getElementById('chat-messages');
-    const safeQ = encodeURIComponent(question);
-    messages.insertAdjacentHTML('beforeend', `
-      <div style="margin-bottom:12px; text-align:center;">
-        <button onclick="sendEmailSupport('${safeQ}')" style="background:#007acc; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-size:12px;">
-          ✉️ Email question to team
-        </button>
-      </div>
-    `);
-  }
-
-  async function sendEmailSupport(encodedQuestion) {
-    const question = decodeURIComponent(encodedQuestion);
-    const email = prompt("Please enter your email so we can reply back to you:");
-    if (!email) return;
-
-    const messages = document.getElementById('chat-messages');
-    try {
-      const res = await fetch('https://docs-rag-bot.thetechnicalwriter.workers.dev/email-support', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          question: question,
-          userEmail: email,
-          conversation: messages.innerText
-        })
+      // Send on enter key
+      input.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') sendChatMessage();
       });
 
-      if (res.ok) {
+      // Send on button click
+      sendBtn.addEventListener('click', sendChatMessage);
+
+      // Event delegation for dynamically rendered fallback email buttons
+      messages.addEventListener('click', function(e) {
+        const fallbackBtn = e.target.closest('.chat-fallback-email-btn');
+        if (fallbackBtn) {
+          const question = fallbackBtn.getAttribute('data-question');
+          sendEmailSupport(question);
+        }
+      });
+
+      async function sendChatMessage() {
+        const question = input.value.trim();
+        if (!question) return;
+
+        // Render User Message
         messages.insertAdjacentHTML('beforeend', `
-          <div style="margin-bottom:12px; text-align:center; color:#4caf50; font-size:13px;">
-            ✓ Support email sent! We'll get back to you soon.
+          <div style="margin-bottom:12px; text-align:right;">
+            <span style="background:#007acc; color:white; padding:8px 12px; border-radius:14px 14px 0 14px; display:inline-block; max-width:80%; text-align:left;">
+              ${escapeHtml(question)}
+            </span>
           </div>
         `);
-      } else {
-        throw new Error();
-      }
-    } catch (e) {
-      alert("Failed to send email. Please try again later.");
-    }
-  }
+        input.value = '';
 
-  function escapeHtml(str) {
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-  }
+        // Render Loading Indicator
+        const loadingId = 'l-' + Date.now();
+        messages.insertAdjacentHTML('beforeend', `
+          <div id="${loadingId}" style="margin-bottom:12px;">
+            <span style="background:#3e3d42; color:#aaa; padding:8px 12px; border-radius:14px 14px 14px 0; display:inline-block;">
+              Thinking...
+            </span>
+          </div>
+        `);
+        messages.scrollTop = messages.scrollHeight;
+
+        try {
+          const res = await fetch('https://docs-rag-bot.thetechnicalwriter.workers.dev/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: question })
+          });
+
+          const data = await res.json();
+          document.getElementById(loadingId)?.remove();
+
+          messages.insertAdjacentHTML('beforeend', `
+            <div style="margin-bottom:12px;">
+              <span style="background:#3e3d42; color:#eee; padding:8px 12px; border-radius:14px 14px 14px 0; display:inline-block; max-width:80%; line-height:1.4;">
+                ${escapeHtml(data.answer || 'No response generated.')}
+              </span>
+            </div>
+          `);
+
+          if (data.status === 'error' || data.status === 'flagged') {
+            renderEmailFallback(question);
+          }
+        } catch (err) {
+          document.getElementById(loadingId)?.remove();
+          messages.insertAdjacentHTML('beforeend', `
+            <div style="margin-bottom:12px;">
+              <span style="background:#5c2529; color:#ff8a80; padding:8px 12px; border-radius:14px; display:inline-block; font-size:13px;">
+                Error connecting to assistant.
+              </span>
+            </div>
+          `);
+          renderEmailFallback(question);
+        }
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function renderEmailFallback(question) {
+        messages.insertAdjacentHTML('beforeend', `
+          <div style="margin-bottom:12px; text-align:center;">
+            <button class="chat-fallback-email-btn" data-question="${escapeHtml(question)}" style="background:#007acc; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-size:12px;">
+              ✉️ Email question to team
+            </button>
+          </div>
+        `);
+      }
+
+      async function sendEmailSupport(question) {
+        const email = prompt("Please enter your email so we can reply back to you:");
+        if (!email) return;
+
+        try {
+          const res = await fetch('https://docs-rag-bot.thetechnicalwriter.workers.dev/email-support', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              question: question,
+              userEmail: email,
+              conversation: messages.innerText
+            })
+          });
+
+          if (res.ok) {
+            messages.insertAdjacentHTML('beforeend', `
+              <div style="margin-bottom:12px; text-align:center; color:#4caf50; font-size:13px;">
+                ✓ Support email sent! We'll get back to you soon.
+              </div>
+            `);
+          } else {
+            throw new Error();
+          }
+        } catch (e) {
+          alert("Failed to send email. Please try again later.");
+        }
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function escapeHtml(str) {
+        return (str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initChat);
+    } else {
+      initChat();
+    }
+  })();
 </script>
