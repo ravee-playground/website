@@ -8,7 +8,7 @@
     💬 Ask the Docs
   </button>
   
-  <!-- Chat Window (Styled for Dark Theme Integration) -->
+  <!-- Chat Window (Dark Theme Integration) -->
   <div id="chat-window" style="display: none; width: 340px; height: 440px; background: #27262b; border: 1px solid #3e3d42; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); margin-bottom: 12px; overflow: hidden; flex-direction: column; position: absolute; bottom: 55px; right: 0;">
     
     <!-- Header Box -->
@@ -22,49 +22,70 @@
     <!-- Input Action Area -->
     <div style="display: flex; border-top: 1px solid #3e3d42; padding: 8px; background: #27262b;">
       <input type="text" id="chat-widget-input" placeholder="Type a question..." 
-             onkeypress="if(event.key === 'Enter') document.getElementById('chat-send-btn').click();"
              style="flex: 1; padding: 10px; border: 1px solid #4a494f; border-radius: 6px; outline: none; font-size: 14px; color: #fff; background: #1c1b1f;">
       
       <!-- Inline Execution Send Button -->
       <button id="chat-send-btn"
-              onclick="(async () => {
-                var input = document.getElementById('chat-widget-input');
-                var messages = document.getElementById('chat-messages');
-                var question = input.value.trim();
-                if (!question) return;
-
-                // Render User Query
-                messages.innerHTML += '<div style=&quot;margin-bottom: 12px; text-align: right;&quot;><span style=&quot;background: #007acc; color: white; padding: 8px 12px; border-radius: 14px 14px 0 14px; display: inline-block; max-width: 80%; text-align: left;&quot;>' + question + '</span></div>';
-                input.value = '';
-                
-                // Render Loading indicator
-                var loadingId = 'loading-' + Date.now();
-                messages.innerHTML += '<div id=&quot;' + loadingId + '&quot; style=&quot;margin-bottom: 12px;&quot;><span style=&quot;background: #3e3d42; color: #aaa; padding: 8px 12px; border-radius: 14px 14px 14px 0; display: inline-block;&quot;>Thinking...</span></div>';
-                messages.scrollTop = messages.scrollHeight;
-
-                try {
-                  var res = await fetch('https://thetechnicalwriter.workers.dev/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ question: question })
-                  });
-                  var data = await res.json();
-                  
-                  var loadingEl = document.getElementById(loadingId);
-                  if (loadingEl) loadingEl.remove();
-                  
-                  // Render AI Answer
-                  messages.innerHTML += '<div style=&quot;margin-bottom: 12px;&quot;><span style=&quot;background: #3e3d42; color: #eee; padding: 8px 12px; border-radius: 14px 14px 14px 0; display: inline-block; max-width: 80%; line-height: 1.4;&quot;>' + data.answer + '</span></div>';
-                } catch (err) {
-                  var loadingEl = document.getElementById(loadingId);
-                  if (loadingEl) loadingEl.remove();
-                  messages.innerHTML += '<div style=&quot;margin-bottom: 12px;&quot;><span style=&quot;background: #5c2529; color: #ff8a80; padding: 8px 12px; border-radius: 14px; display: inline-block; font-size: 13px;&quot;>Error: Unable to connect to assistant.</span></div>';
-                }
-                messages.scrollTop = messages.scrollHeight;
-              })()"
+              onclick="window.sendWidgetQuestion()"
               style="padding: 10px 14px; background: #007acc; color: white; border: none; margin-left: 6px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">
         Send
       </button>
     </div>
   </div>
 </div>
+
+<script>
+  // Global mapping to bypass asset sandbox compilation limitations safely
+  window.sendWidgetQuestion = async function() {
+    var input = document.getElementById('chat-widget-input');
+    var messages = document.getElementById('chat-messages');
+    if (!input || !messages) return;
+
+    var question = input.value.trim();
+    if (!question) return;
+
+    // Render User Query
+    messages.innerHTML += '<div style="margin-bottom: 12px; text-align: right;"><span style="background: #007acc; color: white; padding: 8px 12px; border-radius: 14px 14px 0 14px; display: inline-block; max-width: 80%; text-align: left;">' + question + '</span></div>';
+    input.value = '';
+    
+    // Render Loading indicator
+    var loadingId = 'loading-' + Date.now();
+    messages.innerHTML += '<div id="' + loadingId + '" style="margin-bottom: 12px;"><span style="background: #3e3d42; color: #aaa; padding: 8px 12px; border-radius: 14px 14px 14px 0; display: inline-block;">Thinking...</span></div>';
+    messages.scrollTop = messages.scrollHeight;
+
+    try {
+      var res = await fetch('https://thetechnicalwriter.workers.dev/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: question })
+      });
+      var data = await res.json();
+      
+      var loadingEl = document.getElementById(loadingId);
+      if (loadingEl) loadingEl.remove();
+      
+      // Render AI Answer
+      messages.innerHTML += '<div style="margin-bottom: 12px;"><span style="background: #3e3d42; color: #eee; padding: 8px 12px; border-radius: 14px 14px 14px 0; display: inline-block; max-width: 80%; line-height: 1.4;">' + data.answer + '</span></div>';
+    } catch (err) {
+      var loadingEl = document.getElementById(loadingId);
+      if (loadingEl) loadingEl.remove();
+      messages.innerHTML += '<div style="margin-bottom: 12px;"><span style="background: #5c2529; color: #ff8a80; padding: 8px 12px; border-radius: 14px; display: inline-block; font-size: 13px;">Error: Unable to connect to assistant.</span></div>';
+    }
+    messages.scrollTop = messages.scrollHeight;
+  };
+
+  // Safe DOM monitoring loop to append the Enter handler cleanly without attribute conflicts
+  (function monitorInput() {
+    var inputEl = document.getElementById('chat-widget-input');
+    if (inputEl) {
+      inputEl.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          window.sendWidgetQuestion();
+        }
+      });
+    } else {
+      // Retry if the layout is still drawing
+      setTimeout(monitorInput, 50);
+    }
+  })();
+</script>
