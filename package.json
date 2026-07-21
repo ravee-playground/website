@@ -3,18 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-  "node": ">=20"
+    "node": ">=20"
   },
-"scripts": {
-  "start": "node server.js",
-  "crawl": "node crawl-lyft.js",
-  "summarize": "node summarize-lyft.js"
+  "scripts": {
+    "start": "node server.js",
+    "crawl": "node crawl-lyft.js",
+    "summarize": "node summarize-lyft.js"
   },
   "type": "module",
   "dependencies": {
-    "@google/genai": "^2.10.0",
+    "@google/genai": "^1.36.0",
     "@google/generative-ai": "^0.x.x",
-    "@modelcontextprotocol/sdk": "^1.27.1",
+    "@modelcontextprotocol/sdk": "^1.24.3",
     "@mozilla/readability": "^0.6.0",
     "axios": "^1.x",
     "cheerio": "^1.x",
