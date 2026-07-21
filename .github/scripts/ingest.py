@@ -47,7 +47,7 @@ def get_embeddings_batched(chunks, batch_size=20, delay_seconds=1.5):
             try:
                 # Batch request: pass the array of strings directly to contents
                 response = ai.models.embed_content(
-                    model="text-embedding-004",
+                    model="text-embedding-001",
                     contents=batch,
                     config=types.EmbedContentConfig(
                         task_type="RETRIEVAL_DOCUMENT",
