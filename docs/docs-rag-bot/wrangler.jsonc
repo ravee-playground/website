@@ -1,0 +1,16 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "docs-rag-bot",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-07-19",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"d1_databases": [
+		{
+			"binding": "rag_chat_db",
+			"database_name": "rag-chat-db",
+			"database_id": "09554217-8166-4c73-bcfd-5ccb2fbc7a99",
+		}
+	]
+}
