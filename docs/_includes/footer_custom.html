@@ -28,115 +28,123 @@
   </div>
 </div>
 
+{% raw %}
 <script>
   (function() {
     function initChat() {
-      const toggleBtn = document.getElementById('chat-toggle');
-      const chatWindow = document.getElementById('chat-window');
-      const sendBtn = document.getElementById('chat-send-btn');
-      const input = document.getElementById('chat-widget-input');
-      const messages = document.getElementById('chat-messages');
+      var toggleBtn = document.getElementById('chat-toggle');
+      var chatWindow = document.getElementById('chat-window');
+      var sendBtn = document.getElementById('chat-send-btn');
+      var input = document.getElementById('chat-widget-input');
+      var messages = document.getElementById('chat-messages');
 
       if (!toggleBtn || !chatWindow || !sendBtn || !input || !messages) return;
 
-      // Toggle window visibility
       toggleBtn.addEventListener('click', function() {
         chatWindow.style.display = (chatWindow.style.display === 'none' || chatWindow.style.display === '') ? 'flex' : 'none';
       });
 
-      // Send on enter key
       input.addEventListener('keyup', function(e) {
         if (e.key === 'Enter') sendChatMessage();
       });
 
-      // Send on button click
       sendBtn.addEventListener('click', sendChatMessage);
 
-      // Event delegation for dynamically rendered fallback email buttons
       messages.addEventListener('click', function(e) {
-        const fallbackBtn = e.target.closest('.chat-fallback-email-btn');
+        var fallbackBtn = e.target.closest('.chat-fallback-email-btn');
         if (fallbackBtn) {
-          const question = fallbackBtn.getAttribute('data-question');
+          var question = fallbackBtn.getAttribute('data-question');
           sendEmailSupport(question);
         }
       });
 
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function renderEmailFallback(question) {
+        messages.insertAdjacentHTML('beforeend', 
+          '<div style="margin-bottom:12px; text-align:center;">' +
+            '<button class="chat-fallback-email-btn" data-question="' + escapeHtml(question) + '" style="background:#007acc; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-size:12px;">' +
+              '✉️ Email question to team' +
+            '</button>' +
+          '</div>'
+        );
+      }
+
       async function sendChatMessage() {
-        const question = input.value.trim();
+        var question = input.value.trim();
         if (!question) return;
 
-        // Render User Message
-        messages.insertAdjacentHTML('beforeend', `
-          <div style="margin-bottom:12px; text-align:right;">
-            <span style="background:#007acc; color:white; padding:8px 12px; border-radius:14px 14px 0 14px; display:inline-block; max-width:80%; text-align:left;">
-              ${escapeHtml(question)}
-            </span>
-          </div>
-        `);
+        messages.insertAdjacentHTML('beforeend', 
+          '<div style="margin-bottom:12px; text-align:right;">' +
+            '<span style="background:#007acc; color:white; padding:8px 12px; border-radius:14px 14px 0 14px; display:inline-block; max-width:80%; text-align:left;">' +
+              escapeHtml(question) +
+            '</span>' +
+          '</div>'
+        );
         input.value = '';
 
-        // Render Loading Indicator
-        const loadingId = 'l-' + Date.now();
-        messages.insertAdjacentHTML('beforeend', `
-          <div id="${loadingId}" style="margin-bottom:12px;">
-            <span style="background:#3e3d42; color:#aaa; padding:8px 12px; border-radius:14px 14px 14px 0; display:inline-block;">
-              Thinking...
-            </span>
-          </div>
-        `);
+        var loadingId = 'l-' + Date.now();
+        messages.insertAdjacentHTML('beforeend', 
+          '<div id="' + loadingId + '" style="margin-bottom:12px;">' +
+            '<span style="background:#3e3d42; color:#aaa; padding:8px 12px; border-radius:14px 14px 14px 0; display:inline-block;">' +
+              'Thinking...' +
+            '</span>' +
+          '</div>'
+        );
         messages.scrollTop = messages.scrollHeight;
 
         try {
-          const res = await fetch('https://docs-rag-bot.thetechnicalwriter.workers.dev/chat', {
+          var res = await fetch('https://docs-rag-bot.thetechnicalwriter.workers.dev/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ question: question })
           });
 
-          const data = await res.json();
-          document.getElementById(loadingId)?.remove();
+          var data = await res.json();
+          var loader = document.getElementById(loadingId);
+          if (loader) loader.remove();
 
-          messages.insertAdjacentHTML('beforeend', `
-            <div style="margin-bottom:12px;">
-              <span style="background:#3e3d42; color:#eee; padding:8px 12px; border-radius:14px 14px 14px 0; display:inline-block; max-width:80%; line-height:1.4;">
-                ${escapeHtml(data.answer || 'No response generated.')}
-              </span>
-            </div>
-          `);
+          messages.insertAdjacentHTML('beforeend', 
+            '<div style="margin-bottom:12px;">' +
+              '<span style="background:#3e3d42; color:#eee; padding:8px 12px; border-radius:14px 14px 14px 0; display:inline-block; max-width:80%; line-height:1.4;">' +
+                escapeHtml(data.answer || 'No response generated.') +
+              '</span>' +
+            '</div>'
+          );
 
           if (data.status === 'error' || data.status === 'flagged') {
             renderEmailFallback(question);
           }
         } catch (err) {
-          document.getElementById(loadingId)?.remove();
-          messages.insertAdjacentHTML('beforeend', `
-            <div style="margin-bottom:12px;">
-              <span style="background:#5c2529; color:#ff8a80; padding:8px 12px; border-radius:14px; display:inline-block; font-size:13px;">
-                Error connecting to assistant.
-              </span>
-            </div>
-          `);
+          var loaderErr = document.getElementById(loadingId);
+          if (loaderErr) loaderErr.remove();
+
+          messages.insertAdjacentHTML('beforeend', 
+            '<div style="margin-bottom:12px;">' +
+              '<span style="background:#5c2529; color:#ff8a80; padding:8px 12px; border-radius:14px; display:inline-block; font-size:13px;">' +
+                'Error connecting to assistant.' +
+              '</span>' +
+            '</div>'
+          );
           renderEmailFallback(question);
         }
         messages.scrollTop = messages.scrollHeight;
       }
 
-      function renderEmailFallback(question) {
-        messages.insertAdjacentHTML('beforeend', `
-          <div style="margin-bottom:12px; text-align:center;">
-            <button class="chat-fallback-email-btn" data-question="${escapeHtml(question)}" style="background:#007acc; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-size:12px;">
-              ✉️ Email question to team
-            </button>
-          </div>
-        `);
-      }
-
       async function sendEmailSupport(question) {
-        const email = prompt("Please enter your email so we can reply back to you:");
+        var email = prompt("Please enter your email so we can reply back to you:");
         if (!email) return;
 
         try {
-          const res = await fetch('https://docs-rag-bot.thetechnicalwriter.workers.dev/email-support', {
+          var res = await fetch('https://docs-rag-bot.thetechnicalwriter.workers.dev/email-support', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -147,11 +155,11 @@
           });
 
           if (res.ok) {
-            messages.insertAdjacentHTML('beforeend', `
-              <div style="margin-bottom:12px; text-align:center; color:#4caf50; font-size:13px;">
-                ✓ Support email sent! We'll get back to you soon.
-              </div>
-            `);
+            messages.insertAdjacentHTML('beforeend', 
+              '<div style="margin-bottom:12px; text-align:center; color:#4caf50; font-size:13px;">' +
+                '✓ Support email sent! We\'ll get back to you soon.' +
+              '</div>'
+            );
           } else {
             throw new Error();
           }
@@ -159,15 +167,6 @@
           alert("Failed to send email. Please try again later.");
         }
         messages.scrollTop = messages.scrollHeight;
-      }
-
-      function escapeHtml(str) {
-        return (str || '')
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#039;');
       }
     }
 
@@ -178,3 +177,4 @@
     }
   })();
 </script>
+{% endraw %}
