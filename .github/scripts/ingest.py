@@ -17,7 +17,7 @@ def chunk_markdown(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Clean out front matter (the metadata blocked out by --- at the top of Jekyll files)
+    # Clean out front matter (the metadata blocked out by --- at the top of Jekyll/Hugo files)
     content = re.sub(r'^---.*?---', '', content, flags=re.DOTALL)
     
     # Split content by markdown headers (H1, H2, H3) to preserve semantic groups
@@ -26,15 +26,15 @@ def chunk_markdown(file_path):
     clean_chunks = []
     for chunk in raw_chunks:
         text = chunk.strip()
-        if len(text) > 100: # Ignore tiny or empty chunks
+        if len(text) > 100:  # Ignore tiny or empty chunks
             clean_chunks.append(text)
             
     return clean_chunks
 
 def get_embeddings_batched(chunks, batch_size=20, delay_seconds=1.5):
     """
-    Sends chunks in batches to Gemini to keep API calls well under 100 RPM limit.
-    Includes automatic exponential backoff retry for 429 errors.
+    Sends chunks in batches to Gemini to keep API calls well under rate limits.
+    Includes automatic exponential backoff retry for 429/Resource Exhausted errors.
     """
     all_vectors = []
     
@@ -47,9 +47,12 @@ def get_embeddings_batched(chunks, batch_size=20, delay_seconds=1.5):
             try:
                 # Batch request: pass the array of strings directly to contents
                 response = ai.models.embed_content(
-                    model="text-embedding-004",  # Recommended active embedding model
+                    model="text-embedding-004",
                     contents=batch,
-                    config=types.EmbedContentConfig(output_dimensionality=1024)
+                    config=types.EmbedContentConfig(
+                        task_type="RETRIEVAL_DOCUMENT",
+                        output_dimensionality=1024
+                    )
                 )
                 
                 # Extract vectors from the batched response
@@ -91,7 +94,7 @@ def main():
         if not chunks:
             continue
             
-        # 1. Generate embeddings in batched calls (1 API call per 20 chunks)
+        # 1. Generate embeddings in batched calls (1 API call per batch_size chunks)
         vectors = get_embeddings_batched(chunks, batch_size=20)
         
         # 2. Build Pinecone vector payloads
@@ -108,13 +111,17 @@ def main():
                 vector, 
                 {
                     "text": sanitized_text, 
-                    "source_url": f"https://thetechnicalwriter.com{url_path}"
+                    "source_url": f"https://thetechnicalwriter.com/{url_path.lstrip('/')}"
                 }
             ))
             
-        # 3. Push batch to Pinecone Serverless
+        # 3. Push batch to Pinecone in safety chunks (max 100 vectors per upsert)
         if upsert_data:
-            index.upsert(vectors=upsert_data)
+            pinecone_batch_size = 100
+            for p_i in range(0, len(upsert_data), pinecone_batch_size):
+                p_batch = upsert_data[p_i:p_i + pinecone_batch_size]
+                index.upsert(vectors=p_batch)
+            
             print(f"Successfully synced {len(upsert_data)} chunks for {rel_path}")
 
 if __name__ == "__main__":
