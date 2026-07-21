@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "docs-rag-bot",
-  "main": "src/index.ts",
+  "main": "docs/docs-rag-bot/src/index.ts",
   "compatibility_date": "2026-07-20",
   "observability": {
     "enabled": true
