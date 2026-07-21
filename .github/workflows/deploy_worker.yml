@@ -1,4 +1,8 @@
-# Example: .github/workflows/deploy-worker.yml
+name: deploy-worker.yml
+on:
+  push:
+    branches:
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
