@@ -1,8 +1,10 @@
 import os
 import glob
 import re
+import time
 from google import genai
 from google.genai import types
+from google.genai.errors import APIError
 from pinecone import Pinecone
 
 # 1. Initialize Clients
@@ -29,6 +31,49 @@ def chunk_markdown(file_path):
             
     return clean_chunks
 
+def get_embeddings_batched(chunks, batch_size=20, delay_seconds=1.5):
+    """
+    Sends chunks in batches to Gemini to keep API calls well under 100 RPM limit.
+    Includes automatic exponential backoff retry for 429 errors.
+    """
+    all_vectors = []
+    
+    for i in range(0, len(chunks), batch_size):
+        batch = chunks[i:i + batch_size]
+        retries = 0
+        max_retries = 5
+        
+        while retries <= max_retries:
+            try:
+                # Batch request: pass the array of strings directly to contents
+                response = ai.models.embed_content(
+                    model="text-embedding-004",  # Recommended active embedding model
+                    contents=batch,
+                    config=types.EmbedContentConfig(output_dimensionality=1024)
+                )
+                
+                # Extract vectors from the batched response
+                for emb in response.embeddings:
+                    all_vectors.append(emb.values)
+                    
+                # Small throttle to preserve API quota
+                time.sleep(delay_seconds)
+                break
+                
+            except APIError as e:
+                # Catch 429 Rate Limits gracefully and back off
+                if getattr(e, 'code', None) == 429 or "RESOURCE_EXHAUSTED" in str(e):
+                    retries += 1
+                    wait_time = (2 ** retries) + 5
+                    print(f"⚠️ Rate limit hit (429). Retrying batch {i//batch_size + 1} in {wait_time}s (Attempt {retries}/{max_retries})...")
+                    time.sleep(wait_time)
+                else:
+                    raise e
+            except Exception as e:
+                raise e
+
+    return all_vectors
+
 def main():
     # Force search relative to the repository root directory
     repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -43,26 +88,19 @@ def main():
         print(f"Processing: {rel_path}")
         
         chunks = chunk_markdown(file_path)
+        if not chunks:
+            continue
+            
+        # 1. Generate embeddings in batched calls (1 API call per 20 chunks)
+        vectors = get_embeddings_batched(chunks, batch_size=20)
         
-        # Build vector payloads
+        # 2. Build Pinecone vector payloads
         upsert_data = []
-        for i, text_chunk in enumerate(chunks):
-            # Create a clean metadata record mapping back to your custom Jekyll URL path
-            url_path = rel_path.replace("docs/", "").replace(".md", ".html")
-            
-            # 1. Generate standard 768-dim embeddings cleanly
-            response = ai.models.embed_content(
-                model="gemini-embedding-001",
-                contents=text_chunk,
-                config=types.EmbedContentConfig(output_dimensionality=1024)
-            )
-            vector = response.embeddings[0].values
-            
-            # 2. Form a unique ID safe for string formats
-            escaped_path = rel_path.replace('/', '_').replace('\\', '_')
+        url_path = rel_path.replace("docs/", "").replace(".md", ".html")
+        escaped_path = rel_path.replace('/', '_').replace('\\', '_')
+
+        for i, (text_chunk, vector) in enumerate(zip(chunks, vectors)):
             chunk_id = f"{escaped_path}_chunk_{i}"
-            
-            # 3. FIXED: Sanitize text payload for Pinecone metadata compatibility
             sanitized_text = text_chunk.replace('\r', '').replace('\n', ' ')
             
             upsert_data.append((
@@ -74,7 +112,7 @@ def main():
                 }
             ))
             
-        # Push batch to Pinecone Serverless
+        # 3. Push batch to Pinecone Serverless
         if upsert_data:
             index.upsert(vectors=upsert_data)
             print(f"Successfully synced {len(upsert_data)} chunks for {rel_path}")
