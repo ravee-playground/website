@@ -61,7 +61,7 @@ export default {
 
         // 3. Generate Embedding
         const embeddingResponse = await ai.models.embedContent({
-          model: 'text-embedding-004',
+          model: 'gemini-embedding-001',
           contents: question,
         });
 
