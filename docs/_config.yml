@@ -1,12 +1,12 @@
-title: TheTechnicalWriter.com
+title: TheTechnicalWriter
 description: We are in the process of building this up
 #remote_theme: cotes2020/jekyll-theme-chirpy
 #remote_theme: pages-themes/primer
 remote_theme: just-the-docs/just-the-docs
 #remote_theme: rundocs/jekyll-rtd-theme
 #remote_theme: mmistakes/minimal-mistakes
-#color_scheme: dark
 #theme: minima
+color_scheme: dark
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
