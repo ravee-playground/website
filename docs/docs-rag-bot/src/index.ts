@@ -83,32 +83,45 @@ ${contextText}`;
 
         // 5. Generate Answer (System instruction moved to config block)
         const aiResponse = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
-          contents: question,
-          config: {
-            systemInstruction: systemPrompt,
-          },
-        });
+  model: 'gemini-2.5-flash',
+  contents: question,
+  config: {
+    systemInstruction: systemPrompt,
+  },
+});
 
-        return new Response(
-          JSON.stringify({
-            answer: aiResponse.text,
-            sources: [...new Set(sources)].filter(Boolean),
-          }),
-          {
-            status: 200,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          }
-        );
-      } catch (error: any) {
-        console.error("Worker Execution Error (/chat):", error);
-        return new Response(
-          JSON.stringify({ error: error?.message || String(error) }),
-          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
+return new Response(
+  JSON.stringify({
+    answer: aiResponse.text,
+    sources: [...new Set(sources)].filter(Boolean),
+  }),
+  {
+    status: 200,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  }
+);
+} catch (error: any) {
+  // Log full error stack internally in Cloudflare Worker logs
+  console.error("Worker Execution Error:", error?.stack || error);
+
+  // Return full error details safely to the client
+  const errorDetails = {
+    error: error?.message || String(error),
+    stack: error?.stack || null,
+    ...(typeof error === 'object' ? error : {})
+  };
+
+  return new Response(
+    JSON.stringify(errorDetails, null, 2),
+    { 
+      status: 500, 
+      headers: { 
+        ...corsHeaders, // Guarantees browser won't block error reading via CORS
+        'Content-Type': 'application/json' 
+      } 
     }
-
+  );
+}		
     // 3. Email Support Route
     if (request.method === 'POST' && url.pathname === '/email-support') {
       return new Response(
