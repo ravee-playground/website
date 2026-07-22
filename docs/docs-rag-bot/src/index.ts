@@ -19,8 +19,11 @@ export default {
     // 1. ALWAYS handle OPTIONS preflight FIRST with status 204
     if (request.method === 'OPTIONS') {
       return new Response(null, {
-        status: 204,
-        headers: corsHeaders,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
       });
     }
 
@@ -100,24 +103,22 @@ return new Response(
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   }
 );
-} catch (error: any) {
+} catch (err) {
   // Log full error stack internally in Cloudflare Worker logs
-  console.error("Worker Execution Error:", error?.stack || error);
+  console.error("Worker Execution Error:", error.stack || err.message);
 
   // Return full error details safely to the client
-  const errorDetails = {
-    error: error?.message || String(error),
-    stack: error?.stack || null,
-    ...(typeof error === 'object' ? error : {})
-  };
-
   return new Response(
-    JSON.stringify(errorDetails, null, 2),
+    JSON.stringify({
+          error: "Internal Worker Error",
+          message: err.message,
+          stack: err.stack,
+        }),
     { 
       status: 500, 
       headers: { 
-        ...corsHeaders, // Guarantees browser won't block error reading via CORS
-        'Content-Type': 'application/json' 
+        "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
       } 
     }
   );
