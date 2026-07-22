@@ -13,6 +13,9 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
+"vars": {
+  "PINECONE_INDEX": "thetechnicalwriter"
+},
   "d1_databases": [
     {
       "binding": "rag_chat_db",
