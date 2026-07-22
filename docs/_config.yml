@@ -1,6 +1,7 @@
 title: TheTechnicalWriter.com
 description: We are in the process of building this up
-remote_theme: just-the-docs/just-the-docs
+remote_theme: pages-themes/primer
+# remote_theme: just-the-docs/just-the-docs
 color_scheme: dark
 #theme: minima
 baseurl: "" # the subpath of your site, e.g. /blog
