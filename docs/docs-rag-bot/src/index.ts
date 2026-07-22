@@ -135,5 +135,4 @@ return new Response(
       JSON.stringify({ error: `Path '${url.pathname}' not found` }),
       { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
-  }
-};
+  }}}
