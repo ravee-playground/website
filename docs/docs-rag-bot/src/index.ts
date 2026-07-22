@@ -63,6 +63,10 @@ export default {
         const embeddingResponse = await ai.models.embedContent({
           model: 'gemini-embedding-001',
           contents: question,
+					config: {
+    				taskType: 'RETRIEVAL_QUERY',
+    				outputDimensionality: 1024, // Matches your Pinecone index dimension
+  		},
         });
 
         const vector =
