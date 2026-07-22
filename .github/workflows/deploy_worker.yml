@@ -1,12 +1,13 @@
 name: Deploy Cloudflare Worker
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'docs/docs-rag-bot/src/**'
-      - 'package.json'
+  workflow_dispatch:
+  #push:
+    #branches:
+      #- main
+    #paths:
+      #- 'docs/docs-rag-bot/src/**'
+      #- 'package.json'
 
 jobs:
   deploy:
