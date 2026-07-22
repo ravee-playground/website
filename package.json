@@ -13,9 +13,9 @@
   "type": "module",
   "dependencies": {
     "@google/genai": "^1.36.0",
-    "@pinecone-database/pinecone": "^3.0.0",
     "@modelcontextprotocol/sdk": "^1.24.3",
     "@mozilla/readability": "^0.6.0",
+    "@pinecone-database/pinecone": "^3.0.0",
     "axios": "^1.7.0",
     "cheerio": "^1.0.0",
     "jsdom": "^24.1.0",
@@ -23,6 +23,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "wrangler": "^3.0.0" 
-}
+    "wrangler": "^4.113.0"
+  }
 }
