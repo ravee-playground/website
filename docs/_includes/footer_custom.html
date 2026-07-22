@@ -3,23 +3,24 @@
   
   <!-- Floating Toggle Button -->
   <button id="chat-toggle" style="padding: 12px 20px; border-radius: 50px; background: #007acc; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px;">
-    💬 Ask the Docs
+    💬 Hello, RAGbot
   </button>
   
   <!-- Chat Window -->
-  <div id="chat-window" style="display: none; width: 340px; height: 440px; background: #27262b; border: 1px solid #3e3d42; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); margin-bottom: 12px; overflow: hidden; flex-direction: column; position: absolute; bottom: 55px; right: 0;">
+  <div id="chat-window" style="display: none; width: 340px; height: 440px; background: #27262b; border: 1px solid #3e3d42; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); margin-bottom: 12px; overflow: hidden; flex-direction: column; position: absolute; bottom: 55px; right: 0; box-sizing: border-box;">
     
-    <!-- Header -->
-    <div style="background: #007acc; color: white; padding: 12px; font-weight: bold; font-size: 15px; border-bottom: 1px solid #3e3d42;">
-      Documentation Assistant
+    <!-- Header with Close Button -->
+    <div style="background: #007acc; color: white; padding: 12px; font-weight: bold; font-size: 15px; border-bottom: 1px solid #3e3d42; display: flex; justify-content: space-between; align-items: center;">
+      <span>RAGbot Assistant</span>
+      <button id="chat-close-btn" style="background: transparent; border: none; color: white; font-size: 20px; line-height: 1; cursor: pointer; padding: 0 4px; opacity: 0.8;" aria-label="Close Chat">&times;</button>
     </div>
     
     <!-- Messages Stream -->
-    <div id="chat-messages" style="flex: 1; padding: 12px; overflow-y: auto; font-size: 14px; max-height: 310px; color: #eee; background: #1c1b1f;"></div>
+    <div id="chat-messages" style="flex: 1; padding: 12px; overflow-y: auto; font-size: 14px; max-height: 310px; color: #eee; background: #1c1b1f; box-sizing: border-box;"></div>
     
     <!-- Input Footer Area -->
-    <div style="display: flex; border-top: 1px solid #3e3d42; padding: 8px; background: #27262b;">
-      <input type="text" id="chat-widget-input" placeholder="Type a question..." style="flex: 1; padding: 10px; border: 1px solid #4a494f; border-radius: 6px; outline: none; font-size: 14px; color: #fff; background: #1c1b1f;">
+    <div style="display: flex; border-top: 1px solid #3e3d42; padding: 8px; background: #27262b; box-sizing: border-box;">
+      <input type="text" id="chat-widget-input" placeholder="Type a question..." style="flex: 1; padding: 10px; border: 1px solid #4a494f; border-radius: 6px; outline: none; font-size: 14px; color: #fff; background: #1c1b1f; box-sizing: border-box;">
       
       <button id="chat-send-btn" style="padding: 10px 14px; background: #007acc; color: white; border: none; margin-left: 6px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">
         Send
@@ -27,5 +28,28 @@
     </div>
   </div>
 </div>
+
+<!-- Window Toggle & Close Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const chatWindow = document.getElementById("chat-window");
+    const chatToggle = document.getElementById("chat-toggle");
+    const chatCloseBtn = document.getElementById("chat-close-btn");
+
+    if (chatToggle && chatWindow) {
+      chatToggle.addEventListener("click", function () {
+        const isHidden = chatWindow.style.display === "none" || chatWindow.style.display === "";
+        chatWindow.style.display = isHidden ? "flex" : "none";
+      });
+    }
+
+    if (chatCloseBtn && chatWindow) {
+      chatCloseBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        chatWindow.style.display = "none";
+      });
+    }
+  });
+</script>
 
 <script src="{{ '/assets/js/chat-widget.js' | relative_url }}"></script>
