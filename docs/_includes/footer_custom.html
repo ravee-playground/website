@@ -32,16 +32,8 @@
 <!-- Window Toggle & Close Script -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const chatWindow = document.getElementById("chat-window");
-    const chatToggle = document.getElementById("chat-toggle");
     const chatCloseBtn = document.getElementById("chat-close-btn");
-
-    if (chatToggle && chatWindow) {
-      chatToggle.addEventListener("click", function () {
-        const isHidden = chatWindow.style.display === "none" || chatWindow.style.display === "";
-        chatWindow.style.display = isHidden ? "flex" : "none";
-      });
-    }
+    const chatWindow = document.getElementById("chat-window");
 
     if (chatCloseBtn && chatWindow) {
       chatCloseBtn.addEventListener("click", function (e) {
