@@ -57,15 +57,16 @@ export default {
         const embeddingResponse = await ai.models.embedContent({
           model: 'gemini-embedding-001',
           contents: question,
+					config: {
+    				taskType: "RETRIEVAL_QUERY", // Recommended for query side of RAG
+    				outputDimensionality: 1024,   // Make sure this matches your Pinecone index dimensions!
+  								},
         });
+			const vector = embeddingResponse.embedding?.values || embeddingResponse.embeddings?.[0]?.values;
 
-        const queryVector = embeddingResponse.embedding?.values;
-        if (!queryVector) {
-          return new Response(
-            JSON.stringify({ error: 'Failed to generate embedding vector' }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
+			if (!vector) {
+  			throw new Error("Failed to extract vector values from Gemini embedding response.");
+			}
 
         // 4. Query Vector DB
         const index = pc.Index(env.PINECONE_INDEX_NAME);
