@@ -51,15 +51,15 @@ def call_gemini(prompt_text, max_retries=3):
                 print(f"Gemini API Error: {error_body}")
                 sys.exit(1)
 
-req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers)
-    try:
-        with urllib.request.urlopen(req) as response:
-            res_body = response.read().decode("utf-8")
-            res_json = json.loads(res_body)
-            return res_json["candidates"][0]["content"]["parts"][0]["text"]
-    except urllib.error.HTTPError as e:
-        print(f"Gemini API Error: {e.read().decode('utf-8')}")
-        sys.exit(1)
+#req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers)
+ #   try:
+  #      with urllib.request.urlopen(req) as response:
+   #         res_body = response.read().decode("utf-8")
+    #        res_json = json.loads(res_body)
+     #       return res_json["candidates"][0]["content"]["parts"][0]["text"]
+    #except urllib.error.HTTPError as e:
+     #   print(f"Gemini API Error: {e.read().decode('utf-8')}")
+      #  sys.exit(1)
 
 
 def evaluate_file(file_path):
