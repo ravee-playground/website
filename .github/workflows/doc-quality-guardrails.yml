@@ -1,18 +1,18 @@
-name: Doc Quality & Style Guardrails
+name: Doc Quality & Code-Doc Drift Guardrails
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    paths:
-      - '**.md'
-      - '**.markdown'
+  push:
+    branches:
+      - main
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
-  review-docs:
+  review-and-audit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -20,21 +20,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Changed Markdown Files
+      - name: Get Changed Files
         id: changed-files
         uses: tj-actions/changed-files@v44
-        with:
-          files: |
-            **.md
-            **.markdown
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
+      # Step 1: Run Quality Judge on Markdown PRs
       - name: Run LLM Quality Judge
-        if: steps.changed-files.outputs.any_changed == 'true'
+        if: github.event_name == 'pull_request' && steps.changed-files.outputs.any_changed == 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,3 +39,36 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: python .github/scripts/doc_quality_checker.py
+
+      # Step 2: Run Code-to-Doc Drift Detector on PRs
+      - name: Run Code-to-Doc Drift Detector
+        if: github.event_name == 'pull_request'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: python .github/scripts/drift_detector.py
+
+      # Step 3: Automatically Update Audit Report Ledger on main branch push
+      - name: Update Audit Report Ledger
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python -c "
+          import sys, glob
+          sys.path.append('.github/scripts')
+          from doc_quality_checker import evaluate_file, generate_audit_report
+          files = glob.glob('docs/**/*.md', recursive=True) + glob.glob('*.md')
+          results = [evaluate_file(f) for f in files if evaluate_file(f)]
+          generate_audit_report(results)
+          "
+
+      - name: Commit Audit Report to Main
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/reports/QUALITY_REPORT.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update documentation quality audit ledger [skip ci]" && git push)
