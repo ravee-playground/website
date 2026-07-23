@@ -3,6 +3,7 @@ import os
 import sys
 import urllib.request
 import urllib.error
+from datetime import datetime
 
 # Environment Variables injected by GitHub Action
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
@@ -114,6 +115,48 @@ def post_github_comment(review_results):
             print("Successfully posted review comment to PR.")
     except urllib.error.HTTPError as e:
         print(f"Failed to post comment to GitHub: {e.read().decode('utf-8')}")
+
+
+def generate_audit_report(results, report_path="docs/reports/QUALITY_REPORT.md"):
+    """Generates a markdown audit ledger for all site documentation."""
+    os.makedirs(os.path.dirname(report_path), exist_ok=True)
+    
+    total_docs = len(results)
+    avg_score = round(sum(r["overall_score"] for r in results) / total_docs, 1) if total_docs > 0 else 0
+    passed_docs = sum(1 for r in results if r["status"] == "PASS")
+    
+    now = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+    
+    report_content = f"""# 📊 Documentation Quality Audit Ledger
+
+> **Last Updated:** `{now}`  
+> **Average Site Quality Score:** `{avg_score}/10`  
+> **Compliance Rate:** `{passed_docs}/{total_docs}` pages passing
+
+---
+
+## Executive Summary
+
+This report is automatically compiled by the **Gemini Docs-as-Code Quality Engine** upon every deployment to `main`. It evaluates site documentation against strict clarity, active voice, structural completeness, and code accuracy criteria.
+
+---
+
+## Detailed Page Scores
+
+| Document | Score | Status | Key Refinement Areas |
+|---|---|---|---|
+"""
+    for r in results:
+        status_icon = "🟢 PASS" if r["status"] == "PASS" else "⚠️ NEEDS WORK"
+        critiques = "<br>".join(f"• {c}" for c in r.get("key_critiques", [])) if r.get("key_critiques") else "None"
+        report_content += f"| `{r['filename']}` | **{r['overall_score']}/10** | {status_icon} | {critiques} |\n"
+
+    report_content += "\n---\n*Automated Governance Report generated via GitHub Actions*"
+
+    with open(report_path, "w", encoding="utf-8") as f:
+        f.write(report_content)
+    
+    print(f"Audit report saved to {report_path}")
 
 
 def main():
