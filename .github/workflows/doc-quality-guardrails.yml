@@ -41,4 +41,4 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPOSITORY: ${{ github.repository }}
           CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-        run: python scripts/doc_quality_checker.py
+        run: python .github/scripts/doc_quality_checker.py
