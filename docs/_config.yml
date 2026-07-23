@@ -22,6 +22,17 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
+# Enable the footer link for viewing as markdown
+gh_edit_link: true 
+gh_edit_link_text: "View as Markdown" 
+gh_edit_repository: "https://github.com/ravee-playground" 
+gh_edit_branch: "main" 
+gh_edit_view_mode: "tree" 
+
+# OPTIONAL: If your source .md files live in a specific subdirectory (like 'docs')
+# gh_edit_source: docs 
+
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
