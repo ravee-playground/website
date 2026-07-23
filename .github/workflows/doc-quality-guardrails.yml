@@ -6,6 +6,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - '**.md'
+      - '**.markdown'
 
 permissions:
   contents: write
@@ -23,6 +26,10 @@ jobs:
       - name: Get Changed Files
         id: changed-files
         uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            **.md
+            **.markdown
 
       - name: Set up Python
         uses: actions/setup-python@v5
